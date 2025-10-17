@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>GIRLS + ADA — Cartaz: Como funciona</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@page { size: A3 portrait; margin: 0; }
+@media print { .no-print{display:none!important} }
+:root{
+  --bg:#0f172a; --ink:#e5e7eb; --muted:#cbd5e1;
+  --lovelace:#6A4C93; --hopper:#2E7D32; --johnson:#F6C000; --hamilton:#1565C0;
+  --accent:#22d3ee;
+}
+*{box-sizing:border-box}
+body{margin:0; background:radial-gradient(1100px 800px at 15% -10%, #1e293b 0%, #0b1222 45%, #0a0f1f 100%); color:var(--ink); font:18px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+.wrap{max-width:900px; margin:0 auto; padding:36mm 18mm}
+.header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10mm}
+.logo{font-weight:900; letter-spacing:.5px; font-size:34px}
+.sub{color:var(--muted); font-size:16px}
+.badges{display:flex; gap:8px; flex-wrap:wrap}
+.tag{padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px; color:#0b0f1a; background:#e2e8f0}
+.row{display:grid; gap:10mm; margin:8mm 0 0}
+.step{display:grid; grid-template-columns:82px 1fr; gap:10px; align-items:flex-start; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px 14px}
+.num{width:72px; height:72px; border-radius:14px; display:grid; place-items:center; font-weight:900; font-size:28px; color:#0b1020; box-shadow:inset 0 0 0 2px rgba(0,0,0,.2)}
+.num.lovelace{background:var(--lovelace)} .num.hopper{background:var(--hopper)} .num.johnson{background:var(--johnson)} .num.hamilton{background:var(--hamilton)}
+.step h2{margin:0 0 4px; font-size:26px}
+.step p{margin:2px 0; font-size:18px}
+.hr{height:2px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent); margin:8mm 0}
+.rules{display:grid; gap:6px; grid-template-columns:1fr 1fr; font-size:16px; color:var(--muted)}
+.footer{display:flex; align-items:center; justify-content:space-between; margin-top:10mm; gap:8px; flex-wrap:wrap}
+.qr{width:110px; height:110px; border-radius:10px; background:#fff; display:grid; place-items:center; color:#111; font-weight:700}
+.place{font-size:16px; color:var(--muted)}
+.house-row{display:flex; gap:6px; flex-wrap:wrap; margin-top:4px}
+.house{padding:4px 8px; border-radius:999px; font-weight:900; font-size:12px; color:#0b1020}
+.l{background:var(--lovelace)} .h{background:var(--hopper)} .j{background:var(--johnson)} .m{background:var(--hamilton)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <div class="logo">GIRLS + ADA</div>
+        <div class="sub">Como funciona (visão rápida)</div>
+        <div class="house-row">
+          <span class="house l">Lovelace</span>
+          <span class="house h">Hopper</span>
+          <span class="house j">Johnson</span>
+          <span class="house m">Hamilton</span>
+        </div>
+      </div>
+      <div class="badges">
+        <span class="tag">Dia da Menina</span>
+        <span class="tag">Ada Lovelace Day</span>
+        <span class="tag">IFPR TB</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="step">
+        <div class="num lovelace">1</div>
+        <div>
+          <h2>Faça o QUIZ</h2>
+          <p>Descubra sua <b>Casa</b> (Lovelace • Hopper • Johnson • Hamilton) e escolha seu <b>nickname</b> para o ranking.</p>
+          <p>Pegue seu <b>Passaporte</b> da cor da sua Casa.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num hopper">2</div>
+        <div>
+          <h2>Visite as ESTAÇÕES e as APRESENTAÇÕES</h2>
+          <p>Conclua atividades dentro do tempo para ganhar <b>selos</b> no passaporte e <b>pontos</b> no placar.</p>
+          <p>ℹ️ Cada estação dura até <b>10 min</b>. Ao sinal “TROCA!”, circule.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num johnson">3</div>
+        <div>
+          <h2>Some pontos INDIVIDUAIS + pontos da CASA</h2>
+          <p>No final, temos <b>premiação</b>: <b>TOP 5</b> do ranking e <b>Casa Campeã</b> 🎉</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="rules">
+      <div>✔️ 1 selo por estação/rodada</div>
+      <div>⏱️ Tempo máximo: 10 minutos</div>
+      <div>🔒 Privacidade respeitada (sem dados sensíveis)</div>
+      <div>🤝 Jogue limpo e ajude seu time</div>
+    </div>
+
+    <div class="footer">
+      <div class="qr">QR do Quiz</div>
+      <div class="place">
+        IFPR – Campus Telêmaco Borba • Data: ____/____ • Local: ____________<br>
+        Organização: Meninas Digitais IFPR TB • girls+ada
+      </div>
+    </div>
+  </div>
+</body>
+</html>
