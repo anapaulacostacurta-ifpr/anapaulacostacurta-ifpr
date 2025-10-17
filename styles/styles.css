@@ -1,0 +1,282 @@
+/* Paleta de Cores (Lilás e Roxo) */
+:root {
+    --purple-dark: #6A1B9A;   /* Roxo escuro para o cabeçalho e botões principais */
+    --lilac-medium: #9C27B0;  /* Lilás médio para destaques e fundo */
+    --lilac-light: #E1BEE7;   /* Lilás bem claro para fundo alternado */
+    --text-dark: #333;        /* Cor de texto principal */
+    --text-light: #FFFFFF;    /* Cor de texto em fundos escuros */
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Base e Tipografia */
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+h1, h2, h3 {
+    color: var(--purple-dark);
+}
+
+h2 {
+    border-bottom: 2px solid var(--lilac-medium);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Cabeçalho e Navegação */
+header {
+    background-color: var(--purple-dark);
+    color: var(--text-light);
+    padding: 10px 0;
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+header h1 {
+    color: var(--text-light);
+    margin: 5px 0 0;
+    font-size: 1.8em;
+}
+
+header p {
+    margin: 0 0 10px;
+    font-size: 0.9em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas pequenas */
+}
+
+nav ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 8px 15px;
+    display: block;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+}
+
+nav ul li a:hover {
+    background-color: var(--lilac-medium); /* Efeito hover lilás */
+}
+
+/* Seções de Conteúdo */
+.content-section {
+    padding: 40px 0;
+}
+
+.purple-background {
+    background-color: var(--lilac-light);
+}
+
+/* Seção Home/Hero */
+.hero {
+    text-align: center;
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--lilac-medium);
+    box-shadow: 0 0 10px var(--shadow);
+    margin-bottom: 20px;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.primary-btn {
+    background-color: var(--purple-dark);
+    color: var(--text-light);
+}
+
+.primary-btn:hover {
+    background-color: var(--lilac-medium);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    border: 2px solid var(--purple-dark);
+    color: var(--purple-dark);
+}
+
+.secondary-btn:hover {
+    background-color: var(--lilac-medium);
+    color: var(--text-light);
+    border-color: var(--lilac-medium);
+    transform: translateY(-2px);
+}
+
+/* Tabela de Horários */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+table thead {
+    background-color: var(--lilac-medium);
+    color: var(--text-light);
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas claras para melhor leitura */
+}
+
+.nota {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Grid de Projetos */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow);
+    border-top: 5px solid var(--purple-dark);
+}
+
+.project-card h3 {
+    color: var(--lilac-medium);
+    margin-top: 0;
+}
+
+.project-link {
+    display: inline-block;
+    color: var(--purple-dark);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+/* Lista de Disciplinas */
+.discipline-list {
+    list-style: none;
+    padding: 0;
+}
+
+.discipline-list li {
+    background-color: #ffffff;
+    border-left: 5px solid var(--lilac-medium);
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px var(--shadow);
+}
+
+.discipline-list li a {
+    color: var(--text-dark);
+    text-decoration: none;
+}
+
+.discipline-list li a:hover {
+    color: var(--purple-dark);
+}
+
+/* Rodapé */
+footer {
+    background-color: var(--text-dark); /* Fundo escuro para contraste */
+    color: #aaa;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.8em;
+}
+
+/* Media Queries (Responsividade para telas menores) */
+@media (max-width: 768px) {
+    nav ul {
+        justify-content: center;
+        text-align: center;
+    }
+    nav ul li {
+        margin: 5px;
+    }
+    .hero {
+        padding: 40px 10px;
+    }
+    table thead {
+        /* Esconde o cabeçalho em telas muito pequenas, pode usar outras técnicas mais complexas, mas esta é simples */
+        display: none;
+    }
+    table, table tbody, table tr, table td {
+        display: block;
+        width: 100%;
+    }
+    table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px var(--shadow);
+    }
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+    }
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        color: var(--purple-dark);
+        text-align: left;
+    }
+    /* Adicionando labels para responsividade da tabela (necessita de ajuste no HTML, mas aqui está a lógica) */
+    /* Você precisará adicionar data-label="..." nas tags <td> no seu HTML para que esta parte funcione */
+}
