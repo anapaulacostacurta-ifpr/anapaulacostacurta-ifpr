@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{GIRLS + ADA} — Brief do Evento</title>
+<meta name="description" content="Brief do evento {GIRLS + ADA}: casas, atividades gamificadas e datas (29–31). Programação completa em breve.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b1222; --card:#0f172a; --ink:#e5e7eb; --muted:#94a3b8; --line:#1f2a44;
+  --brand:#22d3ee;
+  --lovelace:#6A4C93; /* roxo */
+  --turing:#1565C0;   /* azul */
+  --hopper:#2E7D32;   /* verde */
+  --curie:#F6C000;    /* amarelo */
+}
+*{box-sizing:border-box}
+body{margin:0; font:16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:radial-gradient(1200px 700px at 10% -10%, #1e293b 0%, #0b1222 50%, #090f1b 100%) fixed;}
+a{color:inherit}
+.wrap{max-width:1080px; margin:0 auto; padding:24px}
+header{padding:36px 0 8px; text-align:center}
+.brand{font:900 44px/1.1 Montserrat, Poppins, Arial Black, sans-serif; letter-spacing:.5px}
+.sub{color:var(--muted); margin-top:6px}
+.badge{display:inline-flex; gap:8px; align-items:center; margin-top:14px; background:rgba(34,211,238,.12); border:1px solid rgba(34,211,238,.35); color:#b8f2ff; padding:8px 12px; border-radius:999px; font-weight:700; font-size:14px}
+.section{margin:28px 0; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.03)}
+.section .inner{padding:18px}
+h2{font-size:22px; margin:0 0 10px}
+p{margin:8px 0}
+.grid{display:grid; gap:12px}
+@media (min-width:720px){ .grid{grid-template-columns:repeat(2,1fr)} }
+.card{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:16px}
+.house{display:flex; gap:14px; align-items:center}
+.dot{width:16px; height:16px; border-radius:50%}
+.kicker{font-weight:800; text-transform:uppercase; letter-spacing:.06em; font-size:12px; color:var(--muted)}
+.title{font-weight:800; font-size:18px; margin:2px 0 6px}
+.lema{color:#dbeafe; font-weight:600; font-size:14px}
+.note{font-size:14px; color:var(--muted)}
+.timeline{display:flex; gap:12px; flex-wrap:wrap}
+.pill{padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); font-weight:700}
+.pill.strong{background:rgba(34,211,238,.08); border-color:rgba(34,211,238,.35); color:#c8f5ff}
+.cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+.button{display:inline-block; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:var(--ink); font-weight:800; text-decoration:none}
+.button.primary{background:linear-gradient(90deg,#22d3ee,#60a5fa); color:#071225; border:none}
+.footer{margin:28px 0 8px; color:var(--muted); font-size:14px; text-align:center}
+.hr{height:1px; background:var(--line); margin:14px 0}
+.embreve{display:grid; gap:8px}
+.item-brief{padding:12px; border-radius:12px; border:1px dashed rgba(255,255,255,.22); color:#cbd5e1; background:rgba(255,255,255,.03)}
+.small{font-size:13px; color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">{GIRLS + ADA}</div>
+      <div class="sub">Dia Internacional da Menina & Ada Lovelace Day • IFPR TB</div>
+      <div class="badge">Mostra gamificada • Datas: 29–31</div>
+    </header>
+
+    <!-- Resumo enxuto -->
+    <section class="section">
+      <div class="inner">
+        <h2>Brief do evento</h2>
+        <p>Encontro aberto para turmas do ensino médio com dinâmica de <b>Casas</b>, estações práticas e <b>atividades gamificadas</b>. A programação completa será publicada gradualmente conforme as confirmações.</p>
+        <div class="timeline" style="margin-top:10px">
+          <span class="pill strong">Quando: 29–31</span>
+          <span class="pill">Formato: Mostra + Desafios rápidos</span>
+          <span class="pill">Pontuação: individual • Casas • equipes</span>
+        </div>
+        <div class="cta">
+          <a class="button primary" href="#casas">Conheça as Casas</a>
+          <a class="button" href="#atualizacoes">Acompanhar atualizações</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Casas -->
+    <section id="casas" class="section">
+      <div class="inner">
+        <h2>As Casas Tech</h2>
+        <div class="grid" style="margin-top:6px">
+          <div class="card">
+            <div class="house"><span class="dot" style="background:var(--lovelace)"></span><div>
+              <div class="kicker">Casa</div>
+              <div class="title">Lovelace (roxo)</div>
+              <div class="lema">“Clareza que vira código.”</div>
+            </div></div>
+            <p class="note">Mascote: coruja mecânica • foco em linguagem clara e acessibilidade.</p>
+          </div>
+
+          <div class="card">
+            <div class="house"><span class="dot" style="background:var(--turing)"></span><div>
+              <div class="kicker">Casa</div>
+              <div class="title">Turing (azul)</div>
+              <div class="lema">“Raposa analítica.”</div>
+            </div></div>
+            <p class="note">Mascote: raposa analítica • foco em raciocínio e resolução lógica.</p>
+          </div>
+
+          <div class="card">
+            <div class="house"><span class="dot" style="background:var(--hopper)"></span><div>
+              <div class="kicker">Casa</div>
+              <div class="title">Hopper (verde)</div>
+              <div class="lema">“Processos que acontecem.”</div>
+            </div></div>
+            <p class="note">Mascote: libélula engenheira • foco em tempo, fluxo e execução.</p>
+          </div>
+
+          <div class="card">
+            <div class="house"><span class="dot" style="background:var(--curie)"></span><div>
+              <div class="kicker">Casa</div>
+              <div class="title">Curie (amarelo)</div>
+              <div class="lema">“Átomo luminoso.”</div>
+            </div></div>
+            <p class="note">Mascote: átomo luminoso • foco em ciência, impacto e segurança.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Em breve / atualizações -->
+    <section id="atualizacoes" class="section">
+      <div class="inner">
+        <h2>Atualizações</h2>
+        <div class="embreve">
+          <div class="item-brief">✅ Confirmação das <b>datas</b>: <b>29–31</b>.</div>
+          <div class="item-brief">🕒 Janelas de horário e salas: <i>em breve</i>.</div>
+          <div class="item-brief">🎮 Estações e desafios gamificados: <i>em breve</i>.</div>
+          <div class="item-brief">👩‍🏫 Convidadas e apresentações: <i>em breve</i>.</div>
+          <div class="item-brief">🏆 Pontuação e premiações: <i>em breve</i>.</div>
+        </div>
+        <div class="hr"></div>
+        <p class="small">Esta página é um <b>brief</b>. Os detalhes serão adicionados conforme confirmação da equipe organizadora.</p>
+      </div>
+    </section>
+
+    <p class="footer">Contato: <a href="mailto:organizacao@ifpr.br">organizacao@ifpr.br</a> • Última atualização: <!-- coloque a data --> </p>
+  </div>
+</body>
+</html>
