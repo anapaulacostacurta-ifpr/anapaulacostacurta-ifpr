@@ -107,12 +107,12 @@ function enviarForm() {
     const email = prompt("Digite seu endereço de email:");
     if (!email) return;
 
-    const ENTRY_ID_NOME = "entry.947479856";   // <-- ID da pergunta NOME
-    const ENTRY_ID_EMAIL = "entry.1182325481"; // <-- ID da pergunta EMAIL
-    const ENTRY_ID_CASA = "entry.186220022";  // <-- ID da pergunta CASA
+    const ENTRY_ID_NOME = "entry.entry.1657610344";   // <-- ID da pergunta NOME
+    const ENTRY_ID_EMAIL = "entry.entry.1241355614"; // <-- ID da pergunta EMAIL
+    const ENTRY_ID_CASA = "entry.entry.1821870761";  // <-- ID da pergunta CASA
 
     // Base da URL de envio (use o link de visualização do seu Forms)
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfJrmEdbrTy4hnYUAKbdiICb-qZX2Cw5WWBFeNc4vK_ZXGsJw/viewform"
+    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfT_nWuVhA1Hs8Xd_JBI-_R4S2wyYOpCNRYyVN8R_YKSdrQmg/viewform"
             // 1. Envia o NOME
         + `?${ENTRY_ID_NOME}=` + encodeURIComponent(nome) 
         // 2. Envia o EMAIL
