@@ -112,8 +112,8 @@ function enviarForm() {
     const ENTRY_ID_CASA = "entry.186220022";  // <-- ID da pergunta CASA
 
     // Base da URL de envio (use o link de visualização do seu Forms)
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfJrmEdbrTy4hnYUAKbdiICb-qZX2Cw5WWBFeNc4vK_ZXGsJw/viewform?usp=header"
-        // 1. Envia o NOME
+    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfJrmEdbrTy4hnYUAKbdiICb-qZX2Cw5WWBFeNc4vK_ZXGsJw/viewform"
+            // 1. Envia o NOME
         + `&${ENTRY_ID_NOME}=` + encodeURIComponent(nome) 
         // 2. Envia o EMAIL
         + `&${ENTRY_ID_EMAIL}=` + encodeURIComponent(email)
