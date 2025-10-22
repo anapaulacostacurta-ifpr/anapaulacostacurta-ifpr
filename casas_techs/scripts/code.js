@@ -3,7 +3,7 @@ let casas = {};
 let perguntas = []; 
 
 // **IMPORTANTE:** SUBSTITUA PELA URL DE DEPLOYMENT DO SEU GOOGLE APPS SCRIPT
-const APPS_SCRIPT_BUSCA_URL = "https://script.google.com/macros/s/AKfycbyWuIXJ7e4eE4J9nubzfV8qt-EhJJ7VC98TaZdIEi30RxAObiIK5vHauE4o2eYoDocD2Q/exec"; 
+const APPS_SCRIPT_BUSCA_URL = "https://script.google.com/macros/s/AKfycbwAUsfD1CS_BviMUHzfnAj97aVKDGVydkytJOqmt9eTJ_iQRv1a8x5JwGP0VjAa5ucA7g/exec"; 
 
 // --- FUNÇÃO PARA MONTAR O QUIZ NA TELA ---
 function montarQuiz() {
