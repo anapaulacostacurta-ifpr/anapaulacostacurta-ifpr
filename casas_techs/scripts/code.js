@@ -17,10 +17,15 @@ function montarQuiz() {
     quizContainer.innerHTML = ""; // Limpa a mensagem de "Carregando"
     
     perguntas.forEach((p, i) => {
-        let html = `<div class='question'><p>${i+1}. ${p.texto}</p><div class='options'>`;
-        // p.opcoes é um objeto: { 'CasaValue': 'OptionText' }
+        let html = `<div class='question'><p>${i+1}.${p.texto}</p><div class='options'>`;
+    
+        let optionIndex = 0;
         for (const casa in p.opcoes) {
-            html += `<label><input type='radio' name='q${i}' value='${casa}'> ${p.opcoes[casa]}</label>`;
+            const inputId = `q${i}_${optionIndex}`; // Cria um ID único
+            // Estrutura corrigida: Input e Label são irmãos
+            html += `<input type='radio' name='q${i}' id='${inputId}' value='${casa}'>`;
+            html += `<label for='${inputId}'> ${p.opcoes[casa]}</label>`; 
+            optionIndex++;
         }
         html += "</div></div>";
         quizContainer.innerHTML += html;
@@ -107,9 +112,9 @@ function enviarForm() {
     const email = prompt("Digite seu endereço de email:");
     if (!email) return;
 
-    const ENTRY_ID_NOME = "entry.entry.1657610344";   // <-- ID da pergunta NOME
-    const ENTRY_ID_EMAIL = "entry.entry.1241355614"; // <-- ID da pergunta EMAIL
-    const ENTRY_ID_CASA = "entry.entry.1821870761";  // <-- ID da pergunta CASA
+    const ENTRY_ID_NOME = "entry.1657610344";   // <-- ID da pergunta NOME
+    const ENTRY_ID_EMAIL = "entry.1241355614"; // <-- ID da pergunta EMAIL
+    const ENTRY_ID_CASA = "entry.1821870761";  // <-- ID da pergunta CASA
 
     // Base da URL de envio (use o link de visualização do seu Forms)
     const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfT_nWuVhA1Hs8Xd_JBI-_R4S2wyYOpCNRYyVN8R_YKSdrQmg/viewform"
