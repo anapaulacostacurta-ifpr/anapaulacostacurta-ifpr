@@ -44,9 +44,22 @@ h1 {
 .options input {
     display: none;
 }
-.options label:hover {
-    background: rgba(255,255,255,0.2);
+/* Regra para aplicar um estilo ao label quando o input de rádio dentro dele está CHECADO */
+.options input:checked + label {
+    /* Exemplo: Altera o fundo para uma cor mais visível */
+    background: #7c3aed; /* Cor primária do seu botão */
+    /* Exemplo: Adiciona uma borda sutil */
+    border: 1px solid #c49bff; 
+    /* Exemplo: Adiciona uma sombra para destaque */
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
 }
+
+/* Opcional: Ajuste o estilo de hover para que não conflite com a seleção */
+.options label:hover {
+    background: rgba(255,255,255,0.2); 
+    /* Garante que o hover seja diferente ou mais sutil que o checked */
+}
+
 button {
     background: linear-gradient(90deg, #7c3aed, #c49bff);
     border: none;
