@@ -98,7 +98,7 @@ function finalizarQuiz() {
 }
 
 // --- FUNÇÃO DE ENVIO PARA O GOOGLE FORMS ---
-function enviarForm() {
+async function enviarForm() {
     const casaEscolhida = localStorage.getItem("casaTech");
     if (!casaEscolhida) {
         alert("Erro: A Casa Tech não foi determinada. Finalize o Quiz primeiro.");
@@ -117,16 +117,50 @@ function enviarForm() {
     const ENTRY_ID_CASA = "entry.1821870761";  // <-- ID da pergunta CASA
 
     // Base da URL de envio (use o link de visualização do seu Forms)
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfT_nWuVhA1Hs8Xd_JBI-_R4S2wyYOpCNRYyVN8R_YKSdrQmg/viewform"
-            // 1. Envia o NOME
-        + `?${ENTRY_ID_NOME}=` + encodeURIComponent(nome) 
-        // 2. Envia o EMAIL
-        + `&${ENTRY_ID_EMAIL}=` + encodeURIComponent(email)
-        // 3. Envia a CASA ESCOLHIDA
-        + `&${ENTRY_ID_CASA}=` + encodeURIComponent(casaEscolhida); 
+    // ATENÇÃO: Use /formResponse e não /viewform!
+    const FORMS_RESPONSE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfT_nWuVhA1Hs8Xd_JBI-_R4S2wyYOpCNRYyVN8R_YKSdrQmg/formResponse";
+    // Cria os dados no formato URL-encoded (o Forms espera este formato)
+    const formData = new URLSearchParams();
+    formData.append(ENTRY_ID_NOME, nome);
+    formData.append(ENTRY_ID_EMAIL, email);
+    formData.append(ENTRY_ID_CASA, casaEscolhida);
+    
+    // Altera a mensagem do botão para indicar o processamento
+    const btn = document.querySelector("#result button");
+    btn.textContent = "Registrando...";
+    btn.disabled = true;
 
-    // Abre a URL, enviando os dados para o Forms
-    window.open(googleFormURL, "_blank");
+    try {
+        const response = await fetch(FORMS_RESPONSE_URL, {
+            method: 'POST', // Essencial para envio silencioso
+            mode: 'no-cors', // Essencial para evitar bloqueios de CORS do Forms
+            body: formData, // Envia os dados no corpo da requisição
+        });
+
+        // O Forms sempre retorna um 200/302, então confiamos na resposta e
+        // verificamos se o navegador não bloqueou o fetch
+        if (response.ok || response.type === 'opaque') { 
+             // SUCESSO: Apresenta a mensagem na tela
+            document.getElementById("result").innerHTML += `
+                <p style="margin-top: 15px; color: #69ff9e; font-weight: 600;">
+                    ✅ Pré-inscrição realizada com sucesso!
+                </p>
+            `;
+            // Remove o botão para evitar reenvio
+            btn.style.display = 'none';
+
+        } else {
+             // Caso a requisição falhe inesperadamente (ex: Forms está offline)
+            throw new Error("Resposta do Forms não foi satisfatória.");
+        }
+
+    } catch (error) {
+        // ERRO DE REDE/CÓDIGO
+        console.error('Falha no envio silencioso ao Forms:', error);
+        btn.textContent = "Erro no Registro. Tente novamente.";
+        btn.disabled = false;
+        alert("Ocorreu um erro ao registrar a inscrição. Tente novamente.");
+    }
 }
 
 // --- EXECUÇÃO INICIAL ---
