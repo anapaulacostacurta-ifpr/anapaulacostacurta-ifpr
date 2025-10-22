@@ -1,103 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapéu Seletor Tech — 1º Festival Meninas Digitais IFPR TB</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-  body {
-    font-family: "Poppins", sans-serif;
-    background: radial-gradient(circle at top, #2b0066, #090013);
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .container {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    padding: 40px;
-    width: 90%;
-    max-width: 700px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-  }
-  h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #c49bff;
-  }
-  .question {
-    margin-bottom: 25px;
-  }
-  .question p {
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  .options label {
-    display: block;
-    background: rgba(255,255,255,0.1);
-    margin: 6px 0;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .options input {
-    display: none;
-  }
-  .options label:hover {
-    background: rgba(255,255,255,0.2);
-  }
-  button {
-    background: linear-gradient(90deg, #7c3aed, #c49bff);
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    transition: 0.3s;
-  }
-  button:hover {
-    background: linear-gradient(90deg, #9b59ff, #e3bfff);
-  }
-  .result {
-    text-align: center;
-    display: none;
-    margin-top: 20px;
-  }
-  .house-name {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-  }
-  .lema {
-    font-style: italic;
-    opacity: 0.9;
-  }
-  .hat {
-    font-size: 60px;
-    animation: float 2s infinite ease-in-out;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapéu Seletor Tech — 1º Festival Meninas Digitais IFPR TB</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+  </head>
+  <body>
   <div class="container">
     <h1> Chapéu Seletor Tech</h1>
     <p style="text-align:center;">Descubra qual Casa Tech combina com você!</p>
     <form id="quizForm">
-      <div id="quiz"></div>
+      <div id="quiz">
+        <p style="text-align:center; opacity: 0.7;">Carregando perguntas do Chapéu Seletor...</p>
+      </div>  
+      <div id="erroMensagem" style="color: #ff4d4d; text-align: center; margin-bottom: 15px; font-weight: 600; display: none;">
+        Por favor, responda a todas as perguntas antes de finalizar.
+      </div>     
       <button type="button" onclick="finalizarQuiz()">Finalizar Quiz</button>
     </form>
     <div id="result" class="result">
@@ -108,98 +27,6 @@
       <button onclick="enviarForm()">Confirmar Pré-Inscrição</button>
     </div>
   </div>
-
-<script>
-const perguntas = [
-  {
-    texto: "Quando você está diante de um problema difícil, o que faz primeiro?",
-    opcoes: {
-      "Lovelace": "Entendo a lógica e crio um passo a passo.",
-      "Hamilton": "Penso em como garantir que nada dê errado.",
-      "Hopper": "Coloco logo a mão na massa para ver funcionando.",
-      "Johnson": "Analiso os dados e vejo o que os números dizem."
-    }
-  },
-  {
-    texto: "Qual dessas áreas te desperta mais curiosidade?",
-    opcoes: {
-      "Lovelace": "Programação e algoritmos.",
-      "Hamilton": "Engenharia e segurança de sistemas.",
-      "Hopper": "Automação e funcionamento de máquinas.",
-      "Johnson": "Matemática e análise de dados."
-    }
-  },
-  {
-    texto: "Se você fosse uma tecnologia, seria...",
-    opcoes: {
-      "Lovelace": "Um software de código limpo e elegante.",
-      "Hamilton": "Um sistema confiável e à prova de falhas.",
-      "Hopper": "Um robô que executa tudo com precisão.",
-      "Johnson": "Uma IA que toma decisões baseadas em dados."
-    }
-  },
-  {
-    texto: "Você se sente mais motivado(a) quando...",
-    opcoes: {
-      "Lovelace": "Transforma ideias em código.",
-      "Hamilton": "Vê que tudo funciona com segurança.",
-      "Hopper": "Faz algo realmente acontecer.",
-      "Johnson": "Mostra resultados através de números."
-    }
-  },
-  {
-    texto: "Escolha o símbolo que mais combina com você:",
-    opcoes: {
-      "Lovelace": "🧠 Lógica",
-      "Hamilton": "🛡️ Proteção",
-      "Hopper": "⚙️ Engrenagem",
-      "Johnson": "📊 Gráfico"
-    }
-  }
-];
-
-const casas = {
-  "Lovelace": { cor: "#b57cff", lema: "“Clareza que vira código.”" },
-  "Hamilton": { cor: "#4fc3ff", lema: "“Segurança que não falha.”" },
-  "Hopper": { cor: "#69ff9e", lema: "“Processos que acontecem.”" },
-  "Johnson": { cor: "#ffb84d", lema: "“Números que guiam decisões.”" }
-};
-
-const quizContainer = document.getElementById("quiz");
-perguntas.forEach((p, i) => {
-  let html = `<div class='question'><p>${i+1}. ${p.texto}</p><div class='options'>`;
-  for (const casa in p.opcoes) {
-    html += `<label><input type='radio' name='q${i}' value='${casa}'> ${p.opcoes[casa]}</label>`;
-  }
-  html += "</div></div>";
-  quizContainer.innerHTML += html;
-});
-
-function finalizarQuiz() {
-  const respostas = document.querySelectorAll('input[type="radio"]:checked');
-  if (respostas.length < perguntas.length) {
-    alert("Responda todas as perguntas antes de continuar!");
-    return;
-  }
-  let pontuacao = { Lovelace: 0, Hamilton: 0, Hopper: 0, Johnson: 0 };
-  respostas.forEach(r => pontuacao[r.value]++);
-  const casaFinal = Object.keys(pontuacao).reduce((a,b) => pontuacao[a] > pontuacao[b] ? a : b);
-  document.getElementById("houseName").innerText = `🏠 Casa ${casaFinal}`;
-  document.getElementById("houseName").style.color = casas[casaFinal].cor;
-  document.getElementById("houseLema").innerText = casas[casaFinal].lema;
-  document.getElementById("result").style.display = "block";
-  document.getElementById("quizForm").style.display = "none";
-  localStorage.setItem("casaTech", casaFinal);
-}
-
-function enviarForm() {
-  const casaEscolhida = localStorage.getItem("casaTech");
-  const nome = prompt("Digite seu nome completo para finalizar a pré-inscrição:");
-  if (!nome) return;
-  const googleFormURL = "https://docs.google.com/forms/d/e/SEU_ID_DE_FORMULARIO/viewform?usp=pp_url&entry.1234567890=" + encodeURIComponent(nome) + "&entry.9876543210=" + encodeURIComponent(casaEscolhida);
-  window.open(googleFormURL, "_blank");
-}
-</script>
-</body>
+  <script src="./scripts/code.js"></script>
+  </body>
 </html>
-
