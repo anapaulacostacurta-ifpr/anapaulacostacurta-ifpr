@@ -148,11 +148,17 @@ async function enviarForm() {
             `;
             // Remove o botão para evitar reenvio
             btn.style.display = 'none';
+            btn.textContent = "Registro OK!";
+            btn.disabled = falso;
 
         } else {
              // Caso a requisição falhe inesperadamente (ex: Forms está offline)
             throw new Error("Resposta do Forms não foi satisfatória.");
         }
+        // Remove o botão para evitar reenvio
+        btn.style.display = 'none';
+        btn.textContent = "Registro OK!";
+        btn.disabled = falso;
 
     } catch (error) {
         // ERRO DE REDE/CÓDIGO
