@@ -1,31 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Quadro de Horário</title>
-
-  <!-- CSS externo -->
-  <link rel="stylesheet" href="../styles/style_horario.css">
-</head>
-<body>
-  <h1>Quadro de Horários da Professora Ana Paula</h1>
-
-  <!-- Aqui a tabela será montada pelo JavaScript -->
-  <div id="tabela-container"></div>
-
-  <!-- JS externo -->
-  <script src="../scripts/horario_prof.js"></script>
-  <script>
-    // Carrega o CSV por HTTP e chama montarQuadroHorarios
-    fetch('asserts/horario/horarios.csv')
-      .then(response => response.text())
-      .then(text => {
-        montarQuadroHorarios(text);
-      })
-      .catch(err => {
-        console.error('Erro ao carregar o CSV:', err);
-      });
-  </script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Quadro de Horário</title>
+        <!-- CSS externo -->
+        <link rel="stylesheet" href="../styles/style_horario.css">
+    </head>
+    <body>
+        <h1>Quadro de Horários da Professora Ana Paula</h1>
+        <div id="tabela-container"></div>
+        <script src="horario_prof.js"></script>
+    </body>
 </html>
 

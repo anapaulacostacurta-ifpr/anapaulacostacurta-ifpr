@@ -111,3 +111,12 @@ function montarQuadroHorarios(csvText) {
     table.appendChild(tbody);
     container.appendChild(table);
 }
+
+fetch('asserts/horario/horarios.csv')
+    .then(response => response.text())
+    .then(text => {
+        montarQuadroHorarios(text);
+    })
+    .catch(err => {
+        console.error('Erro ao carregar o CSV:', err);
+});
