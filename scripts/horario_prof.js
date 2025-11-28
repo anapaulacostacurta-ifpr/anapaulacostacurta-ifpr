@@ -112,7 +112,7 @@ function montarQuadroHorarios(csvText) {
     container.appendChild(table);
 }
 
-fetch('asserts/horario/horarios.csv')
+fetch('../assets/horario/horarios.csv')
     .then(response => response.text())
     .then(text => {
         montarQuadroHorarios(text);
