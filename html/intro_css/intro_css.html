@@ -139,9 +139,8 @@
                                         <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
                                         <li class="list-group-item">Crie o arquivo index.html na raiz (pasta principal) do seu projeto</li>
                                         <li class="list-group-item">No corpo do documento (elemento body), adicione um título h1.</li>
-                                        <li class="list-group-item">
-                                            <p>Aplique o estilo: Dentro da tag, use o atributo style:</p>
-                                            <p><code>&lt;h1 style="color: blue; font-size: 24px;"&lt;Meu portifólio CSS&lt;/h1&gt;</code></p>
+                                        <li class="list-group-item">Aplique o estilo: Dentro da tag, use o atributo style:<br>
+                                            <code>&lt;h1 style="color: blue; font-size: 24px;"&lt;Meu portifólio CSS&lt;/h1&gt;</code>
                                         </li>
                                     </ol>
 
@@ -151,9 +150,8 @@
                                         <li class="list-group-item">Crie o arquivo "css_interno.html" dentro da pasta chamada "html/css-interno/".</li>
                                         <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
                                         <li class="list-group-item">Dentro da seção head, adicione a tag style</li>
-                                        <li class="list-group-item">
-                                            <p>Defina a regra: Crie um seletor para o corpo da página:</p>
-                                            <p>body { color: slategray; font-size: 16px; }</p>
+                                        <li class="list-group-item">Defina a regra: Crie um seletor para o corpo da página:<br>
+                                            <code>body { color: slategray; font-size: 16px; }</code>
                                         </li>
                                         <li class="list-group-item">Adicione dois paragrafos no elemento body para verificar se ficaram cinzas e com o tamanho correto.</li>
                                     </ol>
@@ -167,27 +165,35 @@
                                         <p><code>p { font-family: Arial, sans-serif; font-size: 14px; }</code></p>
                                         <li class="list-group-item">Crie o arquivo HTML: Na pasta html/css-externo/, crie o arquivo css_externo.html</li>
                                         <li class="list-group-item">
-                                            <p>Vincule os arquivos: No elemento head do HTML, use a tag link com o caminho relativo correto para subir as pastas e encontrar o CSS:</p>
-                                            <p><code>&lt;link rel="stylesheet" href="../../assets/css/style.css"&gt;</code></p>
+                                            Vincule os arquivos: No elemento head do HTML, use a tag link com o caminho relativo correto para subir as pastas e encontrar o CSS:<br>
+                                            <code>&lt;link rel="stylesheet" href="../../assets/css/style.css"&gt;</code>
                                         </li>
                                     </ol>
 
                                     <h2 class="section-title">Tarefa 5: Criação do Menu Principal</h2>
                                     <p>O objetivo aqui é criar a página que será a "porta de entrada" do seu site.</p>
                                     <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Crie um repositório no GitHub: Nomeie-o como portifolio-info1-2026, certifique de deixar "on" a opção "README" e que ele seja Público.</li>
-                                        <li class="list-group-item">Organize as pastas no seu computador: Dentro da pasta do projeto, crie a seguinte estrutura (use sempre letras minúsculas e hífens no lugar de espaços).</li>
-                                        <li class="list-group-item">Pasta assets/: Dentro dela, crie as subpastas css/ e images/</li>
-                                        <li class="list-group-item">Pasta html/: Dentro dela, crie as subpastas css-inline/, css-interno/ e css-externo/ para organizar seus exercícios de forma modular.</li>
+                                        <li class="list-group-item">Adicione o título principal: <code>&lt;h1&gt;Meu portifólio CSS&lt;/h1&gt;</code> no arquivo index.html.</li>
+                                        <li class="list-group-item">Crie os links de navegação: Abaixo do título, adicione links para os arquivos das tarefas anteriores:<br>
+                                        <ul>
+                                            <li><code>&lt;a href="html/css-inline/css_inline.html"&gt;CSS inline&lt;/a&gt;</code></li>
+                                            <li><code>&lt;a href="html/css-interno/css_interno.html"&gt;CSS interno&lt;/a&gt;</code></li>
+                                            <li><code>&lt;a href="html/css-externo/css_externo.html"&gt;CSS externo&lt;/a&gt;</code></li>
+                                        </ul>
                                     </ol>
                                     <h2 class="section-title">Tarefa 6: Publicação no GitHub Pages</h2>
-                                    <p>O objetivo aqui é criar a base organizada para evitar links quebrados e facilitar a manutenção</p>
+                                    <p>O objetivo aqui é transformar seu código em um site acessível por qualquer pessoa.</p>
                                     <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Crie um repositório no GitHub: Nomeie-o como portifolio-info1-2026, certifique de deixar "on" a opção "README" e que ele seja Público.</li>
-                                        <li class="list-group-item">Organize as pastas no seu computador: Dentro da pasta do projeto, crie a seguinte estrutura (use sempre letras minúsculas e hífens no lugar de espaços).</li>
-                                        <li class="list-group-item">Pasta assets/: Dentro dela, crie as subpastas css/ e images/</li>
-                                        <li class="list-group-item">Pasta html/: Dentro dela, crie as subpastas css-inline/, css-interno/ e css-externo/ para organizar seus exercícios de forma modular.</li>
+                                        <li class="list-group-item">Envie todos os seus arquivos para o repositório no GitHub.</li>
+                                        <li class="list-group-item">No GitHub, acesse a aba Settings (Configurações) do seu repositório.</li>
+                                        <li class="list-group-item">No menu lateral, clique em Pages.</li>
+                                        <li class="list-group-item">Em Build and deployment, selecione a branch main e a pasta /(root), depois clique em Save.</li>
+                                        <li class="list-group-item">Aguarde alguns minutos e o GitHub fornecerá um link (ex: usuario.github.io/portifolio-info1-2026/) onde seu projeto estará online.</li>
                                     </ol>
+                                    <div class="alert alert-info">
+                                        <strong>Dica Final: </strong> Use sempre o comando Ctrl + Espaço no VS Code se precisar de ajuda com os nomes das pastas ao escrever os caminhos.
+                                    </div>
+                                    
                                 </div>
                             </div>
 
