@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <!-- Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- CSS-->
+        <link rel="stylesheet" href="../../assets/styles/styles_webquest.css">
+        <title>Introdução ao CSS</title>
+    </head>
+    <body>
+        <!-- Header / Introdução -->
+        <header class="hero-section text-center">
+            <div class="container">
+                <h1 class="display-6 fw-bold">Introdução a Tabelas em HTML usando CSS</h1>
+            </div>
+        </header>
+        <div class="container mt-5">
+                <div class="row">
+                    <!-- Navegação Lateral (Menu WebQuest) -->
+                    <div class="col-md-3">
+                        <div class="nav flex-column nav-pills shadow-sm p-3 bg-white rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="intro-tab" data-bs-toggle="pill" data-bs-target="#intro" type="button" role="tab">Introdução</button>
+                            <button class="nav-link" id="tarefa-tab" data-bs-toggle="pill" data-bs-target="#tarefa" type="button" role="tab">Tarefa</button>
+                            <button class="nav-link" id="processo-tab" data-bs-toggle="pill" data-bs-target="#processo" type="button" role="tab">Processo</button>
+                            <button class="nav-link" id="recursos-tab" data-bs-toggle="pill" data-bs-target="#recursos" type="button" role="tab">Recursos</button>
+                            <button class="nav-link" id="avalia-tab" data-bs-toggle="pill" data-bs-target="#avalia" type="button" role="tab">Avaliação</button>
+                            <button class="nav-link" id="conclui-tab" data-bs-toggle="pill" data-bs-target="#conclui" type="button" role="tab">Conclusão</button>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo Principal -->
+                    <div class="col-md-9">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            
+                            <!-- Introdução [1, 2, 7] -->
+                            <div class="tab-pane fade show active" id="intro" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2>Introdução</h2>
+                                    <hr>
+                                    <h3 class="section-title">1. Separação entre Estrutura e Estilo</h3>
+                                    <img src="../../assets/images/intro_css/intro_html_vs_css.png" alt="Separação entre estrutura e Estilo">
+                                    <h3 class="section-title">2. Conectando CSS ao HTML</h3>
+                                    <img src="../../assets/images/intro_css/conectando_css_ao_html.png" alt="Conectando CSS ao HTML">
+                                    <h3 class="section-title">3. Formar de incluir CSS ao HTML</h3>
+                                    <img src="../../assets/images/intro_css/css_inline_interno.png" alt="CSS inline e inter">
+                                    <img src="../../assets/images/intro_css/css_externo.png" alt="CSS externo">
+                                    <h3 class="section-title">4. Anatomia de uma Regra CSS</h3>
+                                    <img src="../../assets/images/intro_css/anatomia_css.png" alt="Anatomia regra CSS">
+                                    <h3 class="section-title">5. Tipos de Seletores</h3>
+                                    <img src="../../assets/images/intro_css/tipos_seletores.png" alt="Tipos de Seletores">
+                                    <h3 class="section-title">6. Peso das Regras</h3>
+                                    <img src="../../assets/images/intro_css/peso_regras_css.png" alt="Peso das Regras">
+                                    <h3 class="section-title">7. Arquitetura de Pastas e Arquivos</h3>
+                                    <img src="../../assets/images/intro_css/arquitetura_arquivos_pastas.png" alt="Arquitetura de Pastas e Arquivos">
+                                    <h3 class="section-title">8. Caminhos Relativos no HTML</h3>
+                                    <img src="../../assets/images/intro_css/caminhos_relativos_arquivos.png" alt="Caminhos Relativos no HTML">
+                                </div>
+                            </div>
+
+                            <!-- Tarefa [2, 13, 14] -->
+                            <div class="tab-pane fade" id="tarefa" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Tarefas - Meu Portfólio CSS</h2>
+                                    <div class="alert alert-info">
+                                        <strong>Objetivo:</strong> Aplicar os três métodos de inserção de CSS, garantindo ao mesmo tempo uma organização profissional de pastas e arquivos no seu repositório.
+                                    </div>
+                                    <div>
+                                        <ul>
+                                            <li>
+                                                <h3>Tarefa 1 - Configuração do Ambiente e Estrutura das pastas</h3>
+                                                <p>Criar o repositório portifolio-info1-2026 no GitHub e organizar a estrutura profissional de pastas (/assets, /css, /images).</p>
+                                                <img src="../../assets/images/intro_css/tarefa1/pastas_projeto.png" width="600" height="400" alt="Tarefa 1">
+                                            </li>
+                                            <li>
+                                                <h3>Tarefa 2 - Estilo Inline</h3>
+                                                <p>Aplicar cor azul e tamanho 24px diretamente na tag &lt;h1&gt; usando o atributo style no arquivo "css_inline.html" na pasta "css_inline".</p>
+                                                <img src="../../assets/images/intro_css/tarefa2/estilo_inline.png" width="600" height="400" alt="">
+                                            </li>
+                                            <li>
+                                                <h3>Tarefa 3 - Estilo Interno</h3>
+                                                <p>Usar a tag &lt;style&gt; dentro do &lt;head&gt; para configurar a cor slategray e o tamanho 16px para o &lt;body&gt; do arquivo "css_interno.html" na pasta "css_interno".</p>
+                                                <img src="../../assets/images/intro_css/tarefa3/css_interno.png" width="600" height="400" alt="">
+                                            </li>
+                                            <li>
+                                                <h3>Tarefa 4 - Estilo Externo</h3> 
+                                                <p>Criar o arquivo styles.css, vinculá-lo via tag &lt;link&gt; e definir a fonte Arial 14px como padrão para paragrafo para o arquivo "css_interno.html" na pasta "css_externo".</p>
+                                                <img src="../../assets/images/intro_css/tarefa4/css_externo.png" width="600" height="400" alt="">
+                                            </li>
+                                            <li>
+                                                <h3>Tarefa 5 - Arquivo padrão</h3>
+                                                <p>Criar o arquivo index.html com link para os três arquivos html criados na tarefa 2, 3 e 4.</p>
+                                                <img src="../../assets/images/intro_css/tarefa5/index.png" width="400" height="150" alt="">
+                                            </li>
+                                            <li>
+                                                <h3>Tarefa 6 - Publicar Página </h3>
+                                                <p>Realizar a disponibilização no Github Pages da página e enviar o link do projeto publicado.</p>
+                                                <img src="../../assets/images/intro_css/tarefa6/publicar.png" width="600" height="400" alt="">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Processo [2, 13, 17] -->
+                            <div class="tab-pane fade" id="processo" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2>Processo</h2>
+                                    <div class="alert alert-info">
+                                        <strong>Objetivo:</strong> Aplicar os três métodos de inserção de CSS, garantindo ao mesmo tempo uma organização profissional de pastas e arquivos no seu repositório.
+                                    </div>
+                                    <h2 class="section-title">Tarefa 1 - Configuração do Ambiente e Estrutura de Pastas</h2>
+                                    <p>O objetivo aqui é criar a base organizada para evitar links quebrados e facilitar a manutenção</p>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">Crie um repositório no GitHub: Nomeie-o como portifolio-info1-2026, certifique de deixar "on" a opção "README" e que ele seja Público.</li>
+                                        <li class="list-group-item">
+                                            Organize as pastas no seu computador: <br>
+                                            <ul>
+                                                <li>
+                                                    Dentro da pasta do projeto, crie a seguinte estrutura (use sempre letras minúsculas e hífens no lugar de espaços).
+                                                </li>
+                                                <li>
+                                                    Crie o arquivo index.html na raiz (pasta principal) do seu projeto
+                                                </li>
+                                                <li>
+                                                    Criar uma pasta chamada "assets": Dentro dela, crie duas subpastas chamadas: "css" e "images".
+                                                </li>
+                                                <li>
+                                                    Criar uma pasta chamada "html": Dentro dela, crie três subpastas chamadas: "css-inline", "css-interno" e "css-externo" para organizar das tarefas.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
+                                    </ol>
+
+                                    <h2 class="section-title">Tarefa 2: Praticando CSS Inline</h2>
+                                    <p>O objetivo aqui é criar um arquivo com CSS inline é aplicado diretamente na tag HTML para mudanças pontuais.</p>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">Crie o arquivo css_inline.html dentro da pasta html/css-inline/.</li>
+                                        <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
+                                        <li class="list-group-item">Crie o arquivo index.html na raiz (pasta principal) do seu projeto</li>
+                                        <li class="list-group-item">No corpo do documento (elemento body), adicione um título h1.</li>
+                                        <li class="list-group-item">Aplique o estilo: Dentro da tag, use o atributo style:<br>
+                                            <code>&lt;h1 style="color: blue; font-size: 24px;"&lt;Meu portifólio CSS&lt;/h1&gt;</code>
+                                        </li>
+                                    </ol>
+
+                                    <h2 class="section-title">Tarefa 3: Praticando CSS Interno</h2>
+                                    <p>O objetivo aqui é criar um arquivo com estilo interno centraliza as regras de uma página no seu cabeçalho.</p>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">Crie o arquivo "css_interno.html" dentro da pasta chamada "html/css-interno/".</li>
+                                        <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
+                                        <li class="list-group-item">Dentro da seção head, adicione a tag style</li>
+                                        <li class="list-group-item">Defina a regra: Crie um seletor para o corpo da página:<br>
+                                            <code>body { color: slategray; font-size: 16px; }</code>
+                                        </li>
+                                        <li class="list-group-item">Adicione dois paragrafos no elemento body para verificar se ficaram cinzas e com o tamanho correto.</li>
+                                    </ol>
+
+                                    <h2 class="section-title">Tarefa 4: Praticando CSS Externo</h2>
+                                    <p>O objetivo aqui é criar a estrutura para utilizar css externo, a forma profissional que separa totalmente o conteúdo da aparência.</p>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">Crie o arquivo de estilo: Na pasta assets/css/, crie o arquivo style.css.</li>
+                                        <li class="list-group-item">Crie as regras:
+                                            Adicione a regra para parágrafos no arquivo com extensão .css:<br>
+                                            <code>p { font-family: Arial, sans-serif; font-size: 14px; }</code>
+                                        </li>
+                                        <li class="list-group-item">Crie o arquivo HTML: Na pasta html/css-externo/, crie o arquivo css_externo.html</li>
+                                        <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
+                                        <li class="list-group-item">
+                                            Vincule os arquivos: No elemento head do HTML, use a tag link com o caminho relativo correto para subir as pastas e encontrar o CSS:<br>
+                                            <code>&lt;link rel="stylesheet" href="../../assets/css/style.css"&gt;</code>
+                                        </li>
+                                    </ol>
+
+                                    <h2 class="section-title">Tarefa 5: Criação do Menu Principal</h2>
+                                    <p>O objetivo aqui é criar a página que será a "porta de entrada" do seu site.</p>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">Adicione o título principal: <code>&lt;h1&gt;Meu portifólio CSS&lt;/h1&gt;</code> no arquivo index.html.</li>
+                                        <li class="list-group-item">Crie os links de navegação: Abaixo do título, adicione links para os arquivos das tarefas anteriores:<br>
+                                        <ul>
+                                            <li><code>&lt;a href="html/css-inline/css_inline.html"&gt;CSS inline&lt;/a&gt;</code></li>
+                                            <li><code>&lt;a href="html/css-interno/css_interno.html"&gt;CSS interno&lt;/a&gt;</code></li>
+                                            <li><code>&lt;a href="html/css-externo/css_externo.html"&gt;CSS externo&lt;/a&gt;</code></li>
+                                        </ul>
+                                    </ol>
+                                    <h2 class="section-title">Tarefa 6: Publicação no GitHub Pages</h2>
+                                    <p>O objetivo aqui é transformar seu código em um site acessível por qualquer pessoa.</p>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">Envie todos os seus arquivos para o repositório no GitHub.</li>
+                                        <li class="list-group-item">No GitHub, acesse a aba Settings (Configurações) do seu repositório.</li>
+                                        <li class="list-group-item">No menu lateral, clique em Pages.</li>
+                                        <li class="list-group-item">Em Build and deployment, selecione a branch main e a pasta /(root), depois clique em Save.</li>
+                                        <li class="list-group-item">Aguarde alguns minutos e o GitHub fornecerá um link (ex: usuario.github.io/portifolio-info1-2026/) onde seu projeto estará online.</li>
+                                    </ol>
+                                    <hr>
+                                    <div class="alert alert-info">
+                                        <strong>Dica Final: </strong> Use sempre o comando Ctrl + Espaço no VS Code se precisar de ajuda com os nomes das pastas ao escrever os caminhos.
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <!-- Recursos [2, 13, 21] -->
+                            <div class="tab-pane fade" id="recursos" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Recursos</h2>
+                                    <p> Sugestão de sites para pesquisa</p>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_intro.asp" target="_blank">W3Schools - Introdução CSS</a></li>
+                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_syntax.asp" target="_blank">W3Schools - Sintaxe CSS</a></li>
+                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_selectors.asp" target="_blank">W3Schools - Seletores CSS</a></li>
+                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_howto.asp" target="_blank">W3Schools - Como adicionar CSS ao HTML</a></li>
+                                        <li class="list-group-item"><a href="https://docs.github.com/pt/repositories/creating-and-managing-repositories/creating-a-new-repository" target="_blank">Como criar repositório</a></li>
+                                        <li class="list-group-item"><a href="https://docs.github.com/pt/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" target="_blank">Como publicar no Github Pages</a></li>
+                                        <li class="list-group-item"><a href="https://docs.github.com/pt/codespaces/developing-in-a-codespace/creating-a-codespace-for-a-repository" target="_blank">Como criar Codespace do reposiório</a></li>
+                                        <li class="list-group-item"><a href="https://github.com/" target="_blank">Github</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Avaliação [2, 24, 25] -->
+                            <div class="tab-pane fade" id="avalia" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Avaliação</h2>
+                                    <div class="instrucoes">
+                                        <p><strong>Instruções de Entrega:</strong> A atividade deve ser desenvolvida individualmente. Após concluir os desafios das tarefas, envie o link do seu repositório no <strong>GitHub Pages</strong> através do Google Sala de Aula.</p>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Critérios</th>
+                                                <th class="conceito-header">Conceito A<br>(Plena)</th>
+                                                <th class="conceito-header">Conceito B<br>(Parcialmente Plena)</th>
+                                                <th class="conceito-header">Conceito C<br>(Suficiente)</th>
+                                                <th class="conceito-header">Conceito D<br>(Insuficiente)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Organização e Nomenclatura</strong></td>
+                                                <td>Estrutura profissional: raiz com index.html, pastas /assets/css e /html. Nomes em minúsculas e sem caracteres especiais.</td>
+                                                <td>Pastas criadas, mas com pequenos desvios de boas práticas (letras maiúsculas ou espaços) que não impedem os links.</td>
+                                                <td>Falta modularidade. CSS externo na mesma pasta do HTML ou ausência da pasta /assets.</td>
+                                                <td>Arquivos jogados na raiz sem critério ou pastas principais ausentes.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Domínio das Técnicas CSS</strong></td>
+                                                <td>Uso perfeito de Inline, Interno e Externo. Caminhos relativos (../../) aplicados corretamente no CSS externo.</td>
+                                                <td>Regras (azul, slategray, Arial) funcionam, mas pode haver erros menores de indentação ou redundância.</td>
+                                                <td>Tarefas incompletas ou erros significativos de sintaxe (ex: confundir propriedades como font-color).</td>
+                                                <td>Estilos não carregam por erro grave de vinculação ou ausência da tag &lt;link&gt;.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Funcionalidade e Navegação</strong></td>
+                                                <td>Menu no index.html totalmente funcional, integrando todos os desafios sem erros de "404".</td>
+                                                <td>Menu ativo, mas navegação pode apresentar instabilidade em subpáginas.</td>
+                                                <td>Links quebrados no menu devido a caminhos incorretos de arquivos existentes.</td>
+                                                <td>Links não funcionam ou direcionam para locais inexistentes.</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Publicação e Acesso</strong></td>
+                                                <td>Projeto totalmente funcional na URL do GitHub Pages. Repositório configurado como público.</td>
+                                                <td>Publicado, mas com pequenos problemas visuais não detectados no servidor local.</td>
+                                                <td>Publicado, mas recursos essenciais (imagens ou CSS externo) não carregam online.</td>
+                                                <td>Projeto não publicado ou repositório privado, impossibilitando a avaliação.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Conclusão [2, 7, 13] -->
+                            <div class="tab-pane fade" id="conclui" role="tabpanel">
+                                <div class="card p-4 text-center">
+                                    <h2 class="section-title">Conclusão</h2>
+                                    <p>
+                                        Nesta atividade, tivemos a oportunidade de explorar as três formas principais de integrar o CSS 
+                                        ao HTML: os estilos inline, internos e externos. O grande objetivo desta jornada foi capacitar 
+                                        você a escolher a melhor abordagem técnica dependendo da escala do seu projeto, garantindo 
+                                        que o design e a estrutura caminhem juntos de forma organizada.
+                                    </p>
+                                    <p>
+                                        Aprendemos que, enquanto o estilo inline permite ajustes rápidos e pontuais em um único 
+                                        elemento, a folha de estilo externa é o padrão profissional que facilita a manutenção de 
+                                        sites inteiros em um único arquivo. Essa distinção é fundamental para que você desenvolva 
+                                        páginas web eficientes e escaláveis.
+                                    </p>
+                                    <p>
+                                        Na prática, tudo o que aprendemos na escola está interligado. O desenvolvimento web 
+                                        exige não apenas o domínio do código, mas o uso de distintos conhecimentos para estruturar 
+                                        o raciocínio lógico e a resolução de problemas técnicos.
+                                    </p>
+                                    <p>
+                                        Agora, um desafio final: cada página que você acessa na internet a partir de hoje é um 
+                                        exemplo vivo do que foi praticado aqui. Ao navegar, tente imaginar quais elementos 
+                                        utilizam CSS externo para manter a identidade visual e onde ajustes inline podem ter sido 
+                                        aplicados. Depois explore o código fonte da página para verificar como foi utilizado o CSS.
+                                        Incentive-se a fazer essas ligações e a continuar explorando o vasto mundo do 
+                                        desenvolvimento front-end.
+                                    </p>
+                                    <p>
+                                        <b>Bons próximos estudos!</b>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="text-center">
+                <div class="container">
+                    <p>Elaborado por: <strong>Ana Paula Costacurta</strong> - Contato: <a href="mailto:anapaula.costacurta@ifpr.edu.br">anapaula.costacurta@ifpr.edu.br</a> - <em>IFPR - Campus Telêmaco Borba</em></p>
+                </div>
+                <!-- Seção da Licença Creative Commons -->
+                <div class="cc-license">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                        <img alt="Licença Creative Commons" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-nc-sa.svg" />
+                    </a>
+                    <p class="cc-text">CC BY-NC-SA</p>
+                </div>
+            </footer>
+
+            <!-- Bootstrap 5 JS Bundle -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
