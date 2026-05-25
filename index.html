@@ -1,161 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professora Ana Paula Costacurta - IFPR Campus Telêmaco Borba</title>
-    <link rel="stylesheet" href="assets/styles/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Professora Ana Paula Costacurta - IFPR Campus Telêmaco Borba</title>
+        <link rel="stylesheet" href="assets/styles/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
 
-    <header>
-        <div class="container">
-            <h1>Prof.ª Ana Paula Costacurta</h1>
-            <p>IFPR - Campus Telêmaco Borba</p>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#horarios">Horários</a></li>
-                    <li><a href="#eventos">Eventos</a></li> 
-                    <li><a href="#projetos">Projetos</a></li>
-                    <li><a href="#disciplinas">Disciplinas</a></li>
-                    <li><a href="#contato">Contato</a></li>
+        <header>
+            <div class="container">
+                <h1>Prof.ª Ana Paula Costacurta</h1>
+                <p>IFPR - Campus Telêmaco Borba</p>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#horarios">Horários</a></li>
+                        <li><a href="#eventos">Eventos</a></li> 
+                        <li><a href="#projetos">Projetos</a></li>
+                        <li><a href="#disciplinas">Disciplinas</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="home" class="hero">
+            <div class="container">
+                <img src="assets/images/foto_anapaulacostacurta.png" width="120" ="Foto Profissional" class="profile-photo">
+                <h2>Bem-vinda(o) ao meu espaço!</h2>
+                <p>Professora de Redes de Computadores e Programação no Instituto Federal do Paraná (IFPR) - Campus Telêmaco Borba. Neste site, você encontra meus horários de aula, projetos de pesquisa e materiais de apoio.</p>
+                <a href="#horarios" class="btn primary-btn">Ver Horários de Aula</a>
+                <a href="#projetos" class="btn secondary-btn">Conhecer Projetos</a>
+            </div>
+        </section>
+
+        <section id="horarios" class="content-section">
+            <div class="container">
+                <h2>Agenda e Horários de Aula</h2>
+                <p class="subtitle">Horário válido para o 2025.1 - Sujeito a alterações.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Horário</th>
+                            <th>Disciplina</th>
+                            <th>Turma</th>
+                            <th>Local</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quartas-feiras</td>
+                            <td>07:30 - 12:00</td>
+                            <td>Suporte TI</td>
+                            <td>INF2</td>
+                            <td>Laborátorio de Informática Zero</td>
+                        </tr>
+                        <tr>
+                            <td>Quinta-feiras</td>
+                            <td>19:00 - 22:40</td>
+                            <td>Sistemas Distríbuidos</td>
+                            <td>TADS 4 e TADS 6</td>
+                            <td>Laboratório de Informática 2</td>
+                        </tr>
+                        <tr>
+                            <td>Sexta-feiras</td>
+                            <td>13:30 - 18:00</td>
+                            <td>Tecnologia Web</td>
+                            <td>INF1</td>
+                            <td>Laboratório de Informática 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="nota">**Nota:** Para atendimento individual, consulte a seção Contato.</p>
+            </div>
+        </section>
+
+        <section id="eventos" class="content-section purple-background">
+            <div class="container">
+                <h2>Próximos Eventos e Avisos</h2>
+                <p class="subtitle">Fique por dentro das palestras, minicursos e workshops.</p>
+
+                <div class="event-list">
+                    
+                    <div class="event-item">
+                        <h3>I Ada Lovelace Day 2025</h3>
+                        <p><strong>Data:</strong> 29 a 31 de Outubro 2025</p>
+                        <p><strong>Local:</strong> IFPR - Campus Telêmaco Borba</p>
+                        <p>O Ada Lovelace Day é um evento técnico-científico realizado anualmente no Campus Ceres do IF Goiano, que integra a agenda internacional de celebração do Ada Lovelace Day, homenageando a primeira programadora da história e destacando a participação feminina nas áreas de Ciência, Tecnologia, Engenharia e Matemática (STEM). Não perca!</p>
+                        <a href="./eventos/divulgaçãoAdaLovelaceDay.html" class="project-link">Ver Detalhes</a>
+                    </div>
+
+                    <div class="event-item">
+                        <h3>Minicurso: Básico de JavaScript</h3>
+                        <p><strong>Data e Hora:</strong> Quintas, 12:30h</p>
+                        <p><strong>Local:</strong> Laboratório 5</p>
+                        <p>Minicurso prático sobre Básico de JavaScript para alunos do IFPR Campus Telêmaco.</p>
+                        <p>Inscrições Encerradas!</p>
+                    </div>
+                    
+                </div>
+                
+                <p class="nota">Eventos passados podem ser encontrados no <a href="#" style="color: var(--purple-dark); text-decoration: underline;">Arquivo de Notícias do IFPR</a>.</p>
+            </div>
+        </section>
+
+        <section id="projetos" class="content-section">
+            <div class="container">
+                <h2>Projetos de Pesquisa e Extensão</h2>
+                <p class="subtitle">Confira os projetos em andamento e as oportunidades para alunos.</p>
+                
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>Jogo de Tabuleiro Híbrido Gamificado no Ensino de Redes de Computadores</h3>
+                        <p><strong>Status:</strong> Em Andamento</p>
+                        <p>Criação de um jogo de tabuleiro híbrido, combinando elementos físicos e digitais, para simular cenários reais de redes de computadores.</p>
+                        <a href="#" class="project-link">Ver Detalhes</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Projeto Meninas Digitais IFPR-TB: Conectando Meninas do Ensino Médio ao Mundo da Programação</h3>
+                        <p><strong>Status:</strong> Em Adamento</p>
+                        <p></p>Incentivar a participação feminina na área de Tecnologia da Informação (TI), preparando alunas para competições de informática e promovendo o desenvolvimento de suas habilidades em programação.</p>
+                        <a href="#" class="project-link">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="disciplinas" class="content-section purple-background">
+            <div class="container">
+                <h2>Disciplinas Ministradas</h2>
+                <p class="subtitle">Links úteis, planos de ensino e materiais.</p>
+                
+                <ul class="discipline-list">
+                    <li><a href="https://anapaulacostacurta-ifpr.github.io/desafio-suporte-ti/">Suporte-TI</a> - Site de Atividades Gamificadas </li>
+                    <li><a href="https://anapaulacostacurta-ifpr.github.io/desafio-html-info1-ifpr/">Tecnologia WEB</a> - Site de Atividades Gamificadas</li>
+                    <li><a href="#">Sistemas Distríbuidos</a> - Site EM BREVE!</li>
                 </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="container">
-            <img src="assets/images/foto_anapaulacostacurta.png" width="120" ="Foto Profissional" class="profile-photo">
-            <h2>Bem-vinda(o) ao meu espaço!</h2>
-            <p>Professora de Redes de Computadores e Programação no Instituto Federal do Paraná (IFPR) - Campus Telêmaco Borba. Neste site, você encontra meus horários de aula, projetos de pesquisa e materiais de apoio.</p>
-            <a href="#horarios" class="btn primary-btn">Ver Horários de Aula</a>
-            <a href="#projetos" class="btn secondary-btn">Conhecer Projetos</a>
-        </div>
-    </section>
-
-    <section id="horarios" class="content-section">
-        <div class="container">
-            <h2>Agenda e Horários de Aula</h2>
-            <p class="subtitle">Horário válido para o 2025.1 - Sujeito a alterações.</p>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dia</th>
-                        <th>Horário</th>
-                        <th>Disciplina</th>
-                        <th>Turma</th>
-                        <th>Local</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Quartas-feiras</td>
-                        <td>07:30 - 12:00</td>
-                        <td>Suporte TI</td>
-                        <td>INF2</td>
-                        <td>Laborátorio de Informática Zero</td>
-                    </tr>
-                    <tr>
-                        <td>Quinta-feiras</td>
-                        <td>19:00 - 22:40</td>
-                        <td>Sistemas Distríbuidos</td>
-                        <td>TADS 4 e TADS 6</td>
-                        <td>Laboratório de Informática 2</td>
-                    </tr>
-                    <tr>
-                        <td>Sexta-feiras</td>
-                        <td>13:30 - 18:00</td>
-                        <td>Tecnologia Web</td>
-                        <td>INF1</td>
-                        <td>Laboratório de Informática 1</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="nota">**Nota:** Para atendimento individual, consulte a seção Contato.</p>
-        </div>
-    </section>
-
-    <section id="eventos" class="content-section purple-background">
-        <div class="container">
-            <h2>Próximos Eventos e Avisos</h2>
-            <p class="subtitle">Fique por dentro das palestras, minicursos e workshops.</p>
-
-            <div class="event-list">
-                
-                <div class="event-item">
-                    <h3>I Ada Lovelace Day 2025</h3>
-                    <p><strong>Data:</strong> 29 a 31 de Outubro 2025</p>
-                    <p><strong>Local:</strong> IFPR - Campus Telêmaco Borba</p>
-                    <p>O Ada Lovelace Day é um evento técnico-científico realizado anualmente no Campus Ceres do IF Goiano, que integra a agenda internacional de celebração do Ada Lovelace Day, homenageando a primeira programadora da história e destacando a participação feminina nas áreas de Ciência, Tecnologia, Engenharia e Matemática (STEM). Não perca!</p>
-                    <a href="./eventos/divulgaçãoAdaLovelaceDay.html" class="project-link">Ver Detalhes</a>
-                </div>
-
-                <div class="event-item">
-                    <h3>Minicurso: Básico de JavaScript</h3>
-                    <p><strong>Data e Hora:</strong> Quintas, 12:30h</p>
-                    <p><strong>Local:</strong> Laboratório 5</p>
-                    <p>Minicurso prático sobre Básico de JavaScript para alunos do IFPR Campus Telêmaco.</p>
-                    <p>Inscrições Encerradas!</p>
-                </div>
-                
             </div>
-            
-            <p class="nota">Eventos passados podem ser encontrados no <a href="#" style="color: var(--purple-dark); text-decoration: underline;">Arquivo de Notícias do IFPR</a>.</p>
-        </div>
-    </section>
-
-    <section id="projetos" class="content-section">
-        <div class="container">
-            <h2>Projetos de Pesquisa e Extensão</h2>
-            <p class="subtitle">Confira os projetos em andamento e as oportunidades para alunos.</p>
-            
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Jogo de Tabuleiro Híbrido Gamificado no Ensino de Redes de Computadores</h3>
-                    <p><strong>Status:</strong> Em Andamento</p>
-                    <p>Criação de um jogo de tabuleiro híbrido, combinando elementos físicos e digitais, para simular cenários reais de redes de computadores.</p>
-                    <a href="#" class="project-link">Ver Detalhes</a>
-                </div>
-                <div class="project-card">
-                    <h3>Projeto Meninas Digitais IFPR-TB: Conectando Meninas do Ensino Médio ao Mundo da Programação</h3>
-                    <p><strong>Status:</strong> Em Adamento</p>
-                    <p></p>Incentivar a participação feminina na área de Tecnologia da Informação (TI), preparando alunas para competições de informática e promovendo o desenvolvimento de suas habilidades em programação.</p>
-                    <a href="#" class="project-link">Ver Detalhes</a>
-                </div>
+        </section>
+        
+        <section id="contato" class="content-section">
+            <div class="container">
+                <h2>Contato e Atendimento</h2>
+                <p>E-mail Institucional: anapaula.costacurta@ifpr.edu.br</p>
+                <p>Horário de Atendimento: Quinta-feiras: 13:30h às 14:30h - 18h-19h; Sexta-feiras - 10:30h às 12:30h;</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="disciplinas" class="content-section purple-background">
-        <div class="container">
-            <h2>Disciplinas Ministradas</h2>
-            <p class="subtitle">Links úteis, planos de ensino e materiais.</p>
-            
-            <ul class="discipline-list">
-                <li><a href="https://anapaulacostacurta-ifpr.github.io/desafio-suporte-ti/">Suporte-TI</a> - Site de Atividades Gamificadas </li>
-                <li><a href="https://anapaulacostacurta-ifpr.github.io/desafio-html-info1-ifpr/">Tecnologia WEB</a> - Site de Atividades Gamificadas</li>
-                <li><a href="#">Sistemas Distríbuidos</a> - Site EM BREVE!</li>
-            </ul>
-        </div>
-    </section>
-    
-    <section id="contato" class="content-section">
-        <div class="container">
-            <h2>Contato e Atendimento</h2>
-            <p>E-mail Institucional: anapaula.costacurta@ifpr.edu.br</p>
-            <p>Horário de Atendimento: Quinta-feiras: 13:30h às 14:30h - 18h-19h; Sexta-feiras - 10:30h às 12:30h;</p>
-        </div>
-    </section>
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Professora Ana Paula Costacurta - IFPR. Desenvolvido com carinho.</p>
+            </div>
+        </footer>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Professora Ana Paula Costacurta - IFPR. Desenvolvido com carinho.</p>
-        </div>
-    </footer>
-
-</body>
+    </body>
 </html>
