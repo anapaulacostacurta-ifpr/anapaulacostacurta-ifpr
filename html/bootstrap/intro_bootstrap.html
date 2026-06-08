@@ -62,9 +62,8 @@
                                     </div>
                                     <div>
                                         <h3>Crie sua primeira página web com Bootstrap</h3>
-                                        
-                                        <img src="../../assets/images/boostrap/boostrap_color_text.png" width="600" height="400" alt="Tarefa 1">
-                                        <a href="#processo">Vá para processo para seguir o passo a passo da atividade.</a>
+                                        <p><img src="../../assets/images/boostrap/boostrap_color_text.png" width="600" height="400" alt="Tarefa 1"></p>
+                                        <p>á para processo para seguir o passo a passo da atividade.</p>
                                     </div>
                                 </div>
                             </div>
@@ -168,22 +167,72 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>Critérios</th>
+                                                <th>Rubrica de Avaliação – Página Web com Bootstrap</th>
                                                 <th class="conceito-header">Conceito A<br>(Plena)</th>
                                                 <th class="conceito-header">Conceito B<br>(Parcialmente Plena)</th>
                                                 <th class="conceito-header">Conceito C<br>(Suficiente)</th>
                                                 <th class="conceito-header">Conceito D<br>(Insuficiente)</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                       <tbody>
                                             <tr>
-                                                <td><strong>Organização e Nomenclatura</strong></td>
-                                                <td>Estrutura profissional: raiz com index.html, pastas /assets/css e /html. Nomes em minúsculas e sem caracteres especiais.</td>
-                                                <td>Pastas criadas, mas com pequenos desvios de boas práticas (letras maiúsculas ou espaços) que não impedem os links.</td>
-                                                <td>Falta modularidade. CSS externo na mesma pasta do HTML ou ausência da pasta /assets.</td>
-                                                <td>Arquivos jogados na raiz sem critério ou pastas principais ausentes.</td>
+                                                <td><strong>Estrutura HTML básica</strong></td>
+                                                <td class="concept-a">Estrutura HTML completa com `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>` usando atalho "html:5" ou "!" corretamente</td>
+                                                <td class="concept-b">Estrutura HTML presente, mas com pequenos erros (ex: falta de fechamento de tags)</td>
+                                                <td class="concept-c">Estrutura HTML mínima presente, mas com erros significativos</td>
+                                                <td class="concept-d">Estrutura HTML ausente ou muito incompleta</td>
                                             </tr>
-                                        </tbody>
+                                            <tr>
+                                                <td><strong>Meta tag viewport</strong></td>
+                                                <td class="concept-a">Meta tag `<meta name="viewport" content="width=device-width, initial-scale=1">` incluída corretamente dentro do `<head>`</td>
+                                                <td class="concept-b">Meta tag viewport presente, mas com valor incorreto ou mal formatado</td>
+                                                <td class="concept-c">Meta tag viewport presente, mas faltando atributos essenciais</td>
+                                                <td class="concept-d">Meta tag viewport ausente</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Integração Bootstrap CSS</strong></td>
+                                                <td class="concept-a">Link CSS do Bootstrap 5.3.8 incluído corretamente no `<head>` com integrity e crossorigin presentes</td>
+                                                <td class="concept-b">Link CSS do Bootstrap presente, mas sem integrity ou crossorigin</td>
+                                                <td class="concept-c">Link CSS do Bootstrap presente, mas com versão incorreta ou URL quebrado</td>
+                                                <td class="concept-d">Link CSS do Bootstrap ausente</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Integração Bootstrap JS</strong></td>
+                                                <td class="concept-a">Script Bootstrap.bundle.min.js incluído corretamente no `<head>` ou `<body>` com integrity e crossorigin presentes</td>
+                                                <td class="concept-b">Script Bootstrap presente, mas sem integrity ou crossorigin</td>
+                                                <td class="concept-c">Script Bootstrap presente, mas com versão incorreta ou URL quebrado</td>
+                                                <td class="concept-d">Script Bootstrap ausente</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Parágrafos com classes de texto</strong></td>
+                                                <td class="concept-a">Todos os 10 parágrafos com classes `.text-primary`, `.text-secondary`, `.text-success`, `.text-danger`, `.text-warning`, `.text-info`, `.text-light bg-dark`, `.text-dark`, `.text-muted`, `.text-white bg-dark` presentes e corretos</td>
+                                                <td class="concept-b">7-9 parágrafos com classes corretas, ou alguns com classes ligeiramente erradas</td>
+                                                <td class="concept-c">4-6 parágrafos com classes corretas</td>
+                                                <td class="concept-d">Menos de 4 parágrafos ou nenhum com classes corretas</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Informações do elaborador</strong></td>
+                                                <td class="concept-a">Informações completas (nome, contato e email com link `mailto:`, IFPR) incluídas corretamente no final da página</td>
+                                                <td class="concept-b">Informações do elaborador presentes, mas com erro no link do email ou falta de algum dado</td>
+                                                <td class="concept-c">Informações do elaborador presentes, mas incompletas (só nome ou só email)</td>
+                                                <td class="concept-d">Informações do elaborador ausentes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Publicação no GitHub Pages</strong></td>
+                                                <td class="concept-a">Página publicada corretamente no GitHub Pages com link funcional e acessível</td>
+                                                <td class="concept-b">Página publicada, mas com link com pequenos problemas ou acessibilidade parcial</td>
+                                                <td class="concept-c">Página publicada, mas link não funciona completamente ou requer login</td>
+                                                <td class="concept-d">Página não publicada ou link não existente</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Organização do repositório</strong></td>
+                                                <td class="concept-a">Pasta `html/bootstrap/` criada corretamente e arquivo `intro_bootstrap.html` no local especificado</td>
+                                                <td class="concept-b">Pasta criada, mas arquivo em local ligeiramente diferente (ex: `html/boostrap/` com erro de digitação)</td>
+                                                <td class="concept-c">Pasta criada, mas arquivo fora da pasta ou com nome errado</td>
+                                                <td class="concept-d">Pasta não criada ou arquivo ausente</td>
+                                            </tr>
+                                            </tbody>
+
                                     </table>
                                 </div>
                             </div>
@@ -193,24 +242,9 @@
                                 <div class="card p-4 text-center">
                                     <h2 class="section-title">Conclusão</h2>
                                     <p>
-                                        Nesta atividade, tivemos a oportunidade de explorar organização de arquivos 
-                                        em pastas lógicas ajuda a encontrar e editar arquivos mais rapidamente, 
-                                        tornando a manutenção do projeto mais eficiente.
+                                        Nesta atividade, tivemos a oportunidade de explorar a estilização utilizando
+                                        o framework Boostrap.
                                         
-                                    </p>
-                                    <p>
-                                        Aprendemos que, mostra que uma estrutura de arquivos organizada facilita o 
-                                        trabalho em equipe, pois os desenvolvedores sabem onde encontrar 
-                                        cada tipo de arquivo e como o projeto está estruturado.
-                                    </p>
-                                    <p>
-                                        Na prática, uma estrutura de pastas clara e intuitiva torna o código mais 
-                                        fácil de entender e navegar, o que é útil para novos desenvolvedores ou 
-                                        quando você revisita o projeto após um tempo.
-                                    </p>
-                                    <p>
-                                        Muitas plataformas de implantação e ferramentas de automação dependem 
-                                        de uma estrutura de pastas bem definida para compilar e implantar o projeto corretamente.
                                     </p>
                                     <p>
                                         <b>Bons próximos estudos!</b>
