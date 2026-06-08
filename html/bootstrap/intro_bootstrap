@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <!-- Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- CSS-->
+        <link rel="stylesheet" href="../../assets/styles/styles_webquest.css">
+        <title>Crie sua primeira página web com Bootstrap</title>
+    </head>
+    <body>
+        
+        <!-- Header / Introdução -->
+        <header class="hero-section text-center">
+            <div class="container">
+                <h1 class="display-6 fw-bold">Crie sua primeira página web com Bootstrap</h1>
+            </div>
+        </header>
+        <div class="container mt-5">
+                <div class="row">
+                    <!-- Navegação Lateral (Menu WebQuest) -->
+                    <div class="col-md-3">
+                        <div class="nav flex-column nav-pills shadow-sm p-3 bg-white rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="intro-tab" data-bs-toggle="pill" data-bs-target="#intro" type="button" role="tab">Introdução</button>
+                            <button class="nav-link" id="tarefa-tab" data-bs-toggle="pill" data-bs-target="#tarefa" type="button" role="tab">Tarefa</button>
+                            <button class="nav-link" id="processo-tab" data-bs-toggle="pill" data-bs-target="#processo" type="button" role="tab">Processo</button>
+                            <button class="nav-link" id="recursos-tab" data-bs-toggle="pill" data-bs-target="#recursos" type="button" role="tab">Recursos</button>
+                            <button class="nav-link" id="avalia-tab" data-bs-toggle="pill" data-bs-target="#avalia" type="button" role="tab">Avaliação</button>
+                            <button class="nav-link" id="conclui-tab" data-bs-toggle="pill" data-bs-target="#conclui" type="button" role="tab">Conclusão</button>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo Principal -->
+                    <div class="col-md-9">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            
+                            <!-- Introdução [1, 2, 7] -->
+                            <div class="tab-pane fade show active" id="intro" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 style="color:crimson;">Introdução</h2>
+                                    <hr>
+                                    <h3 class="section-title">Incluir no HTML</h3>
+                                    <img src="../../assets/images/intro_css/arquitetura_arquivos_pastas.png" alt="Arquitetura de Pastas e Arquivos">
+                                    <p>
+                                        <code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"&gt;</code> 
+                                    </p>
+                                    <p>
+                                        <code>&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"&gt;&lt;/script&gt;</code> 
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Tarefa [2, 13, 14] -->
+                            <div class="tab-pane fade" id="tarefa" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Tarefa - Meu Portfólio (Continuação)</h2>
+                                    <div class="alert alert-info">
+                                        <strong>Objetivo:</strong> Incluir Boostrap no HTML.
+                                    </div>
+                                    <div>
+                                        <h3>Crie sua primeira página web com Bootstrap</h3>
+                                        
+                                        <img src="../../assets/images/organizacao/organizacao.png" width="600" height="400" alt="Tarefa 1">
+                                        <a href="#processo">Vá para processo para seguir o passo a passo da atividade.</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Processo [2, 13, 17] -->
+                            <div class="tab-pane fade" id="processo" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Processo</h2>
+                                    <h2 class="section-title">Crie sua primeira página web com Bootstrap</h2>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item">No repositório <b>"portifolio-info1-2026"</b>:
+                                            <ul>
+                                                <li> Crie uma pasta dentro da pasta "html" chamada <b>"bootstrap"</b>.</li>
+                                                <li> Crie um arquivo na pasta "html/boostrap" chamado "intro_boostrap.html".</li>
+                                                <li> Adicione a estrutura básica de html, utilizando o atalho "html:5" ou "!".</li>
+                                               
+                                            </ul>
+                                        </li>
+                                        <li class="list-group-item">Adicione a seguinte &lt;meta&gt;tag dentro do &lt;head&gt;elemento:
+                                            <ul>
+                                                 <li> 
+                                                    <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-group-item">Incluir no elemento &lt;head&gt;:</b>:
+                                            <ul>
+                                                <li>  
+                                                    <p>
+                                                        <code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"&gt;</code> 
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <code>&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"&gt;&lt;/script&gt;</code> 
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-group-item">
+                                            No corpo do arquivo "intro_boostrap.html" inclua os paragrafos: <br>
+                                            <ul>
+                                                <li>
+                                                    <code>&lt;p class="text-primary"&gt;.text-primary&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-secondary"&gt;.text-secondary&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-success"&gt;.text-success&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-danger"&gt;.text-danger&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-warning"&gt;.text-warning&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-info"&gt;.text-info&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-light bg-dark"&gt;.text-light&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-dark"&gt;.text-dark&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-muted"&gt;.text-muted&lt;/p&gt;</code>
+                                                </li>
+                                                <li>
+                                                    <code>&lt;p class="text-white bg-dark"&gt;.text-white&lt;/p&gt;</code>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+
+                            <!-- Recursos [2, 13, 21] -->
+                            <div class="tab-pane fade" id="recursos" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Recursos</h2>
+                                    <p> Sugestão de sites para pesquisa</p>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"></li><a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">Introdução Boostrap</a></li>
+                                        <li class="list-group-item"><a href="https://www.w3schools.com/Bootstrap/bootstrap_get_started.asp" target="_blank">Iniciando no Boostrap</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Avaliação [2, 24, 25] -->
+                            <div class="tab-pane fade" id="avalia" role="tabpanel">
+                                <div class="card p-4">
+                                    <h2 class="section-title">Avaliação</h2>
+                                    <div class="instrucoes">
+                                        <p><strong>Instruções de Entrega:</strong> A atividade deve ser desenvolvida individualmente. 
+                                            Após concluir os desafios das tarefas, envie o link do da sua página publicada no 
+                                            <strong>GitHub Pages</strong> através do Google Sala de Aula.</p>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Critérios</th>
+                                                <th class="conceito-header">Conceito A<br>(Plena)</th>
+                                                <th class="conceito-header">Conceito B<br>(Parcialmente Plena)</th>
+                                                <th class="conceito-header">Conceito C<br>(Suficiente)</th>
+                                                <th class="conceito-header">Conceito D<br>(Insuficiente)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Organização e Nomenclatura</strong></td>
+                                                <td>Estrutura profissional: raiz com index.html, pastas /assets/css e /html. Nomes em minúsculas e sem caracteres especiais.</td>
+                                                <td>Pastas criadas, mas com pequenos desvios de boas práticas (letras maiúsculas ou espaços) que não impedem os links.</td>
+                                                <td>Falta modularidade. CSS externo na mesma pasta do HTML ou ausência da pasta /assets.</td>
+                                                <td>Arquivos jogados na raiz sem critério ou pastas principais ausentes.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Conclusão [2, 7, 13] -->
+                            <div class="tab-pane fade" id="conclui" role="tabpanel">
+                                <div class="card p-4 text-center">
+                                    <h2 class="section-title">Conclusão</h2>
+                                    <p>
+                                        Nesta atividade, tivemos a oportunidade de explorar organização de arquivos 
+                                        em pastas lógicas ajuda a encontrar e editar arquivos mais rapidamente, 
+                                        tornando a manutenção do projeto mais eficiente.
+                                        
+                                    </p>
+                                    <p>
+                                        Aprendemos que, mostra que uma estrutura de arquivos organizada facilita o 
+                                        trabalho em equipe, pois os desenvolvedores sabem onde encontrar 
+                                        cada tipo de arquivo e como o projeto está estruturado.
+                                    </p>
+                                    <p>
+                                        Na prática, uma estrutura de pastas clara e intuitiva torna o código mais 
+                                        fácil de entender e navegar, o que é útil para novos desenvolvedores ou 
+                                        quando você revisita o projeto após um tempo.
+                                    </p>
+                                    <p>
+                                        Muitas plataformas de implantação e ferramentas de automação dependem 
+                                        de uma estrutura de pastas bem definida para compilar e implantar o projeto corretamente.
+                                    </p>
+                                    <p>
+                                        <b>Bons próximos estudos!</b>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="text-center">
+                <div class="container">
+                    <p>Elaborado por: <strong>Ana Paula Costacurta</strong> - Contato: <a href="mailto:anapaula.costacurta@ifpr.edu.br">anapaula.costacurta@ifpr.edu.br</a> - <em>IFPR - Campus Telêmaco Borba</em></p>
+                </div>
+                <!-- Seção da Licença Creative Commons -->
+                <div class="cc-license">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                        <img alt="Licença Creative Commons" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-nc-sa.svg" />
+                    </a>
+                    <p class="cc-text">CC BY-NC-SA</p>
+                </div>
+            </footer>
+
+            <!-- Bootstrap 5 JS Bundle -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
