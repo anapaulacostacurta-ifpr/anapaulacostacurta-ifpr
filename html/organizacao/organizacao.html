@@ -38,19 +38,33 @@
                             <!-- Introdução [1, 2, 7] -->
                             <div class="tab-pane fade show active" id="intro" role="tabpanel">
                                 <div class="card p-4">
-                                    <h2 style="color:crimson;">Introdução</h2>
+                                    <h2 class="section-title">Introdução</h2>
                                     <hr>
                                     <h3 class="section-title">Arquitetura de Pastas e Arquivos</h3>
                                     <img src="../../assets/images/intro_css/arquitetura_arquivos_pastas.png" alt="Arquitetura de Pastas e Arquivos">
+                                    <p>
+                                        <b>Pasta assets:</b> Esta pasta é comumente usada para armazenar recursos estáticos do seu site, como imagens, estilos e outros arquivos. Isso ajuda a manter esses recursos organizados e separados do código-fonte principal.
+                                    </p>
+                                    <p>
+                                        <b>Pasta css dentro de assets:</b> Esta pasta contém os arquivos de estilo CSS que definem a aparência do seu site. Ao manter os arquivos CSS em uma pasta separada, você facilita a manutenção e o gerenciamento dos estilos.
+                                    </p>
+                                    <p>
+                                        <b>Arquivo style.css dentro de css:</b> Este é o arquivo de estilo principal que define as regras CSS para todo o seu site. É um local centralizado onde você pode controlar a aparência de todos os elementos HTML.
+                                    </p>
+                                    <p>
+                                        <b>Pasta html:</b> Esta pasta contém os arquivos HTML que definem a estrutura e o conteúdo das suas páginas da web. Organizar os arquivos HTML em pastas separadas ajuda a manter a estrutura do seu site organizada e fácil de navegar.
+                                    </p>
                                     <h3 class="section-title">Caminhos Relativos no HTML</h3>
-                                    <img src="../../assets/images/intro_css/caminhos_relativos_arquivos.png" alt="Caminhos Relativos no HTML">
+                                    <p>
+                                        <img src="../../assets/images/intro_css/caminhos_relativos_arquivos.png" alt="Caminhos Relativos no HTML">
+                                    </p>
                                 </div>
                             </div>
 
                             <!-- Tarefa [2, 13, 14] -->
                             <div class="tab-pane fade" id="tarefa" role="tabpanel">
                                 <div class="card p-4">
-                                    <h2 class="section-title">Tarefas - Meu Portfólio CSS - Parte 1</h2>
+                                    <h2 class="section-title">Tarefa - Meu Portfólio - Parte 1</h2>
                                     <div class="alert alert-info">
                                         <strong>Objetivo:</strong> Criar organização profissional de pastas e arquivos no seu repositório.
                                     </div>
@@ -67,18 +81,25 @@
                             <div class="tab-pane fade" id="processo" role="tabpanel">
                                 <div class="card p-4">
                                     <h2 class="section-title">Processo</h2>
-                                    <h2 class="section-title">onfiguração do Ambiente e Estrutura de Pastas</h2>
-                                    <p>O objetivo aqui é criar a base organizada para evitar links quebrados e facilitar a manutenção</p>
+                                    <h2 class="section-title">Configuração do Ambiente e Estrutura de Pastas</h2>
                                     <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Crie um repositório no GitHub: Nomeie-o como portifolio-info1-2026, certifique de deixar "on" a opção "README" e que ele seja Público.</li>
+                                        <li class="list-group-item">Crie um repositório no GitHub: Nomeie-o como portifolio-info1-2026:
+                                            <ul>
+                                                <li>Acesse o site do GitHub e faça login na sua conta.</li>
+                                                <li> No canto superior direito, clique no botão "+" e selecione "New repository" (Novo repositório).</li>
+                                                <li> No campo Repository name, digite o nome do seu projeto portifolio-info1-2026.</li>
+                                                <li> Deixe a opção de inicialização "Add a README file" marcada.
+                                                <li> Deixa as opções de inialização "Add .gitignore" e "Choose a license" desmarcadas.</li>
+                                                <li> Clique em Create repository.</li>
+                                            </ul>
                                         <li class="list-group-item">
                                             Organize as pastas no seu computador: <br>
                                             <ul>
                                                 <li>
-                                                    Dentro da pasta do projeto, crie a seguinte estrutura (use sempre letras minúsculas e hífens no lugar de espaços).
+                                                    Dentro da pasta do projeto, crie a seguinte estrutura (use sempre letras minúsculas e hífens no lugar de espaços):
                                                 </li>
                                                 <li>
-                                                    Crie o arquivo index.html na raiz (pasta principal) do seu projeto
+                                                    Crie o arquivo "index.html" na raiz (pasta principal) do seu projeto.
                                                 </li>
                                                 <li>
                                                     Criar uma pasta chamada "assets": Dentro dela, crie duas subpastas chamadas: "css" e "images".
@@ -86,77 +107,22 @@
                                                 <li>
                                                     Criar uma pasta chamada "html": Dentro dela, crie três subpastas chamadas: "css-inline", "css-interno" e "css-externo" para organizar das tarefas.
                                                 </li>
+                                                <li>
+                                                    Dentro da pasta chamada "assets/css" crie o arquivo "style.css".
+                                                </li>
+                                                <li>
+                                                    Dentro da pasta chamada "html/css-inline" crie o arquivo "css_inline.html".
+                                                </li>
+                                                <li>
+                                                    Dentro da pasta chamada "html/css-interno" crie o arquivo "css_interno.html".
+                                                </li>
+                                                <li>
+                                                    Dentro da pasta chamada "html/css-externo" crie o arquivo "css_externo.html".
+                                                </li>
                                             </ul>
                                         </li>
                                         
                                     </ol>
-
-                                    <h2 class="section-title">Tarefa 2: Praticando CSS Inline</h2>
-                                    <p>O objetivo aqui é criar um arquivo com CSS inline é aplicado diretamente na tag HTML para mudanças pontuais.</p>
-                                    <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Crie o arquivo css_inline.html dentro da pasta html/css-inline/.</li>
-                                        <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
-                                        <li class="list-group-item">No corpo do documento (elemento body), adicione um título h1.</li>
-                                        <li class="list-group-item">Aplique o estilo: Dentro da tag, use o atributo style:<br>
-                                            <code>&lt;h1 style="color: blue; font-size: 24px;"&lt;Meu portifólio CSS&lt;/h1&gt;</code>
-                                        </li>
-                                    </ol>
-
-                                    <h2 class="section-title">Tarefa 3: Praticando CSS Interno</h2>
-                                    <p>O objetivo aqui é criar um arquivo com estilo interno centraliza as regras de uma página no seu cabeçalho.</p>
-                                    <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Crie o arquivo "css_interno.html" dentro da pasta chamada "html/css-interno/".</li>
-                                        <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
-                                        <li class="list-group-item">Dentro da seção head, adicione a tag style</li>
-                                        <li class="list-group-item">Defina a regra: Crie um seletor para o corpo da página:<br>
-                                            <code>body { color: slategray; font-size: 16px; }</code>
-                                        </li>
-                                        <li class="list-group-item">Adicione dois paragrafos no elemento body para verificar se ficaram cinzas e com o tamanho correto.</li>
-                                    </ol>
-
-                                    <h2 class="section-title">Tarefa 4: Praticando CSS Externo</h2>
-                                    <p>O objetivo aqui é criar a estrutura para utilizar css externo, a forma profissional que separa totalmente o conteúdo da aparência.</p>
-                                    <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Crie o arquivo de estilo: Na pasta assets/css/, crie o arquivo style.css.</li>
-                                        <li class="list-group-item">Crie as regras:
-                                            Adicione a regra para parágrafos no arquivo com extensão .css:<br>
-                                            <code>p { font-family: Arial, sans-serif; font-size: 14px; }</code>
-                                        </li>
-                                        <li class="list-group-item">Crie o arquivo HTML: Na pasta html/css-externo/, crie o arquivo css_externo.html</li>
-                                        <li class="list-group-item">No Codespace do github, use o atalho html:5 para gerar a estrutura básica.</li>
-                                        <li class="list-group-item">
-                                            Vincule os arquivos: No elemento head do HTML, use a tag link com o caminho relativo correto para subir as pastas e encontrar o CSS:<br>
-                                            <code>&lt;link rel="stylesheet" href="../../assets/css/style.css"&gt;</code>
-                                        </li>
-                                    </ol>
-
-                                    <h2 class="section-title">Tarefa 5: Criação do Menu Principal</h2>
-                                    <p>O objetivo aqui é criar a página que será a "porta de entrada" do seu site.</p>
-                                    <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Adicione o título principal: <code>&lt;h1&gt;Meu portifólio CSS&lt;/h1&gt;</code> no arquivo index.html.</li>
-                                        <li class="list-group-item">Crie os links de navegação: Abaixo do título, adicione links para os arquivos das tarefas anteriores:<br>
-                                        <ul>
-                                            <li><code>&lt;a href="html/css-inline/css_inline.html"&gt;CSS inline&lt;/a&gt;</code></li>
-                                            <li><code>&lt;a href="html/css-interno/css_interno.html"&gt;CSS interno&lt;/a&gt;</code></li>
-                                            <li><code>&lt;a href="html/css-externo/css_externo.html"&gt;CSS externo&lt;/a&gt;</code></li>
-                                        </ul>
-                                    </ol>
-                                    <h2 class="section-title">Tarefa 6: Publicação no GitHub Pages</h2>
-                                    <p>O objetivo aqui é transformar seu código em um site acessível por qualquer pessoa.</p>
-                                    <ol class="list-group list-group-numbered">
-                                        <li class="list-group-item">Envie todos os seus arquivos para o repositório no GitHub.</li>
-                                        <li class="list-group-item">No GitHub, acesse a aba Settings (Configurações) do seu repositório.</li>
-                                        <li class="list-group-item">No menu lateral, clique em Pages.</li>
-                                        <li class="list-group-item">Em Build and deployment, selecione a branch main e a pasta /(root), depois clique em Save.</li>
-                                        <li class="list-group-item">Aguarde alguns minutos e o GitHub fornecerá um link (ex: usuario.github.io/portifolio-info1-2026/) onde seu projeto estará online.</li>
-                                    </ol>
-                                    <hr>
-                                    <div class="alert alert-info">
-                                        <strong>Dica Final: </strong> Use sempre o comando Ctrl + Espaço no VS Code se precisar de ajuda com os nomes das pastas ao escrever os caminhos.
-                                    </div>
-                                    
-                                </div>
-                            </div>
 
                             <!-- Recursos [2, 13, 21] -->
                             <div class="tab-pane fade" id="recursos" role="tabpanel">
@@ -164,13 +130,8 @@
                                     <h2 class="section-title">Recursos</h2>
                                     <p> Sugestão de sites para pesquisa</p>
                                     <ul class="list-group">
-                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_intro.asp" target="_blank">W3Schools - Introdução CSS</a></li>
-                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_syntax.asp" target="_blank">W3Schools - Sintaxe CSS</a></li>
-                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_selectors.asp" target="_blank">W3Schools - Seletores CSS</a></li>
-                                        <li class="list-group-item"><a href="https://www.w3schools.com/css/css_howto.asp" target="_blank">W3Schools - Como adicionar CSS ao HTML</a></li>
+                                        <li class="list-group-item"></li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Dealing_with_files">Lidar com arquivos e Pastas</a></li>
                                         <li class="list-group-item"><a href="https://docs.github.com/pt/repositories/creating-and-managing-repositories/creating-a-new-repository" target="_blank">Como criar repositório</a></li>
-                                        <li class="list-group-item"><a href="https://docs.github.com/pt/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" target="_blank">Como publicar no Github Pages</a></li>
-                                        <li class="list-group-item"><a href="https://docs.github.com/pt/codespaces/developing-in-a-codespace/creating-a-codespace-for-a-repository" target="_blank">Como criar Codespace do reposiório</a></li>
                                         <li class="list-group-item"><a href="https://github.com/" target="_blank">Github</a></li>
                                     </ul>
                                 </div>
@@ -181,7 +142,9 @@
                                 <div class="card p-4">
                                     <h2 class="section-title">Avaliação</h2>
                                     <div class="instrucoes">
-                                        <p><strong>Instruções de Entrega:</strong> A atividade deve ser desenvolvida individualmente. Após concluir os desafios das tarefas, envie o link do seu repositório no <strong>GitHub Pages</strong> através do Google Sala de Aula.</p>
+                                        <p><strong>Instruções de Entrega:</strong> A atividade deve ser desenvolvida individualmente. 
+                                            Após concluir os desafios das tarefas, envie o link do seu repositório no 
+                                            <strong>GitHub</strong> através do Google Sala de Aula.</p>
                                     </div>
                                     <table>
                                         <thead>
@@ -201,27 +164,6 @@
                                                 <td>Falta modularidade. CSS externo na mesma pasta do HTML ou ausência da pasta /assets.</td>
                                                 <td>Arquivos jogados na raiz sem critério ou pastas principais ausentes.</td>
                                             </tr>
-                                            <tr>
-                                                <td><strong>Domínio das Técnicas CSS</strong></td>
-                                                <td>Uso perfeito de Inline, Interno e Externo. Caminhos relativos (../../) aplicados corretamente no CSS externo.</td>
-                                                <td>Regras (azul, slategray, Arial) funcionam, mas pode haver erros menores de indentação ou redundância.</td>
-                                                <td>Tarefas incompletas ou erros significativos de sintaxe (ex: confundir propriedades como font-color).</td>
-                                                <td>Estilos não carregam por erro grave de vinculação ou ausência da tag &lt;link&gt;.</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Funcionalidade e Navegação</strong></td>
-                                                <td>Menu no index.html totalmente funcional, integrando todos os desafios sem erros de "404".</td>
-                                                <td>Menu ativo, mas navegação pode apresentar instabilidade em subpáginas.</td>
-                                                <td>Links quebrados no menu devido a caminhos incorretos de arquivos existentes.</td>
-                                                <td>Links não funcionam ou direcionam para locais inexistentes.</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Publicação e Acesso</strong></td>
-                                                <td>Projeto totalmente funcional na URL do GitHub Pages. Repositório configurado como público.</td>
-                                                <td>Publicado, mas com pequenos problemas visuais não detectados no servidor local.</td>
-                                                <td>Publicado, mas recursos essenciais (imagens ou CSS externo) não carregam online.</td>
-                                                <td>Projeto não publicado ou repositório privado, impossibilitando a avaliação.</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -232,29 +174,24 @@
                                 <div class="card p-4 text-center">
                                     <h2 class="section-title">Conclusão</h2>
                                     <p>
-                                        Nesta atividade, tivemos a oportunidade de explorar as três formas principais de integrar o CSS 
-                                        ao HTML: os estilos inline, internos e externos. O grande objetivo desta jornada foi capacitar 
-                                        você a escolher a melhor abordagem técnica dependendo da escala do seu projeto, garantindo 
-                                        que o design e a estrutura caminhem juntos de forma organizada.
+                                        Nesta atividade, tivemos a oportunidade de explorar organização de arquivos 
+                                        em pastas lógicas ajuda a encontrar e editar arquivos mais rapidamente, 
+                                        tornando a manutenção do projeto mais eficiente.
+                                        
                                     </p>
                                     <p>
-                                        Aprendemos que, enquanto o estilo inline permite ajustes rápidos e pontuais em um único 
-                                        elemento, a folha de estilo externa é o padrão profissional que facilita a manutenção de 
-                                        sites inteiros em um único arquivo. Essa distinção é fundamental para que você desenvolva 
-                                        páginas web eficientes e escaláveis.
+                                        Aprendemos que, mostra que uma estrutura de arquivos organizada facilita o 
+                                        trabalho em equipe, pois os desenvolvedores sabem onde encontrar 
+                                        cada tipo de arquivo e como o projeto está estruturado.
                                     </p>
                                     <p>
-                                        Na prática, tudo o que aprendemos na escola está interligado. O desenvolvimento web 
-                                        exige não apenas o domínio do código, mas o uso de distintos conhecimentos para estruturar 
-                                        o raciocínio lógico e a resolução de problemas técnicos.
+                                        Na prática, uma estrutura de pastas clara e intuitiva torna o código mais 
+                                        fácil de entender e navegar, o que é útil para novos desenvolvedores ou 
+                                        quando você revisita o projeto após um tempo.
                                     </p>
                                     <p>
-                                        Agora, um desafio final: cada página que você acessa na internet a partir de hoje é um 
-                                        exemplo vivo do que foi praticado aqui. Ao navegar, tente imaginar quais elementos 
-                                        utilizam CSS externo para manter a identidade visual e onde ajustes inline podem ter sido 
-                                        aplicados. Depois explore o código fonte da página para verificar como foi utilizado o CSS.
-                                        Incentive-se a fazer essas ligações e a continuar explorando o vasto mundo do 
-                                        desenvolvimento front-end.
+                                        Muitas plataformas de implantação e ferramentas de automação dependem 
+                                        de uma estrutura de pastas bem definida para compilar e implantar o projeto corretamente.
                                     </p>
                                     <p>
                                         <b>Bons próximos estudos!</b>
