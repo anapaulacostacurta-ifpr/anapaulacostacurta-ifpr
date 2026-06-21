@@ -1,11 +1,10 @@
 /* Estilo para visualização dos blocos semânticos */
 header { 
-    background-color: #3498db; 
+    background-color: #3498db; /* O Conteúdo (Azul) */
     color: white; 
-    background-color: lightblue; /* O Conteúdo (Azul Claro) */
     padding: 30px;               /* Isopor Interno */
     background-clip: content-box;
-    border: 10px solid blueviolet;      /* A Caixa (Borda Vermelha) */
+    border: 10px solid lightblue ;   /* A Caixa (Borda Azul Clara) */
     margin: 40px;                /* Espaço Externo */
 } /* Azul */
 
