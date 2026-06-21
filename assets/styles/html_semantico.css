@@ -3,7 +3,8 @@ header {
     background-color: #3498db; 
     color: white; 
     padding: 20px; 
-    border:10px solid aqua;
+    border:20px solid aqua;
+    box-shadow: 0 0 0 10px #e74c3c; 
 } /* Azul */
 
 nav { background-color: #e67e22; padding: 10px; margin-top: 10px; } /* Laranja */
