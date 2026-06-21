@@ -1,5 +1,11 @@
 /* Estilo para visualização dos blocos semânticos */
-header { background-color: #3498db; color: white; padding: 20px; } /* Azul */
+header { 
+    background-color: #3498db; 
+    color: white; 
+    padding: 20px; 
+    border:10px solid aqua;
+} /* Azul */
+
 nav { background-color: #e67e22; padding: 10px; margin-top: 10px; } /* Laranja */
 main { background-color: #ecf0f1; padding: 20px; min-height: 300px; } /* Cinza Claro */
 section { background-color: #f1c40f; padding: 15px; margin-bottom: 10px; } /* Amarelo */
