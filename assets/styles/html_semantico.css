@@ -22,10 +22,34 @@ main {
     border: 10px solid rgba(0,0,0,0.1);
     margin: 10px;
 } /* Cinza Claro */
-section { background-color: #f1c40f; padding: 15px; margin-bottom: 10px; } /* Amarelo */
-article { background-color: #2ecc71; padding: 10px; border: 1px dashed #27ae60; } /* Verde */
-aside { background-color: #9b59b6; color: white; padding: 15px; margin-top: 10px; } /* Roxo */
-footer { background-color: #2c3e50; color: white; padding: 20px; text-align: center; } /* Escuro */
+section { 
+    background-color: #f1c40f; 
+    padding: 15px; 
+    margin-bottom: 10px; 
+    border: 10px solid rgba(0,0,0,0.1);
+    margin: 10px;
+} /* Amarelo */
+article { 
+    background-color: #2ecc71; 
+    padding: 10px; 
+    border: 1px dashed #27ae60; 
+    margin: 10px;
+} /* Verde */
+aside { 
+    background-color: #9b59b6; 
+    color: white; 
+    padding: 15px; 
+    margin-top: 10px; 
+    border: 10px solid rgba(0,0,0,0.1);
+} /* Roxo */
+footer { 
+    background-color: #2c3e50; 
+    color: white; 
+    padding: 20px; 
+    text-align: center; 
+    border: 10px solid rgba(0,0,0,0.1);
+    margin: 10px;
+} /* Escuro */
 
 /* Layout básico para facilitar a visão */
 body 
@@ -35,7 +59,3 @@ body
     padding: 0; 
 }
 
-header, nav, main, section, article, aside, footer 
-{
-
-}
