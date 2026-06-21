@@ -2,9 +2,11 @@
 header { 
     background-color: #3498db; 
     color: white; 
-    padding: 20px; 
-    border:20px solid aqua;
-    box-shadow: 0 0 0 10px #e74c3c; 
+    background-color: lightblue; /* O Conteúdo (Azul Claro) */
+    padding: 30px;               /* Isopor Interno */
+    background-clip: content-box;
+    border: 10px solid blueviolet;      /* A Caixa (Borda Vermelha) */
+    margin: 40px;                /* Espaço Externo */
 } /* Azul */
 
 nav { background-color: #e67e22; padding: 10px; margin-top: 10px; } /* Laranja */
