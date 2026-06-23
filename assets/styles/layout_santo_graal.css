@@ -34,7 +34,7 @@ header {
 /* Se o body estiver com algo como grid-template-columns: 200px 1fr 200px;, esse header vai ocupar as três 
 colunas inteiras, ficando no topo da página como uma faixa horizontal.*/
 
-aside.left { /* seleciona a tag <aside> com a classe left.*/
+aside.left { /* seleciona a tag <aside> com a classe left. o próprio aside tem a classe left.*/
     background-color: #ecf0f1;
     padding: 1rem; /* Se a fonte raiz estiver em 16px, então: 1rem = 16px e 2rem = 32px */ 
     /* rem é muito usado em espaçamentos porque mantém proporção com a configuração global da página, 
@@ -54,6 +54,10 @@ main {
 aside.right { /* seleciona a tag <aside> com a classe right.*/
     background-color: #ecf0f1;
     padding: 1rem;
+}
+
+main > .titulo {
+    font-family: 'Courier New', Courier, monospace;
 }
 
 footer {
