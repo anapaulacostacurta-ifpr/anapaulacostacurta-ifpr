@@ -3,7 +3,7 @@ body {
     grid-template-rows: auto auto auto; /* cria três linhas */
     grid-template-columns: 200px 1fr 200px; /*cria três colunas: 200px à esquerda; 1fr no centro, que ocupa o 
     espaço sobrando; 200px à direita.*/
-    min-height: 100%; 
+    min-height: 100vh; 
     font-family: Arial, sans-serif; /*  define a fonte padrão do texto da página.*/
 }
 /* Do jeito que está, o CSS só cria a grade no body; os elementos filhos ainda precisam ser posicionados nas 
