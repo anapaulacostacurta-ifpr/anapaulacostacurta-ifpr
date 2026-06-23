@@ -58,6 +58,12 @@ aside.right { /* seleciona a tag <aside> com a classe right.*/
 
 main > .titulo {
     font-family: 'Courier New', Courier, monospace;
+    color: yellowgreen;
+}
+
+main .titulo {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: pink;
 }
 
 footer {
