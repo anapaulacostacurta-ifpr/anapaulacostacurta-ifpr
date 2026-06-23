@@ -1,11 +1,9 @@
 body {
     display: grid; /*define que o body vai usar o modelo de layout em grade.*/
-    grid-template-rows: auto 1fr auto; /* cria três linhas: auto na primeira linha, geralmente para o cabeçalho;
-    1fr(uma fração) no meio, ocupando todo o espaço restante; auto na última linha, geralmente para o rodapé.*/
+    grid-template-rows: auto auto auto; /* cria três linhas */
     grid-template-columns: 200px 1fr 200px; /*cria três colunas: 200px à esquerda; 1fr no centro, que ocupa o 
     espaço sobrando; 200px à direita.*/
-    min-height: 100vh; /* faz o body ter no mínimo a altura da tela inteira. 100 vezes a unidade vh, em que 
-    1vh = 1% da altura da janela de visualização (viewport). Logo, 100vh = altura total da janela do navegador.*/
+    min-height: 100%; 
     font-family: Arial, sans-serif; /*  define a fonte padrão do texto da página.*/
 }
 /* Do jeito que está, o CSS só cria a grade no body; os elementos filhos ainda precisam ser posicionados nas 
