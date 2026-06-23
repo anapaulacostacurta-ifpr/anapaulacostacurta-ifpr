@@ -1,3 +1,11 @@
+header,
+aside,
+main,
+footer,
+section {
+  border: 6px solid black;
+}
+
 body {
     display: grid; /*define que o body vai usar o modelo de layout em grade.*/
     grid-template-rows: auto auto auto; /* cria três linhas */
@@ -21,7 +29,7 @@ header {
 colunas inteiras, ficando no topo da página como uma faixa horizontal.*/
 
 aside { 
-    background-color: #ecf0f1;
+    background-color: #f7f7f7;
     padding: 1rem; /* Se a fonte raiz estiver em 16px, então: 1rem = 16px e 2rem = 32px */ 
     /* rem é muito usado em espaçamentos porque mantém proporção com a configuração global da página, 
     em vez de depender do tamanho do elemento pai. Isso ajuda a manter um sistema visual mais uniforme, 
@@ -39,4 +47,30 @@ footer {
     color: white;
     padding: 1rem;
     text-align: center;
+}
+
+/* Blocos internos */
+.bloco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 6px solid black;
+}
+
+/* Paleta inspirada em Mondrian */
+.vermelho {
+  background-color: #d62828;
+  color: white;
+}
+
+.amarelo {
+  background-color: #fcbf49;
+  color: black;
+}
+
+.azul {
+  background-color: #1d4ed8;
+  color: white;
 }
