@@ -20,7 +20,7 @@ células do grid com grid-column, grid-row ou grid-area.*/
 header {
     grid-column: 1 / -1; /* faz o header começar na primeira coluna e terminar na última. O -1 significa 
     “última linha/coluna da grade”, então o elemento atravessa todas as colunas do grid.*/
-    background-color: #3498db;
+    background-color: blue;
     color: white;
     padding: 1rem;
     text-align: center;
@@ -29,7 +29,7 @@ header {
 colunas inteiras, ficando no topo da página como uma faixa horizontal.*/
 
 aside { 
-    background-color: #f7f7f7;
+    background-color: yellow;
     padding: 1rem; /* Se a fonte raiz estiver em 16px, então: 1rem = 16px e 2rem = 32px */ 
     /* rem é muito usado em espaçamentos porque mantém proporção com a configuração global da página, 
     em vez de depender do tamanho do elemento pai. Isso ajuda a manter um sistema visual mais uniforme, 
@@ -43,7 +43,7 @@ main {
 
 footer {
     grid-column: 1 / -1;
-    background-color: #2c3e50;
+    background-color: black;
     color: white;
     padding: 1rem;
     text-align: center;
