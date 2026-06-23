@@ -1,0 +1,65 @@
+* { /* seleciona todos os elementos da página */
+    box-sizing: border-box; /* faz com que width e height incluam o padding e a border, mas não a margin.*/
+    margin: 0; /* remove a margem padrão que o navegador aplica aos elementos. */
+    padding: 0; /* remove o espaçamento interno padrão.*/
+}
+/*Com border-box, fica mais fácil controlar o layout, especialmente em páginas responsivas e 
+em componentes que precisam manter dimensões exatas.*/
+
+:root { /* aponta para o elemento raiz do documento, ou seja, o <html> no caso de uma página HTML. */
+  font-size: 16px; /* define o tamanho da fonte base como 16 pixels.*/
+}
+
+body {
+    display: grid; /*define que o body vai usar o modelo de layout em grade.*/
+    grid-template-rows: auto 1fr auto; /* cria três linhas: auto na primeira linha, geralmente para o cabeçalho;
+    1fr(uma fração) no meio, ocupando todo o espaço restante; auto na última linha, geralmente para o rodapé.*/
+    grid-template-columns: 200px 1fr 200px; /*cria três colunas: 200px à esquerda; 1fr no centro, que ocupa o 
+    espaço sobrando; 200px à direita.*/
+    min-height: 100vh; /* faz o body ter no mínimo a altura da tela inteira. 100 vezes a unidade vh, em que 
+    1vh = 1% da altura da janela de visualização (viewport). Logo, 100vh = altura total da janela do navegador.*/
+    font-family: Arial, sans-serif; /*  define a fonte padrão do texto da página.*/
+}
+/* Do jeito que está, o CSS só cria a grade no body; os elementos filhos ainda precisam ser posicionados nas 
+células do grid com grid-column, grid-row ou grid-area.*/
+
+header {
+    grid-column: 1 / -1; /* faz o header começar na primeira coluna e terminar na última. O -1 significa 
+    “última linha/coluna da grade”, então o elemento atravessa todas as colunas do grid.*/
+    background-color: #3498db;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+/* Se o body estiver com algo como grid-template-columns: 200px 1fr 200px;, esse header vai ocupar as três 
+colunas inteiras, ficando no topo da página como uma faixa horizontal.*/
+
+aside.left { /* seleciona a tag <aside> com a classe left.*/
+    background-color: #ecf0f1;
+    padding: 1rem; /* Se a fonte raiz estiver em 16px, então: 1rem = 16px e 2rem = 32px */ 
+    /* rem é muito usado em espaçamentos porque mantém proporção com a configuração global da página, 
+    em vez de depender do tamanho do elemento pai. Isso ajuda a manter um sistema visual mais uniforme, 
+    especialmente em interfaces responsivas.*/
+}
+
+aside > p { /* pegue apenas os elementos <p> que são filhos diretos de um <aside> */
+    color: rgb(224, 15, 15);
+}
+
+main {
+    background-color: #ffffff;
+    padding: 2rem;
+}
+
+aside.right { /* seleciona a tag <aside> com a classe right.*/
+    background-color: #ecf0f1;
+    padding: 1rem;
+}
+
+footer {
+    grid-column: 1 / -1;
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
