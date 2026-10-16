@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  match /participantes/{uid}/envios/{envioId} {
+   allow get: if request.auth != null && request.auth.uid == uid;
+   allow list: if false;
+   allow create: if request.auth != null && request.auth.uid == uid
+    && request.resource.data.keys().hasOnly(['uid','session','kind','nome','turma','payload','receivedAt'])
+    && request.resource.data.uid == uid
+    && request.resource.data.session is string && request.resource.data.session.size() <= 70
+    && request.resource.data.kind in ['diagnostico','video','eventos']
+    && request.resource.data.nome is string && request.resource.data.nome.size() <= 200
+    && request.resource.data.turma is string && request.resource.data.turma.size() <= 100
+    && request.resource.data.payload is string && request.resource.data.payload.size() <= 200000
+    && request.resource.data.receivedAt == request.time;
+   allow update, delete: if false;
+  }
+ }
+}
