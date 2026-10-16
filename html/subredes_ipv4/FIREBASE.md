@@ -3,7 +3,9 @@
 O site está configurado para Firestore, sem Google Forms. Nenhuma chave privada é necessária.
 
 1. Console Firebase > Authentication > Método de login > Anônimo > Ativar e salvar.
-2. Console > Firestore Database > Criar banco de dados. Use banco padrão (default), edição Standard, modo produção. Escolha a localização conforme a instituição. Não usar modo teste.
+2. Console > Firestore Database > Criar banco de dados. 
+Use banco padrão (default), edição Standard, modo produção. 
+Escolha a localização conforme a instituição. Não usar modo teste.
 3. Firestore > Regras: substitua pelas regras do arquivo firestore.rules e publique. Regras não são publicadas pelo simples upload do site.
 4. Abra o site, preencha nome e turma com identificação fictícia e conclua diagnóstico. A etapa só avança depois do retorno do Firestore.
 5. Firestore > Dados > participantes > UID > envios: confira nome, turma, kind e payload. Os pais participantes/UID podem aparecer como documentos inexistentes, pois os envios estão nas subcoleções. O campo payload contém o JSON integral de cada envio; kind identifica diagnóstico, vídeo e eventos. recebimento é registrado em receivedAt.
