@@ -1,19 +1,20 @@
-# Ativação do Firebase networking-taks
+# Login Google e Firestore
 
-O site está configurado para Firestore, sem Google Forms. Nenhuma chave privada é necessária.
+## Ativar
+1. No projeto networking-taks: Authentication > Método de login > Google. Ative, informe o e-mail de suporte do projeto e salve.
+2. Authentication > Configurações > Domínios autorizados: adicione o domínio do site, sem https e sem caminho. Para GitHub Pages: SEU-USUARIO.github.io. Para o endereço atual: laboratorio-subredes-ipv4.silky-ridge-9952.chatgpt.site. Se o GitHub usa domínio personalizado, adicione-o também.
+3. Crie o Firestore padrão em produção, se ainda não existir. Em Regras, publique o arquivo firestore.rules desta versão. As regras exigem autenticação pelo provedor Google e e-mail igual ao token; não permitem editar ou excluir envios.
+4. Envie os arquivos desta versão para GitHub Pages e aguarde o deploy. Permita pop-ups para o site. Se aparecer auth/unauthorized-domain confira o domínio. Se auth/operation-not-allowed, confira a ativação Google. Contas escolares podem ter restrições definidas pelo administrador.
+5. Teste com uma conta Google autorizada e identificação fictícia. No Firestore: participantes > UID > envios. Confira uid, email, nome, turma, kind, payload e receivedAt. O site só libera após confirmação. Não houve teste OAuth real nesta entrega.
 
-1. Console Firebase > Authentication > Método de login > Anônimo > Ativar e salvar.
-2. Console > Firestore Database > Criar banco de dados. 
-Use banco padrão (default), edição Standard, modo produção. 
-Escolha a localização conforme a instituição. Não usar modo teste.
-3. Firestore > Regras: substitua pelas regras do arquivo firestore.rules e publique. Regras não são publicadas pelo simples upload do site.
-4. Abra o site, preencha nome e turma com identificação fictícia e conclua diagnóstico. A etapa só avança depois do retorno do Firestore.
-5. Firestore > Dados > participantes > UID > envios: confira nome, turma, kind e payload. Os pais participantes/UID podem aparecer como documentos inexistentes, pois os envios estão nas subcoleções. O campo payload contém o JSON integral de cada envio; kind identifica diagnóstico, vídeo e eventos. recebimento é registrado em receivedAt.
-6. Complete o vídeo/questionário e confira o segundo registro. Eventos de foco ficam em documentos próprios e são sincronizados em fila. No fim use Sincronizar registros pendentes.
-7. Se já terminou no modo demonstração neste navegador, use Salvar respostas anteriores no Firebase na tela final. As etapas anteriores não foram enviadas automaticamente retroativamente. Guarde JSON como backup.
+## Conta e progresso
+Login via popup com escolha de conta, sem pedir senha na página. Login persiste na sessão do navegador; recomenda-se sempre Sair em computadores compartilhados. Nome e e-mail vêm da conta Google; turma é declarada. Rascunhos são separados por UID no mesmo domínio. Trocar domínio ou computador não restaura automaticamente progresso: ainda não há recuperação do andamento pela nuvem.
 
-## Acesso e limites
-Autenticação anônima identifica a instalação do navegador, não comprova identidade do aluno. Nome e turma são declarados. Regras impedem listar respostas e alterar/excluir envios pelo cliente. Professora consulta pelo console com sua conta autorizada no projeto; nenhum painel público de respostas está incluído.
-Não reutilize o navegador entre alunos sem Nova participação. Arquivos e rascunhos locais continuam acessíveis no mesmo perfil. Limpar dados do navegador ou trocar de computador perde o vínculo local com UID anterior; mantenha a cópia JSON. Registros de eventos podem ficar pendentes ao fechar a página/offline. A tela não bloqueia outros dispositivos ou abas, e os eventos não provam fraude.
+As participações anônimas antigas não são migradas. Os rascunhos legados são preservados no navegador, mas não exibidos pelo novo fluxo. Guarde os JSON antigos. Não exclua usuários anônimos ou dados anteriores sem preservar os registros.
 
-Estas regras não limitam abusos de criação de contas anônimas. Para uso contínuo, avaliar App Check, autenticação institucional e quotas. Não habilitar limpeza automática de contas anônimas sem planejar os vínculos dos registros. Não foram ativados serviços, regras ou faturamento no console por esta entrega. Não houve envio real de dados de aluno em teste.
+Envios são imutáveis no cliente e ficam em subcoleções; a professora administra pelo console. Usuários Google de qualquer domínio podem autenticar. Não há restrição institucional nesta versão. Se necessário definir uma lista/domínio, aplique nas regras, não somente na interface.
+
+Eventos ficam em fila local, com envio tentado enquanto o site está aberto. Não bloqueia outras abas ou dispositivos e não comprova fraude. No fim sincronize pendências e guarde a cópia JSON.
+
+## Segurança
+firebase.js contém apenas configuração pública. Nunca inclua conta de serviço/chave privada no GitHub. Nenhum JSON de aluno deve ser publicado no repositório. Regras do ZIP só têm efeito após publicação no console. Não deixe outras regras abrangentes liberando acesso: regras permissivas se somam às restritas.
