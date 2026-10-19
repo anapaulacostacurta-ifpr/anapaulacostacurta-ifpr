@@ -47,3 +47,5 @@ window.firebaseSave=async function(payload){
  nome:String(payload.student.nome||user.displayName||'').slice(0,200),turma:String(payload.student.turma||'').slice(0,100),
  payload:encoded,receivedAt:fs.serverTimestamp()});
 };
+// Exposes initialized SDK to the teacher page; authorization remains in Firestore rules.
+window.getTeacherServices=ready;

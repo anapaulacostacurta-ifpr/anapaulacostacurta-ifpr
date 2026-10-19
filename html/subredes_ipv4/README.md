@@ -12,3 +12,6 @@ A sintaxe JavaScript e isolamento dos rascunhos por conta foram testados com sim
 Mudanças de domínio não migram progresso local. Dados anônimos anteriores não são migrados para Google. Rascunhos pertencem à conta e domínio. A mesma conta no mesmo navegador retoma o andamento. Contas diferentes não exibem os rascunhos umas das outras na interface, mas arquivos locais do perfil não são armazenamento criptografado. Saia ao terminar em computadores compartilhados.
 
 Não envie respostas JSON ou credenciais privadas ao GitHub. O download de respostas permanece como cópia de segurança. Confirme a entrega no Firestore.
+
+## Painel docente
+Acesse professor.html. Inclui nomes/e-mails, busca, detalhes das respostas e observações por participação. Leia PROFESSORA.md para cadastrar a conta docente em professores/UID, campo booleano ativo=true, e publique as novas regras. Alunos não podem se promover a professores. A lista é paginada: carregue todos os lotes para panorama completo.

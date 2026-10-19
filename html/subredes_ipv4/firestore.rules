@@ -1,6 +1,31 @@
 rules_version = '2';
 service cloud.firestore {
  match /databases/{database}/documents {
+  function googleUser() {
+   return request.auth != null && request.auth.token.firebase.sign_in_provider == 'google.com';
+  }
+  function teacher() {
+   return googleUser() && exists(/databases/$(database)/documents/professores/$(request.auth.uid))
+    && get(/databases/$(database)/documents/professores/$(request.auth.uid)).data.ativo == true;
+  }
+  match /professores/{uid} {
+   allow get: if googleUser() && request.auth.uid == uid;
+   allow list, create, update, delete: if false;
+  }
+  // Collection-group queries are authorized only for teachers.
+  match /{path=**}/envios/{id} {
+   allow read: if teacher();
+  }
+  match /observacoes/{alunoUid}/sessoes/{sessionId} {
+   allow read: if teacher();
+   allow create, update: if teacher()
+    && request.resource.data.keys().hasOnly(['texto','authorUid','authorEmail','updatedAt'])
+    && request.resource.data.texto is string && request.resource.data.texto.size() <= 20000
+    && request.resource.data.authorUid == request.auth.uid
+    && request.resource.data.authorEmail == request.auth.token.email
+    && request.resource.data.updatedAt == request.time;
+   allow delete: if false;
+  }
   match /participantes/{uid}/envios/{envioId} {
    allow get: if request.auth != null && request.auth.uid == uid && request.auth.token.firebase.sign_in_provider == 'google.com';
    allow list: if false;
