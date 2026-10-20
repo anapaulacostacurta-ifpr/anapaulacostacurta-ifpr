@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function docente(){return request.auth != null && exists(/databases/$(database)/documents/patrulhaTempoDocentes/$(request.auth.uid)) && get(/databases/$(database)/documents/patrulhaTempoDocentes/$(request.auth.uid)).data.ativo == true;}
+  function respostasAbertas(){return exists(/databases/$(database)/documents/patrulhaTempoControle/atividade) && get(/databases/$(database)/documents/patrulhaTempoControle/atividade).data.aberto == true;}
+  function localPermitido(){
+   let local = get(/databases/$(database)/documents/patrulhaTempoControle/local).data;
+   let medicao = request.resource.data.localizacao;
+   return medicao is map && medicao.keys().hasOnly(['ponto','precisaoMetros','coletadoEm']) && medicao.ponto is latlng && medicao.precisaoMetros is number && medicao.precisaoMetros > 0 && medicao.precisaoMetros <= local.maxPrecisaoMetros && medicao.coletadoEm is timestamp && medicao.coletadoEm >= request.time - duration.value(2, 'm') && medicao.coletadoEm <= request.time + duration.value(10, 's') && medicao.ponto.distance(local.centro) <= local.raioMetros;
+  }
+  match /patrulhaTempoControle/local {
+   allow read: if request.auth != null;
+   allow create, update: if docente() && request.resource.data.keys().hasOnly(['centro','raioMetros','maxPrecisaoMetros','alteradoPor','alteradoEm']) && request.resource.data.centro is latlng && request.resource.data.raioMetros is number && request.resource.data.raioMetros >= 10 && request.resource.data.raioMetros <= 10000 && request.resource.data.maxPrecisaoMetros is number && request.resource.data.maxPrecisaoMetros >= 1 && request.resource.data.maxPrecisaoMetros <= 10000 && request.resource.data.alteradoPor == request.auth.uid && request.resource.data.alteradoEm == request.time;
+   allow delete: if false;
+  }
+  match /patrulhaTempoDocentes/{uid} {
+   allow get: if request.auth != null && request.auth.uid == uid;
+   allow list, create, update, delete: if false;
+  }
+  match /patrulhaTempoControle/atividade {
+   allow read: if request.auth != null;
+   allow create, update: if docente() && request.resource.data.keys().hasOnly(['aberto','alteradoEm','alteradoPor']) && request.resource.data.aberto is bool && request.resource.data.alteradoEm == request.time && request.resource.data.alteradoPor == request.auth.uid;
+   allow delete: if false;
+  }
+
+  match /patrulhaTempoV1/{uid}/etapas/{step} {
+   function owner(){return request.auth != null && request.auth.uid == uid;}
+   function valid(){return request.resource.data.keys().hasOnly(['respostas','etapa','email','nome','enviadoEm','localizacao']) && request.resource.data.respostas is list && request.resource.data.respostas.size() == 4 && request.resource.data.email == request.auth.token.email && request.resource.data.nome is string && request.resource.data.enviadoEm == request.time;}
+   function previous(){return (step=='0' && request.resource.data.etapa==0) || (step=='1' && request.resource.data.etapa==1 && exists(/databases/$(database)/documents/patrulhaTempoV1/$(uid)/etapas/0)) || (step=='2' && request.resource.data.etapa==2 && exists(/databases/$(database)/documents/patrulhaTempoV1/$(uid)/etapas/1)) || (step=='3' && request.resource.data.etapa==3 && exists(/databases/$(database)/documents/patrulhaTempoV1/$(uid)/etapas/2)) || (step=='4' && request.resource.data.etapa==4 && exists(/databases/$(database)/documents/patrulhaTempoV1/$(uid)/etapas/3)) || (step=='5' && request.resource.data.etapa==5 && exists(/databases/$(database)/documents/patrulhaTempoV1/$(uid)/etapas/4));}
+   function text(i){return request.resource.data.respostas[i] is string && request.resource.data.respostas[i].size()>0 && request.resource.data.respostas[i].size()<=12000;}
+   allow read: if owner();
+   allow create: if owner() && respostasAbertas() && localPermitido() && valid() && previous() && text(0) && text(1) && text(2) && text(3);
+   allow update, delete: if false;
+  }
+  match /patrulhaTempoV1/{uid}/eventos/{event} {
+   allow create: if request.auth != null && request.auth.uid==uid && request.resource.data.keys().hasOnly(['tipo','detalhe','etapa','em']) && request.resource.data.tipo in ['bloqueio_copy','bloqueio_cut','bloqueio_paste','bloqueio_drop','aba_oculta','retorno_aba','perda_foco'] && request.resource.data.detalhe is string && request.resource.data.detalhe.size()<100 && request.resource.data.etapa is int && request.resource.data.em == request.time;
+   allow read,update,delete: if false;
+  }
+ }
+}
