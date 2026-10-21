@@ -166,7 +166,7 @@ $('#saveStages').onclick=async()=>{
 };
 
 function distanceMeters(lat1,lon1,lat2,lon2){const rad=x=>x*Math.PI/180;const a=Math.sin(rad(lat2-lat1)/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(rad(lon2-lon1)/2)**2;return 6371000*2*Math.atan2(Math.sqrt(a),Math.sqrt(Math.max(0,1-a)));}
-function validGeoConfig(c){return !!c&&c.centro&&Number.isFinite(c.centro.latitude)&&Number.isFinite(c.centro.longitude)&&Number.isFinite(c.raioMetros)&&c.raioMetros>=10&&c.raioMetros<=10000&&Number.isFinite(c.maxPrecisaoMetros)&&c.maxPrecisaoMetros>=1&&c.maxPrecisaoMetros<=10000;}
+function validGeoConfig(c){return !!c&&c.centro&&Number.isFinite(c.centro.latitude)&&Number.isFinite(c.centro.longitude)&&Number.isFinite(c.raioMetros)&&c.raioMetros>=10&&c.raioMetros<=50000&&Number.isFinite(c.maxPrecisaoMetros)&&c.maxPrecisaoMetros>=1&&c.maxPrecisaoMetros<=50000;}
 function currentPosition(){return new Promise((resolve,reject)=>{if(!navigator.geolocation)return reject(new Error('Este navegador não oferece geolocalização.'));navigator.geolocation.getCurrentPosition(resolve,e=>reject(new Error(e.code===1?'Permissão de localização negada. Autorize nas configurações do navegador e tente novamente.':e.code===2?'Não foi possível obter a posição. Verifique o serviço de localização do dispositivo.':'Tempo esgotado ao localizar. Tente novamente.')),{enableHighAccuracy:true,maximumAge:0,timeout:25000});});}
 async function locationForSubmission(){
  if(demo)return null;
