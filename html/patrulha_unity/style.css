@@ -6,3 +6,6 @@
 .availability{padding:15px 0;margin:0 0 22px;font-size:13px;line-height:1.6;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.availability.open{color:#315b43}.availability.closed{color:#8a4f27}#teacherPanel{border:1px solid #bdc9bc;padding:20px;border-radius:8px;margin:0 0 30px;background:#edf1e5}#teacherPanel[hidden]{display:none}#teacherPanel summary{cursor:pointer;font-weight:700}#teacherPanel p{font-size:13px;line-height:1.6}textarea[readonly]{background:#edf0e9;color:#536259}#closeAnswers{border-color:#9a6950;color:#794229}
 
 .geo-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.geo-fields label{font-size:13px;line-height:1.5}.geo-fields input{display:block;width:100%;padding:10px;margin-top:5px;border:1px solid #bdc9bc;border-radius:6px;background:white;font:inherit}#geoNotice[hidden]{display:none}@media(max-width:600px){.geo-fields{grid-template-columns:1fr}}
+
+/* Não interfere na seleção durante a digitação nem nos controles docentes. */
+#content,#saved,#form .question,#welcome .notice{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}#form textarea,.geo-fields input{-webkit-user-select:text;user-select:text}

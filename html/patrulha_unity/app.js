@@ -44,6 +44,11 @@ public class Inimigo : MonoBehaviour
     }
 }`;
 steps[0].intro += ' O código abaixo realiza a patrulha horizontal anterior, com o inimigo inicialmente em (0, 0, 0). Leia-o e proponha como acrescentar a espera, sem executá-lo ou modificar o registro inicial depois do envio.';
+// Código-base da patrulha, ainda sem tempo de espera.
+steps[2].code = steps[0].code;
+steps[4].code = steps[0].code;
+steps[2].intro += ' Consulte o código inicial abaixo para planejar suas alterações. Ele ainda não implementa a espera.';
+steps[4].intro += ' O código inicial abaixo é a base para a implementação; acrescente o controle de espera conforme seu planejamento.';
 steps[1].intro = 'Investigue na documentação oficial do Unity indicada abaixo. Leia a definição de Time.deltaTime e observe como o tempo é usado nos exemplos. Relacione a pesquisa às variáveis e instruções apresentadas; escreva com suas palavras e indique a fonte consultada nas respostas. Abrir os links em outra aba é permitido nesta etapa. Essas saídas podem aparecer no registro e não representam infração.';
 steps[3].intro = 'Faça um teste de mesa: acompanhe no caderno as mudanças das variáveis, sem abrir o Unity. Não é necessário fotografar o caderno: registre os resultados e as explicações nos campos ao final. O intervalo de 0,5 segundo é fictício e serve apenas para facilitar as contas; na execução real, o intervalo entre quadros pode variar.';
 steps[5].intro = 'Consulte abaixo suas respostas originais da primeira etapa. Compare-as com a compreensão construída ao longo da atividade. Elas estão preservadas e não podem ser editadas aqui. Não é necessário afirmar que mudou de ideia: justifique o que foi mantido ou revisto.';
@@ -63,6 +68,21 @@ let user=null,demo=false,index=0,answers=[],busy=false,hiddenAt=null;
 let responsesOpen=false,controlReady=false,isTeacher=false,controlBusy=false,stopControl=null;
 let geoConfig=null,geoReady=false,stopGeo=null,lastGeoLabel='',geoSaving=false,geoVersion=0;
 const geoRef=doc(db,'patrulhaTempoControle','local');
+let stageFlags=[false,false,false,false,false,false],stagesReady=false,stopStages=null,stagesSaving=false;
+const stageRef=doc(db,'patrulhaTempoControle','etapas');
+function stageReleased(i){return demo || (stagesReady && stageFlags[i]===true);}
+steps.forEach((step,i)=>{const label=document.createElement('label');label.className='check';const input=document.createElement('input');input.type='checkbox';input.id='releaseStage'+i;const title=document.createElement('span');title.textContent=(i+1)+'. '+step.title;label.append(input,title);$('#stageOptions').append(label);});
+$('#selectAllStages').onclick=()=>{if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=true;};
+$('#clearStages').onclick=()=>{if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=false;};
+$('#saveStages').onclick=async()=>{
+ if(!user||!isTeacher||stagesSaving)return;
+ const flags=steps.map((_,i)=>$('#releaseStage'+i).checked);
+ stagesSaving=true;$('#saveStages').disabled=true;$('#stageFeedback').textContent='Salvando liberação das etapas…';
+ try{await setDoc(stageRef,{liberadas:flags,alteradoPor:user.uid,alteradoEm:serverTimestamp()});$('#stageFeedback').textContent='Liberação das etapas salva no Firebase.';}
+ catch(e){$('#stageFeedback').textContent='Não foi possível salvar: '+(e.code||e.message)+'. Confira as regras atualizadas.';}
+ finally{stagesSaving=false;$('#saveStages').disabled=false;}
+};
+
 function distanceMeters(lat1,lon1,lat2,lon2){const rad=x=>x*Math.PI/180;const a=Math.sin(rad(lat2-lat1)/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(rad(lon2-lon1)/2)**2;return 6371000*2*Math.atan2(Math.sqrt(a),Math.sqrt(Math.max(0,1-a)));}
 function validGeoConfig(c){return !!c&&c.centro&&Number.isFinite(c.centro.latitude)&&Number.isFinite(c.centro.longitude)&&Number.isFinite(c.raioMetros)&&c.raioMetros>=10&&c.raioMetros<=10000&&Number.isFinite(c.maxPrecisaoMetros)&&c.maxPrecisaoMetros>=1&&c.maxPrecisaoMetros<=10000;}
 function currentPosition(){return new Promise((resolve,reject)=>{if(!navigator.geolocation)return reject(new Error('Este navegador não oferece geolocalização.'));navigator.geolocation.getCurrentPosition(resolve,e=>reject(new Error(e.code===1?'Permissão de localização negada. Autorize nas configurações do navegador e tente novamente.':e.code===2?'Não foi possível obter a posição. Verifique o serviço de localização do dispositivo.':'Tempo esgotado ao localizar. Tente novamente.')),{enableHighAccuracy:true,maximumAge:0,timeout:25000});});}
@@ -91,13 +111,15 @@ $('#saveGeo').onclick=async()=>{
  geoSaving=true;$('#saveGeo').disabled=true;$('#geoTeacherFeedback').textContent='Salvando local…';try{await setDoc(geoRef,{centro:new GeoPoint(lat,lng),raioMetros:radius,maxPrecisaoMetros:accuracy,alteradoPor:user.uid,alteradoEm:serverTimestamp()});$('#geoTeacherFeedback').textContent='Local autorizado salvo no Firebase.';}catch(e){$('#geoTeacherFeedback').textContent='Não foi possível salvar: '+(e.code||e.message)+'. Verifique as regras.';}finally{geoSaving=false;$('#saveGeo').disabled=false;}
 };
 const controlRef=doc(db,'patrulhaTempoControle','atividade');
-function mayAnswer(){return demo || (controlReady && responsesOpen && geoReady && validGeoConfig(geoConfig))}
+function mayAnswer(){return demo || (controlReady && responsesOpen && stageReleased(index) && geoReady && validGeoConfig(geoConfig))}
 function updateAvailability(){
  const box=$('#availability');
  if(demo){box.textContent='Demonstração: os controles da turma não se aplicam e nenhuma resposta será enviada.';box.className='availability';}
  else{box.textContent=!controlReady?'Aguardando confirmação da liberação pela professora…':responsesOpen?'Respostas liberadas pela professora.':'Respostas bloqueadas pela professora. Você pode consultar a atividade. Seu rascunho permanece neste navegador.';box.className='availability '+(controlReady&&responsesOpen?'open':'closed');}
  $('#geoNotice').hidden=demo;
  if(!demo){if(!geoReady)$('#geoFeedback').textContent='Aguardando confirmação do local autorizado no Firebase…';else if(!validGeoConfig(geoConfig))$('#geoFeedback').textContent='Local autorizado ainda não configurado pela professora. O envio permanece bloqueado.';else $('#geoFeedback').textContent=lastGeoLabel||'Local configurado. Raio permitido: '+geoConfig.raioMetros+' m. Autorize e verifique sua posição antes de enviar.';}
+ if(!demo&&controlReady&&responsesOpen&&index<6&&!answers[index]&&!stageReleased(index)){
+ box.textContent=stagesReady?'Etapa '+(index+1)+' bloqueada pela professora. Você pode consultar o conteúdo e aguardar a liberação.':'Aguardando confirmação da liberação desta etapa no Firebase…';box.className='availability closed';}
  $('#teacherPanel').hidden=demo||!isTeacher;
  $('#teacherState').textContent=!controlReady?'Sem confirmação do servidor.':responsesOpen?'Situação atual: respostas liberadas.':'Situação atual: respostas bloqueadas.';
  $('#openAnswers').disabled=controlBusy;
@@ -106,7 +128,7 @@ function updateAvailability(){
  $('#send').disabled=busy||(!answers[index]&&!mayAnswer());
 }
 async function setupControl(){
- if(stopControl)stopControl();if(stopGeo)stopGeo();responsesOpen=false;controlReady=false;isTeacher=false;geoConfig=null;geoReady=false;lastGeoLabel='';geoVersion++;
+ if(stopControl)stopControl();if(stopGeo)stopGeo();if(stopStages)stopStages();stageFlags=steps.map(()=>false);stagesReady=false;responsesOpen=false;controlReady=false;isTeacher=false;geoConfig=null;geoReady=false;lastGeoLabel='';geoVersion++;
  const currentUid=user.uid;
  try{const role=await getDoc(doc(db,'patrulhaTempoDocentes',currentUid));if(user?.uid!==currentUid)return;isTeacher=role.exists()&&role.data().ativo===true;}catch{isTeacher=false;}
  if(user?.uid!==currentUid)return;
@@ -116,6 +138,14 @@ async function setupControl(){
   responsesOpen=controlReady&&snapshot.exists()&&snapshot.data().aberto===true;
   updateAvailability();
  },()=>{responsesOpen=false;controlReady=false;updateAvailability();msg('Não foi possível confirmar a liberação. Verifique a conexão e as regras do Firebase; o envio está suspenso.');});
+ stopStages=onSnapshot(stageRef,{includeMetadataChanges:true},snapshot=>{
+  if(user?.uid!==currentUid)return;
+  stagesReady=!snapshot.metadata.fromCache&&!snapshot.metadata.hasPendingWrites;
+  const flags=stagesReady&&snapshot.exists()?snapshot.data().liberadas:null;
+  stageFlags=Array.isArray(flags)&&flags.length===6&&flags.every(x=>typeof x==='boolean')?flags:steps.map(()=>false);
+  if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=stageFlags[i];
+  updateAvailability();
+ },()=>{stagesReady=false;stageFlags=steps.map(()=>false);updateAvailability();});
  stopGeo=onSnapshot(geoRef,{includeMetadataChanges:true},snapshot=>{
   if(user?.uid!==currentUid)return;
   geoReady=!snapshot.metadata.fromCache&&!snapshot.metadata.hasPendingWrites;geoConfig=geoReady&&snapshot.exists()?snapshot.data():null;geoVersion++;lastGeoLabel='';
@@ -147,7 +177,38 @@ $('#login').onclick=async()=>{if(!$('#agree').checked)return msg('Leia e marque 
 function friendly(e){console.error(e.code||e.message);if(e.code==='auth/unauthorized-domain')return 'Este domínio precisa ser autorizado em Firebase Authentication → Settings → Authorized domains. Solicite à professora.';if(e.code==='permission-denied')return 'O envio não foi autorizado. A professora pode ter bloqueado respostas, alterado o local ou as regras podem precisar de configuração. Seu rascunho permanece neste navegador.';if(e.code==='auth/popup-closed-by-user')return 'Login cancelado. Você pode tentar novamente.';return 'Não foi possível concluir: '+(e.code||e.message)+'. Tente novamente; a etapa não será liberada sem confirmação.'}
 $('#demo').onclick=()=>{demo=true;answers=[];index=0;render();msg('Demonstração: respostas não são gravadas no Firebase.')};
 onAuthStateChanged(auth,async u=>{user=u;$('#exit').hidden=!u;if(u){demo=false;try{await setupControl();await load()}catch(e){msg(friendly(e));$('#activity').hidden=true;$('#welcome').hidden=false}}});$('#exit').onclick=async()=>{await signOut(auth);location.reload()};$('#back').onclick=()=>{index--;render()};
-$('#send').onclick=async()=>{if(busy)return;if(answers[index]){index++;render();return}if(!mayAnswer()){updateAvailability();return msg('O envio está bloqueado, sem local configurado ou aguardando confirmação do Firebase.')}if(!$('#form').reportValidity())return;const values=[...$('#form').querySelectorAll('textarea')].map(x=>x.value.trim());if(values.some(v=>!v))return msg('Preencha todas as respostas com suas palavras.');busy=true;$('#send').disabled=true;try{msg(demo?'Avançando na demonstração…':'Verificando localização antes de enviar…');const location=await locationForSubmission();if(!demo&&!mayAnswer())throw new Error('O envio foi bloqueado durante a verificação. Seu rascunho foi preservado.');let data={respostas:values,etapa:index,email:demo?'demo':user.email,nome:demo?'Visitante':user.displayName||'',enviadoEm:demo?new Date().toISOString():serverTimestamp()};if(!demo){data.localizacao=location;msg('Localização aprovada. Salvando no Firebase…');await setDoc(ref(index),data);}answers.push(data);localStorage.removeItem(draftKey(index));index++;render();msg(demo?'Demonstração: nenhum envio realizado.':'Etapa salva no Firebase.')}catch(e){msg(friendly(e))}finally{busy=false;updateAvailability()}};
-for(const type of ['copy','cut','paste','drop'])document.addEventListener(type,e=>{if(e.target.closest('#form')&&e.target.matches('textarea,input')){e.preventDefault();event('bloqueio_'+type);msg('Copiar, recortar, colar e arrastar texto estão bloqueados nos campos. Digite sua própria resposta.')}});
+$('#send').onclick=async()=>{if(busy)return;if(answers[index]){index++;render();return}if(!mayAnswer()){updateAvailability();return msg('O envio está bloqueado, a etapa não foi liberada ou falta confirmar a configuração no Firebase.')}if(!$('#form').reportValidity())return;const values=[...$('#form').querySelectorAll('textarea')].map(x=>x.value.trim());if(values.some(v=>!v))return msg('Preencha todas as respostas com suas palavras.');busy=true;$('#send').disabled=true;try{msg(demo?'Avançando na demonstração…':'Verificando localização antes de enviar…');const location=await locationForSubmission();if(!demo&&!mayAnswer())throw new Error('O envio foi bloqueado durante a verificação. Seu rascunho foi preservado.');let data={respostas:values,etapa:index,email:demo?'demo':user.email,nome:demo?'Visitante':user.displayName||'',enviadoEm:demo?new Date().toISOString():serverTimestamp()};if(!demo){data.localizacao=location;msg('Localização aprovada. Salvando no Firebase…');await setDoc(ref(index),data);}answers.push(data);localStorage.removeItem(draftKey(index));index++;render();msg(demo?'Demonstração: nenhum envio realizado.':'Etapa salva no Firebase.')}catch(e){msg(friendly(e))}finally{busy=false;updateAvailability()}};
+// Proteção dos enunciados por comandos usuais do navegador.
+function protectedActivityText(target){
+ const el=target?.nodeType===3?target.parentElement:target;
+ return !!el?.closest?.('#content, #saved, #form .question, #welcome .notice');
+}
+function editableTarget(target){return !!target?.closest?.('input, textarea, [contenteditable="true"]');}
+function selectedProtectedText(){
+ const selection=window.getSelection?.();
+ return !!selection&&[selection.anchorNode,selection.focusNode].some(protectedActivityText);
+}
+function blockActivityCopy(e,kind='copy'){
+ e.preventDefault();
+ if(e.clipboardData)e.clipboardData.setData('text/plain','');
+ event(kind==='cut'?'bloqueio_cut':'bloqueio_copy','texto_atividade');
+ msg('A cópia do texto da atividade está bloqueada. Leia o enunciado no site e escreva sua própria resposta.');
+}
+for(const type of ['copy','cut','paste','drop'])document.addEventListener(type,e=>{
+ if((type==='copy'||type==='cut')&&(protectedActivityText(e.target)||selectedProtectedText())){blockActivityCopy(e,type);return;}
+ if(e.target.closest?.('#form')&&e.target.matches?.('textarea,input')){e.preventDefault();event('bloqueio_'+type);msg('Copiar, recortar, colar e arrastar texto estão bloqueados nos campos. Digite sua própria resposta.');}
+});
+for(const type of ['selectstart','dragstart'])document.addEventListener(type,e=>{
+ if(!editableTarget(e.target)&&protectedActivityText(e.target)){e.preventDefault();}
+});
+document.addEventListener('contextmenu',e=>{
+ if(!editableTarget(e.target)&&protectedActivityText(e.target)){e.preventDefault();}
+});
+document.addEventListener('keydown',e=>{
+ if(!(e.ctrlKey||e.metaKey)||editableTarget(e.target)||e.target.closest?.('#teacherPanel'))return;
+ const key=e.key.toLowerCase();
+ if((key==='c'||key==='x')&&(protectedActivityText(e.target)||selectedProtectedText()||!$('#activity').hidden)){blockActivityCopy(e,key==='x'?'cut':'copy');}
+ else if(key==='a'&&!$('#activity').hidden){e.preventDefault();msg('A seleção do texto da atividade está bloqueada.');}
+});
 document.addEventListener('visibilitychange',()=>{if($('#activity').hidden)return;if(document.hidden){hiddenAt=Date.now();event('aba_oculta')}else{event('retorno_aba',hiddenAt?String(Math.round((Date.now()-hiddenAt)/1000))+' segundos':'');hiddenAt=null}});
 window.addEventListener('blur',()=>{if(!$('#activity').hidden)event('perda_foco')});
