@@ -1,21 +1,31 @@
-# Publicação no GitHub Pages
+# Patrulha com espera no Unity
 
-Extraia o ZIP e envie os arquivos para a raiz do repositório (index.html na raiz). Em Settings > Pages escolha Deploy from a branch, main, / (root). Não é necessário npm ou compilação.
+## Correção do login e atualização no GitHub
 
-No Firebase networking-taks, habilite login Google e autorize SEU-USUARIO.github.io em Authentication > Settings > Authorized domains, sem protocolo ou caminho. Incorpore firestore.rules às regras existentes sem remover regras de outras atividades. Regras globais permissivas devem ser revisadas, pois podem permitir operações negadas pelos blocos específicos.
+O botão de demonstração foi removido junto da referência JavaScript que causava Cannot set properties of null (setting onclick).
 
-Esta atualização inclui código da patrulha na hipótese inicial, fontes oficiais Unity na investigação, roteiro detalhado de teste de mesa e exibição das respostas originais na revisão. Respostas já enviadas continuam preservadas e a coleção Firebase não mudou.
+O index.html agora incorpora o código e os estilos. Para atualizar o site publicado, substitua apenas o index.html da raiz do repositório pelo deste pacote. Aguarde o GitHub Pages publicar e use Ctrl+Shift+R. Não é necessário apagar os arquivos antigos app.js e style.css.
 
-Confira CONFIGURACAO.md para detalhes. Teste login, envio, retomada, bloqueio de etapas futuras e preservação de respostas antes de aplicar à turma. A demonstração não grava no Firebase. Os registros de saída da aba não comprovam IA; consultar os links Unity na investigação é permitido.
+## Primeira publicação
 
-O bloqueio de copiar e colar é contornável. Este pacote não inclui painel docente: consulte os registros no Console Firebase. Para atualizar um GitHub existente, substitua index.html, app.js e style.css. Atualize os demais arquivos de documentação quando necessário.
+Extraia o ZIP e envie os arquivos à raiz do repositório, com index.html na raiz. Em Settings > Pages, escolha Deploy from a branch > main > / (root). Não exige npm ou compilação.
 
+## Firebase
 
-## Controle de abertura e bloqueio
+A configuração pública aponta para networking-taks. Habilite login Google e autorize SEU-USUARIO.github.io (sem protocolo nem caminho) no Firebase Authentication. Instale as regras firestore.rules preservando as regras das outras atividades e removendo permissões globais que anulem as restrições. Cadastre o UID docente, configure o local e libere respostas/etapas na Área da professora. Veja CONFIGURACAO.md.
 
-Atualize também firestore.rules no Firebase: o bloqueio é validado no servidor. Cadastre a professora por UID em patrulhaTempoDocentes/{UID}, com ativo=true (boolean). O site só exibe os botões a docentes cadastrados. Veja CONFIGURACAO.md para as instruções completas. Sem controle criado, o envio fica bloqueado. O botão Liberar permite novos envios, sem reabrir respostas já enviadas.
+Se as regras anteriores já são as desta atividade com o painel de eventos, esta correção de login não exige novas regras.
 
+## Funções
 
-## Geolocalização
+Seis etapas com respostas preservadas, código inicial nas etapas 1/3/5, fontes Unity, simulação guiada e comparação com a hipótese inicial. Controle docente geral e por etapa, geolocalização, painel de respostas, observações individuais/gerais e linha do tempo de eventos.
 
-Esta versão exige local autorizado no Firebase para novos envios. Atualize as regras e configure latitude, longitude, raio e precisão máxima na Área da professora. Os envios antigos continuam consultáveis. Consulte CONFIGURACAO.md para funcionamento, privacidade, limitações e testes. Substitua também index.html no GitHub para exibir os novos controles. O navegador precisa autorizar localização em HTTPS; ela pode ser imprecisa ou falsificada e não comprova presença física.
+As observações são privadas da equipe docente. Cópia e colagem são bloqueadas pelos comandos usuais, mas fotos, OCR, transcrição e outras formas de contornar o bloqueio continuam possíveis. Eventos não comprovam uso de IA nem identificam o aplicativo acessado. Geolocalização pode ser imprecisa ou falsificada.
+
+## Edição do código
+
+app.js e style.css são fontes para edição. A estrutura HTML fica em fontes/index.template.html. Após editar, execute python3 gerar_index.py para regenerar index.html antes de publicar. Alterar somente app.js ou style.css não atualiza a página nesta versão.
+
+## Validação
+
+Inicialização completa verificada com DOM e Firebase simulados e sem o botão de demonstração. Login Google, regras, consultas e gravações reais devem ser verificados no seu domínio e projeto Firebase.

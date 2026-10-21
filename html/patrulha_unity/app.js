@@ -3,7 +3,7 @@ import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut} f
 import {getFirestore,doc,getDoc,setDoc,collection,addDoc,serverTimestamp,onSnapshot,GeoPoint,Timestamp,getDocs,writeBatch,runTransaction,query,orderBy,limit,startAfter,getDocsFromServer} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
 const app=initializeApp({apiKey:'AIzaSyAKUEJbtFwDCb6Jv3YU059FpNS-drHlfMw',authDomain:'networking-taks.firebaseapp.com',projectId:'networking-taks',storageBucket:'networking-taks.firebasestorage.app',messagingSenderId:'949681143186',appId:'1:949681143186:web:73ab934af62f9f7e44154b'});
 const auth=getAuth(app),db=getFirestore(app),$=s=>document.querySelector(s),root='patrulhaTempoV1';
-const requiredIds=['stageOptions','refreshEvents','teacherReview','refreshStudents','geoConsent','saveStages','retryData','authStatus'];
+const requiredIds=["activity", "agree", "authStatus", "availability", "back", "backStudents", "captureCenter", "centerLat", "centerLng", "checkGeo", "classNote", "classNoteStatus", "clearStages", "closeAnswers", "content", "eventFilter", "eventStatus", "eventSummary", "eventTimeline", "exit", "form", "geoAccuracy", "geoConsent", "geoFeedback", "geoNotice", "geoRadius", "geoTeacherFeedback", "identity", "loadClassNote", "login", "lookupStudent", "mode", "moreEvents", "openAnswers", "refreshEvents", "refreshStudents", "retryData", "reviewStatus", "saveClassNote", "saveGeo", "saveStages", "saveStudentNote", "saved", "selectAllStages", "send", "stageFeedback", "stageOptions", "status", "steps", "studentAnswers", "studentDetail", "studentHeading", "studentList", "studentListView", "studentMeta", "studentNote", "studentNoteStatus", "studentSearch", "studentUid", "teacherFeedback", "teacherPanel", "teacherState", "welcome"];
 const missingIds=requiredIds.filter(id=>!document.getElementById(id));
 if(missingIds.length)throw new Error('Arquivos incompatíveis: faltam elementos no index.html ('+missingIds.join(', ')+'). Publique todos os arquivos do mesmo pacote.');
 const steps=[
@@ -283,7 +283,7 @@ function friendly(e){
  if(code==='permission-denied')return 'O Firestore negou acesso. Confira as regras atualizadas e o cadastro docente; para envios, confira também a liberação das etapas e o local autorizado. Seu rascunho permanece neste navegador.';
  return 'Não foi possível concluir: '+(code||e.message||'erro desconhecido')+'.';
 }
-$('#demo').onclick=()=>{demo=true;answers=[];index=0;render();msg('Demonstração: respostas não são gravadas no Firebase.')};
+
 onAuthStateChanged(auth,async u=>{
  user=u;$('#exit').hidden=!u;
  if(u){await openAccount(u);}
