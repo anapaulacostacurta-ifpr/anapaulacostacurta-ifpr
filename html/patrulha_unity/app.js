@@ -189,7 +189,7 @@ $('#captureCenter').onclick=async()=>{if(!isTeacher)return;$('#captureCenter').d
 $('#saveGeo').onclick=async()=>{
  if(!isTeacher||!user||geoSaving)return;
  const latText=$('#centerLat').value.trim(),lngText=$('#centerLng').value.trim();const lat=Number(latText),lng=Number(lngText),radius=Number($('#geoRadius').value),accuracy=Number($('#geoAccuracy').value);
- if(!latText||!lngText||!Number.isFinite(lat)||!Number.isFinite(lng)||lat< -90||lat>90||lng< -180||lng>180||!Number.isFinite(radius)||radius<10||radius>10000||!Number.isFinite(accuracy)||accuracy<1||accuracy>10000){$('#geoTeacherFeedback').textContent='Informe latitude de −90 a 90, longitude de −180 a 180, raio de 10 a 10000 m e precisão máxima de 1 a 10000 m.';return;}
+ if(!latText||!lngText||!Number.isFinite(lat)||!Number.isFinite(lng)||lat< -90||lat>90||lng< -180||lng>180||!Number.isFinite(radius)||radius<10||radius>50000||!Number.isFinite(accuracy)||accuracy<1||accuracy>50000){$('#geoTeacherFeedback').textContent='Informe latitude de −90 a 90, longitude de −180 a 180, raio de 10 a 50000 m e precisão máxima de 1 a 50000 m.';return;}
  geoSaving=true;$('#saveGeo').disabled=true;$('#geoTeacherFeedback').textContent='Salvando local…';try{await setDoc(geoRef,{centro:new GeoPoint(lat,lng),raioMetros:radius,maxPrecisaoMetros:accuracy,alteradoPor:user.uid,alteradoEm:serverTimestamp()});$('#geoTeacherFeedback').textContent='Local autorizado salvo no Firebase.';}catch(e){$('#geoTeacherFeedback').textContent='Não foi possível salvar: '+(e.code||e.message)+'. Verifique as regras.';}finally{geoSaving=false;$('#saveGeo').disabled=false;}
 };
 const controlRef=doc(db,'patrulhaTempoControle','atividade');
