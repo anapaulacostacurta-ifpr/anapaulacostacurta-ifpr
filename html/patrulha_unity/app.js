@@ -1,6 +1,6 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
 import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
-import {getFirestore,doc,getDoc,setDoc,collection,addDoc,serverTimestamp,onSnapshot,GeoPoint,Timestamp} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
+import {getFirestore,doc,getDoc,setDoc,collection,addDoc,serverTimestamp,onSnapshot,GeoPoint,Timestamp,getDocs,writeBatch,runTransaction} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
 const app=initializeApp({apiKey:'AIzaSyAKUEJbtFwDCb6Jv3YU059FpNS-drHlfMw',authDomain:'networking-taks.firebaseapp.com',projectId:'networking-taks',storageBucket:'networking-taks.firebasestorage.app',messagingSenderId:'949681143186',appId:'1:949681143186:web:73ab934af62f9f7e44154b'});
 const auth=getAuth(app),db=getFirestore(app),$=s=>document.querySelector(s),root='patrulhaTempoV1';
 const steps=[
@@ -70,6 +70,60 @@ let geoConfig=null,geoReady=false,stopGeo=null,lastGeoLabel='',geoSaving=false,g
 const geoRef=doc(db,'patrulhaTempoControle','local');
 let stageFlags=[false,false,false,false,false,false],stagesReady=false,stopStages=null,stagesSaving=false;
 const stageRef=doc(db,'patrulhaTempoControle','etapas');
+let students=[],selectedStudent=null,studentNoteVersion=null,classNoteVersion=null,studentNoteOriginal='',classNoteOriginal='',listLoading=false;
+function noteRef(uid){return doc(db,'patrulhaTempoObservacoes',uid);}
+function dateLabel(value){return value?.toDate?value.toDate().toLocaleString('pt-BR'):'Horário não disponível';}
+function noteVersion(snap){return snap.exists()?snap.data().alteradoEm?.toMillis?.()??null:null;}
+function renderStudentList(){
+ const term=$('#studentSearch').value.trim().toLocaleLowerCase('pt-BR');$('#studentList').replaceChildren();
+ const found=students.filter(s=>(s.nome+' '+s.email).toLocaleLowerCase('pt-BR').includes(term));
+ if(!found.length){let p=document.createElement('p');p.textContent=students.length?'Nenhum aluno corresponde à busca.':'Nenhum envio encontrado. Clique em Atualizar lista ou consulte um UID.';$('#studentList').append(p);return;}
+ for(const student of found){const button=document.createElement('button');button.type='button';button.className='student-row';const name=document.createElement('strong');name.textContent=student.nome||'Aluno sem nome';const meta=document.createElement('span');meta.textContent=student.email+' · '+student.etapas.length+'/6 etapas enviadas';button.append(name,meta);button.onclick=()=>showStudent(student.uid);$('#studentList').append(button);}
+}
+async function readStudent(uid){
+ const snap=await getDocs(collection(db,root,uid,'etapas'));const etapas=snap.docs.map(d=>({id:d.id,...d.data()})).filter(d=>Number.isInteger(d.etapa)&&d.etapa>=0&&d.etapa<6).sort((a,b)=>a.etapa-b.etapa);
+ const first=etapas[0];return {uid,nome:first?.nome||'',email:first?.email||'',etapas};
+}
+async function discoverStudentIds(){
+ // Inclui documentos-pai ausentes de versões antigas, sem alterar as respostas.
+ const token=await user.getIdToken();let next='',ids=[];
+ do{const url=new URL('https://firestore.googleapis.com/v1/projects/networking-taks/databases/(default)/documents/'+root);url.searchParams.set('showMissing','true');url.searchParams.set('pageSize','100');if(next)url.searchParams.set('pageToken',next);const response=await fetch(url,{headers:{Authorization:'Bearer '+token}});if(!response.ok){const e=new Error('Não foi possível listar os registros antigos.');e.code='lista-antiga-indisponivel';throw e;}const data=await response.json();ids.push(...(data.documents||[]).map(d=>d.name.split('/').at(-1)));next=data.nextPageToken||'';}while(next);
+ return [...new Set(ids)];
+}
+async function refreshStudents(){
+ if(!isTeacher||!user||listLoading)return;const uid=user.uid;listLoading=true;$('#refreshStudents').disabled=true;$('#reviewStatus').textContent='Buscando envios no Firebase…';
+ try{let ids,legacyWarning='';try{ids=await discoverStudentIds();}catch{const snap=await getDocs(collection(db,root));ids=snap.docs.map(d=>d.id);legacyWarning=' A listagem de registros antigos não ficou disponível; se algum aluno não aparecer, consulte pelo UID.';}
+ const results=[];let failures=0;for(let i=0;i<ids.length;i+=6){const batch=await Promise.allSettled(ids.slice(i,i+6).map(readStudent));for(const result of batch){if(result.status==='fulfilled'){if(result.value.etapas.length)results.push(result.value);}else failures++;}}
+ if(user?.uid!==uid||!isTeacher)return;students=results.sort((a,b)=>(a.nome||a.email).localeCompare(b.nome||b.email,'pt-BR'));renderStudentList();$('#reviewStatus').textContent=students.length+' aluno(s) com envios.'+legacyWarning+(failures?' Não foi possível ler '+failures+' registro(s); tente atualizar novamente.':'');}
+ catch(e){$('#reviewStatus').textContent='Não foi possível carregar os alunos: '+(e.code||e.message)+'. Confira as regras atualizadas do Firebase.';}
+ finally{listLoading=false;$('#refreshStudents').disabled=false;}
+}
+function noteDirty(){return $('#studentNote').value!==studentNoteOriginal;}
+async function showStudent(uid){
+ if(!isTeacher||!user)return;
+ if(selectedStudent&&noteDirty()&&!window.confirm('Há observações não salvas. Deseja abrir outro aluno sem salvá-las?'))return;
+ const viewer=user.uid;$('#reviewStatus').textContent='Carregando respostas e observações…';
+ try{const [student,note]=await Promise.all([readStudent(uid),getDoc(noteRef(uid))]);if(user?.uid!==viewer||!isTeacher)return;
+ selectedStudent=student;$('#studentListView').hidden=true;$('#studentDetail').hidden=false;$('#studentHeading').textContent=student.nome||student.email||'Aluno';$('#studentMeta').textContent=(student.email||'Sem e-mail registrado')+' · '+student.etapas.length+'/6 etapas · UID: '+uid;
+ $('#studentAnswers').replaceChildren();for(let i=0;i<6;i++){let section=document.createElement('details');let summary=document.createElement('summary');const record=student.etapas.find(s=>s.etapa===i);summary.textContent=(i+1)+'. '+steps[i].title+(record?' — enviada':' — não enviada');section.append(summary);if(record){let time=document.createElement('p');time.textContent='Enviada em '+dateLabel(record.enviadoEm);section.append(time);steps[i].qs.forEach((q,j)=>{let h=document.createElement('h4');h.textContent=(j+1)+'. '+q;let p=document.createElement('p');p.className='review-answer';p.textContent=record.respostas?.[j]||'Sem resposta registrada.';section.append(h,p)});}else{let p=document.createElement('p');p.textContent='Esta etapa ainda não foi enviada.';section.append(p)}$('#studentAnswers').append(section);}
+ studentNoteOriginal=note.exists()?note.data().texto||'':'';$('#studentNote').value=studentNoteOriginal;studentNoteVersion=noteVersion(note);$('#studentNoteStatus').textContent=note.exists()?'Última atualização: '+dateLabel(note.data().alteradoEm):'Nenhuma observação salva para este aluno.';$('#reviewStatus').textContent='';}
+ catch(e){$('#reviewStatus').textContent='Não foi possível consultar o aluno: '+(e.code||e.message);}
+}
+async function saveNote(kind){
+ if(!isTeacher||!user)return;const general=kind==='turma';if(!general&&!selectedStudent)return;const uid=general?'_turma':selectedStudent.uid;const input=general?$('#classNote'):$('#studentNote');const status=general?$('#classNoteStatus'):$('#studentNoteStatus');const button=general?$('#saveClassNote'):$('#saveStudentNote');const expected=general?classNoteVersion:studentNoteVersion;const text=input.value;
+ if(text.length>20000){status.textContent='Use no máximo 20000 caracteres.';return;}
+ button.disabled=true;status.textContent='Salvando observações…';
+ try{const savedTime=await runTransaction(db,async transaction=>{const reference=noteRef(uid);const current=await transaction.get(reference);if(noteVersion(current)!==expected)throw new Error('As observações foram alteradas em outra sessão. Recarregue antes de salvar para não sobrescrever a outra versão.');transaction.set(reference,{texto:text,alteradoPor:user.uid,alteradoEm:serverTimestamp()});});
+ const confirmed=await getDoc(noteRef(uid));if(general){classNoteVersion=noteVersion(confirmed);classNoteOriginal=text;}else if(selectedStudent?.uid===uid){studentNoteVersion=noteVersion(confirmed);studentNoteOriginal=text;}status.textContent='Observações salvas no Firebase.';}
+ catch(e){status.textContent='Não foi possível salvar: '+(e.code||e.message);}
+ finally{button.disabled=false;}
+}
+$('#refreshStudents').onclick=refreshStudents;$('#studentSearch').oninput=renderStudentList;
+$('#lookupStudent').onclick=()=>{const uid=$('#studentUid').value.trim();if(!uid||uid.includes('/')){$('#reviewStatus').textContent='Informe um UID válido.';return;}showStudent(uid);};
+$('#backStudents').onclick=()=>{if(noteDirty()&&!window.confirm('Voltar sem salvar suas observações?'))return;$('#studentDetail').hidden=true;$('#studentListView').hidden=false;selectedStudent=null;};
+$('#saveStudentNote').onclick=()=>saveNote('aluno');$('#saveClassNote').onclick=()=>saveNote('turma');
+$('#loadClassNote').onclick=async()=>{if(!isTeacher||!user)return;if($('#classNote').value!==classNoteOriginal&&!window.confirm('Recarregar e descartar as alterações não salvas?'))return;try{const snap=await getDoc(noteRef('_turma'));classNoteVersion=noteVersion(snap);classNoteOriginal=snap.exists()?snap.data().texto||'':'';$('#classNote').value=classNoteOriginal;$('#classNoteStatus').textContent=snap.exists()?'Última atualização: '+dateLabel(snap.data().alteradoEm):'Nenhuma observação geral salva.';}catch(e){$('#classNoteStatus').textContent='Não foi possível carregar: '+(e.code||e.message);}};
+
 function stageReleased(i){return demo || (stagesReady && stageFlags[i]===true);}
 steps.forEach((step,i)=>{const label=document.createElement('label');label.className='check';const input=document.createElement('input');input.type='checkbox';input.id='releaseStage'+i;const title=document.createElement('span');title.textContent=(i+1)+'. '+step.title;label.append(input,title);$('#stageOptions').append(label);});
 $('#selectAllStages').onclick=()=>{if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=true;};
@@ -177,7 +231,7 @@ $('#login').onclick=async()=>{if(!$('#agree').checked)return msg('Leia e marque 
 function friendly(e){console.error(e.code||e.message);if(e.code==='auth/unauthorized-domain')return 'Este domínio precisa ser autorizado em Firebase Authentication → Settings → Authorized domains. Solicite à professora.';if(e.code==='permission-denied')return 'O envio não foi autorizado. A professora pode ter bloqueado respostas, alterado o local ou as regras podem precisar de configuração. Seu rascunho permanece neste navegador.';if(e.code==='auth/popup-closed-by-user')return 'Login cancelado. Você pode tentar novamente.';return 'Não foi possível concluir: '+(e.code||e.message)+'. Tente novamente; a etapa não será liberada sem confirmação.'}
 $('#demo').onclick=()=>{demo=true;answers=[];index=0;render();msg('Demonstração: respostas não são gravadas no Firebase.')};
 onAuthStateChanged(auth,async u=>{user=u;$('#exit').hidden=!u;if(u){demo=false;try{await setupControl();await load()}catch(e){msg(friendly(e));$('#activity').hidden=true;$('#welcome').hidden=false}}});$('#exit').onclick=async()=>{await signOut(auth);location.reload()};$('#back').onclick=()=>{index--;render()};
-$('#send').onclick=async()=>{if(busy)return;if(answers[index]){index++;render();return}if(!mayAnswer()){updateAvailability();return msg('O envio está bloqueado, a etapa não foi liberada ou falta confirmar a configuração no Firebase.')}if(!$('#form').reportValidity())return;const values=[...$('#form').querySelectorAll('textarea')].map(x=>x.value.trim());if(values.some(v=>!v))return msg('Preencha todas as respostas com suas palavras.');busy=true;$('#send').disabled=true;try{msg(demo?'Avançando na demonstração…':'Verificando localização antes de enviar…');const location=await locationForSubmission();if(!demo&&!mayAnswer())throw new Error('O envio foi bloqueado durante a verificação. Seu rascunho foi preservado.');let data={respostas:values,etapa:index,email:demo?'demo':user.email,nome:demo?'Visitante':user.displayName||'',enviadoEm:demo?new Date().toISOString():serverTimestamp()};if(!demo){data.localizacao=location;msg('Localização aprovada. Salvando no Firebase…');await setDoc(ref(index),data);}answers.push(data);localStorage.removeItem(draftKey(index));index++;render();msg(demo?'Demonstração: nenhum envio realizado.':'Etapa salva no Firebase.')}catch(e){msg(friendly(e))}finally{busy=false;updateAvailability()}};
+$('#send').onclick=async()=>{if(busy)return;if(answers[index]){index++;render();return}if(!mayAnswer()){updateAvailability();return msg('O envio está bloqueado, a etapa não foi liberada ou falta confirmar a configuração no Firebase.')}if(!$('#form').reportValidity())return;const values=[...$('#form').querySelectorAll('textarea')].map(x=>x.value.trim());if(values.some(v=>!v))return msg('Preencha todas as respostas com suas palavras.');busy=true;$('#send').disabled=true;try{msg(demo?'Avançando na demonstração…':'Verificando localização antes de enviar…');const location=await locationForSubmission();if(!demo&&!mayAnswer())throw new Error('O envio foi bloqueado durante a verificação. Seu rascunho foi preservado.');let data={respostas:values,etapa:index,email:demo?'demo':user.email,nome:demo?'Visitante':user.displayName||'',enviadoEm:demo?new Date().toISOString():serverTimestamp()};if(!demo){data.localizacao=location;msg('Localização aprovada. Salvando no Firebase…');const batch=writeBatch(db);batch.set(ref(index),data);batch.set(doc(db,root,user.uid),{nome:user.displayName||'',email:user.email,atualizadoEm:serverTimestamp()});await batch.commit();}answers.push(data);localStorage.removeItem(draftKey(index));index++;render();msg(demo?'Demonstração: nenhum envio realizado.':'Etapa salva no Firebase.')}catch(e){msg(friendly(e))}finally{busy=false;updateAvailability()}};
 // Proteção dos enunciados por comandos usuais do navegador.
 function protectedActivityText(target){
  const el=target?.nodeType===3?target.parentElement:target;

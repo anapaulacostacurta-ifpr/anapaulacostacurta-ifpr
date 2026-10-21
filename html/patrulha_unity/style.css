@@ -9,3 +9,5 @@
 
 /* Não interfere na seleção durante a digitação nem nos controles docentes. */
 #content,#saved,#form .question,#welcome .notice{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}#form textarea,.geo-fields input{-webkit-user-select:text;user-select:text}
+
+#teacherReview{border-bottom:1px solid #bdc9bc;padding:20px 0;margin:15px 0 25px}#teacherReview input[type=search],#studentUid{width:100%;padding:12px;border:1px solid #bdc9bc;border-radius:7px;margin:8px 0 15px;background:white;font:inherit}.student-row{display:flex;flex-direction:column;gap:5px;width:100%;text-align:left;margin:10px 0;overflow-wrap:anywhere}.student-row span{font-size:12px;font-weight:400}#studentAnswers details{padding:15px 0;border-bottom:1px solid #bdc9bc}#studentAnswers h4{font-size:13px}.review-answer{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border-radius:6px;padding:12px}#teacherReview textarea{margin:10px 0}#teacherReview hr{border:0;border-top:1px solid #bdc9bc;margin:25px 0}#studentDetail[hidden],#studentListView[hidden]{display:none}
