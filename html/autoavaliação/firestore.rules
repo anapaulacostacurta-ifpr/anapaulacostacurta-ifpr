@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function docenteAutoavaliacao() {
+   return request.auth != null
+    && exists(/databases/$(database)/documents/autoavaliacaoDocentes/$(request.auth.uid))
+    && get(/databases/$(database)/documents/autoavaliacaoDocentes/$(request.auth.uid)).data.ativo == true;
+  }
+  match /autoavaliacaoDocentes/{uid} {
+   allow get: if request.auth != null && request.auth.uid == uid;
+   allow list, create, update, delete: if false;
+  }
+  match /autoavaliacaoGeralV1/{uid} {
+   function texto(i) {
+    return request.resource.data.respostas[i] is string
+     && request.resource.data.respostas[i].size() > 0
+     && request.resource.data.respostas[i].size() <= 6000;
+   }
+   allow get: if request.auth != null && (request.auth.uid == uid || docenteAutoavaliacao());
+   allow list: if docenteAutoavaliacao();
+   allow create: if request.auth != null && request.auth.uid == uid
+    && request.resource.data.keys().hasAll(['nome','email','turma','respostas','enviadoEm','versao'])
+    && request.resource.data.keys().hasOnly(['nome','email','turma','respostas','enviadoEm','versao'])
+    && request.resource.data.nome is string && request.resource.data.nome.size() <= 500
+    && request.resource.data.email == request.auth.token.email
+    && request.resource.data.turma is string && request.resource.data.turma.size() > 0 && request.resource.data.turma.size() <= 120
+    && request.resource.data.respostas is list && request.resource.data.respostas.size() == 6
+    && texto(0) && texto(1) && texto(2) && texto(3) && texto(4) && texto(5)
+    && request.resource.data.versao == 1
+    && request.resource.data.enviadoEm == request.time;
+   allow update, delete: if false;
+  }
+ }
+}
