@@ -101,7 +101,7 @@ function renderTimerTable(saved,readonly){
  field.required=true;field.setAttribute('aria-label','Atualização '+(row+1)+' — '+['','tempo antes','','tempo depois','espera terminou'][col]);field.value=parsed?.linhas[i]?.[key]||'';field.oninput=persistDraft;field.onchange=persistDraft;td.append(field);}tr.append(td);}body.append(tr);}table.append(body);wrapper.append(table);return wrapper;
 }
 let renderedLocked=null,exitPolicyAccepted=false,researchDeparture=null,departureNotice='';
-function stageViewLocked(){return !demo&&!isTeacher&&index<6&&!answers[index]&&(!progressLoaded||!controlReady||!responsesOpen||!stageReleased(index));}
+function stageViewLocked(){return !demo&&!isTeacher&&(!progressLoaded||!controlReady||!responsesOpen||(index<6&&!stageReleased(index)));}
 function learnerDraftActive(){return !!user&&!isTeacher&&progressLoaded&&exitPolicyAccepted&&index<6&&!answers[index];}
 function hasDraft(){if(!learnerDraftActive())return false;return [...$('#form').querySelectorAll('textarea,input,select')].some(x=>!!x.value?.trim());}
 function discardDraft(reason){
@@ -258,10 +258,10 @@ $('#saveGeo').onclick=async()=>{
 const controlRef=doc(db,'patrulhaTempoControle','atividade');
 function mayAnswer(){return demo || ((isTeacher||exitPolicyAccepted) && progressLoaded && controlReady && responsesOpen && stageReleased(index) && geoReady && validGeoConfig(geoConfig))}
 function updateAvailability(){
- if(!$('#activity').hidden&&renderedLocked!==stageViewLocked()){render();return;}
+ if(!$('#activity').hidden&&renderedLocked!==stageViewLocked()){if(!renderedLocked&&stageViewLocked()&&index<6&&!answers[index]&&$('#form').childElementCount)persistDraft();render();return;}
  const box=$('#availability');
  if(demo){box.textContent='Demonstração: os controles da turma não se aplicam e nenhuma resposta será enviada.';box.className='availability';}
- else{box.textContent=!controlReady?'Aguardando confirmação da liberação pela professora…':responsesOpen?'Respostas liberadas pela professora.':'Respostas bloqueadas pela professora. Você pode consultar a atividade. Seu rascunho permanece neste navegador.';box.className='availability '+(controlReady&&responsesOpen?'open':'closed');}
+ else{box.textContent=!controlReady?'Aguardando confirmação da liberação pela professora…':responsesOpen?'Respostas liberadas pela professora.':'A atividade não está liberada. Aguarde a liberação da professora.';box.className='availability '+(controlReady&&responsesOpen?'open':'closed');}
  $('#geoNotice').hidden=stageViewLocked()||demo||(geoReady&&geoConfig&&!locationRequired(geoConfig));
  if(!demo){if(!geoReady)$('#geoFeedback').textContent='Aguardando confirmação do local autorizado no Firebase…';else if(!validGeoConfig(geoConfig))$('#geoFeedback').textContent='Local autorizado ainda não configurado pela professora. O envio permanece bloqueado.';else if(!locationRequired(geoConfig))$('#geoFeedback').textContent='Localização dispensada pela professora.';else $('#geoFeedback').textContent=lastGeoLabel||'Local configurado. Raio permitido: '+geoConfig.raioMetros+' m. Autorize e verifique sua posição antes de enviar.';}
  if(!demo&&controlReady&&responsesOpen&&index<6&&!answers[index]&&!stageReleased(index)){
@@ -314,8 +314,8 @@ function msg(t){$('#status').textContent=t;if($('#authStatus'))$('#authStatus').
 function ref(i){return doc(db,root,user.uid,'etapas',String(i))}
 async function event(type,detail=''){if(demo||!user)return;try{await addDoc(collection(db,root,user.uid,'eventos'),{tipo:type,detalhe:detail,etapa:index,em:serverTimestamp()})}catch{ /* eventos não bloqueiam o envio das respostas */ }}
 function render(){ renderedLocked=stageViewLocked();$('#welcome').hidden=true;$('#activity').hidden=false;$('#identity').textContent=demo?'Visitante · demonstração':user.displayName||user.email;$('#mode').textContent=demo?'SEM ENVIO AO FIREBASE':'CONTA GOOGLE';$('#steps').replaceChildren();steps.forEach((s,i)=>{let b=document.createElement('button');b.className=i===index?'active':'';b.disabled=i>answers.length;b.innerHTML=`<b>${i<answers.length?'✓':i+1}</b><span>${s.title}</span>`;b.onclick=()=>{if(!confirmInternalDeparture())return;index=i;render()};$('#steps').append(b)});
-$('#form').replaceChildren();$('#saved').hidden=true;$('#back').hidden=index===0;$('#send').hidden=false;
-if(renderedLocked){$('#content').replaceChildren();const h=document.createElement('h2');h.textContent='Etapa bloqueada';const p=document.createElement('p');p.textContent='Esta etapa está bloqueada. Aguarde a liberação da professora para continuar.';$('#content').append(h,p);$('#send').hidden=true;$('#geoNotice').hidden=true;updateAvailability();return;}
+$('#form').replaceChildren();$('#form').hidden=renderedLocked;$('#steps').hidden=renderedLocked;$('#saved').hidden=true;$('#back').hidden=renderedLocked||index===0;$('#send').hidden=false;
+if(renderedLocked){$('#content').replaceChildren();const h=document.createElement('h2');h.textContent='Atividade não liberada';const p=document.createElement('p');p.textContent='A atividade não está liberada. Aguarde a liberação da professora para continuar.';$('#content').append(h,p);$('#send').hidden=true;$('#geoNotice').hidden=true;updateAvailability();return;}
 if(index===6){$('#content').innerHTML='<div class="success">✓</div><span class="eyebrow">PERCURSO CONCLUÍDO</span><h2>Uma explicação<br>em movimento.</h2><p>Todas as seis etapas foram enviadas. Você pode consultar seus registros nas etapas anteriores.</p>';$('#send').hidden=true;$('#saved').hidden=false;$('#saved').textContent=demo?'Demonstração concluída. Nenhuma resposta foi enviada.':'Respostas confirmadas no Firebase para '+user.email+'. Atividade: patrulhaTempoV1.';updateAvailability();return}
 const s=steps[index];$('#content').replaceChildren();let e=document.createElement('div');e.className='eyebrow';e.textContent=`ETAPA ${index+1} DE 6`;$('#content').append(e);let h=document.createElement('h2');h.textContent=s.title;$('#content').append(h);let p=document.createElement('p');p.textContent=s.intro;$('#content').append(p);const extra=supplement(index);if(extra)$('#content').append(extra);if(s.code){let pre=document.createElement('pre');pre.textContent=s.code;$('#content').append(pre)}
 let draft=[];try{draft=JSON.parse(localStorage.getItem(draftKey(index))||'[]')}catch{}

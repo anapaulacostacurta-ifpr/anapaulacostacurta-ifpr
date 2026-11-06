@@ -1,0 +1,2 @@
+export const CONFIG={title:'Sub-redes IPv4',sequenceId:'subredes-ipv4-2026-v1',firebase:{apiKey:'AIzaSyAKUEJbtFwDCb6Jv3YU059FpNS-drHlfMw',authDomain:'networking-taks.firebaseapp.com',projectId:'networking-taks',storageBucket:'networking-taks.firebasestorage.app',messagingSenderId:'949681143186',appId:'1:949681143186:web:73ab934af62f9f7e44154b'}};
+export const STAGES=[['etapa1','Diagnóstico individual'],['etapa2','Charada de acesso'],['etapa3','Vídeo e compreensão'],['etapa4','Planejamento no papel'],['etapa5','Implementação e testes'],['etapa6','Reflexão final']];
