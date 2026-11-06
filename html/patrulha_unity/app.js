@@ -85,6 +85,22 @@ steps[5].qs=[
  'Sem executar um novo teste: o que você mudaria para esperar 1 segundo em A e 3 segundos em B? Explique como o programa escolheria o tempo de cada ponto.',
  'Qual dúvida você ainda tem sobre essa solução? Se não tiver dúvidas, descreva um cuidado necessário para que a espera funcione em todas as chegadas.'
 ];
+steps[3].intro='Faça um teste de mesa: leia o trecho abaixo sem executá-lo no Unity. O inimigo acabou de chegar a A. tempoDecorrido começa em 0 e tempoEspera vale 2. Para facilitar as contas, intervaloSimulado vale 0,5 segundo em todas as chamadas. A inicialização acontece uma única vez. Cada linha da tabela representa uma chamada de AtualizacaoSimulada(). Acompanhe primeiro a soma e depois a comparação. Este trecho estuda apenas a contagem: não move o inimigo nem reinicia o contador.';
+steps[3].code=`// Estado inicial: definir uma única vez, antes da primeira chamada.
+private float tempoEspera = 2f;
+private float tempoDecorrido = 0f;
+private float intervaloSimulado = 0.5f;
+private bool esperaTerminou = false;
+
+// Simule uma chamada por linha da tabela.
+void AtualizacaoSimulada()
+{
+    tempoDecorrido += intervaloSimulado;
+    esperaTerminou = tempoDecorrido >= tempoEspera;
+}
+
+// Exercício simplificado: intervaloSimulado substitui Time.deltaTime.
+// No jogo real, o intervalo entre quadros pode variar.`;
 function parseTable(value){try{const data=JSON.parse(value);return data.tipo==='temporizador_v1'&&Array.isArray(data.linhas)&&data.linhas.length===3&&data.linhas.every(r=>r&&typeof r.antes==='string'&&typeof r.depois==='string'&&typeof r.terminou==='string')?data:null;}catch{return null;}}
 function recordQuestions(i,record){return i===3&&record&&!parseTable(record.respostas?.[0])?oldSimulationQuestions:steps[i].qs;}
 function readableAnswer(value){const table=parseTable(value);if(!table)return value||'Sem resposta registrada.';return 'Atualização 1 — exemplo: antes 0; intervalo 0,5; depois 0,5; terminou: Não.\n'+table.linhas.map((r,i)=>'Atualização '+(i+2)+': antes '+r.antes+'; intervalo 0,5; depois '+r.depois+'; terminou: '+(r.terminou==='sim'?'Sim':'Não')+'.').join('\n');}
@@ -94,11 +110,11 @@ function collectAnswers(){const values=[...$('#form').querySelectorAll('textarea
 function persistDraft(){try{localStorage.setItem(draftKey(index),JSON.stringify(collectAnswers()));}catch{}}
 function renderTimerTable(saved,readonly){
  const parsed=parseTable(saved),wrapper=document.createElement('div');wrapper.className='timer-scroll';const table=document.createElement('table');table.className='timer-table';const caption=document.createElement('caption');caption.textContent='Contagem de tempo — primeira linha preenchida como exemplo';table.append(caption);
- const head=document.createElement('thead'),hr=document.createElement('tr');for(const label of ['Atualização','Tempo antes','Intervalo','Tempo depois','A espera terminou?']){const th=document.createElement('th');th.scope='col';th.textContent=label;hr.append(th);}head.append(hr);table.append(head);const body=document.createElement('tbody');
- for(let row=0;row<4;row++){const tr=document.createElement('tr');for(let col=0;col<5;col++){const td=document.createElement(col===0?'th':'td');if(col===0){td.scope='row';td.textContent=row===0?'1 — exemplo':String(row+1);}else if(row===0){td.textContent=['0','0,5','0,5','Não'][col-1];}else if(col===2){td.textContent='0,5';}else if(col===1&&row===1){td.textContent='0,5';}else{const i=row-1,key=col===1?'antes':col===3?'depois':'terminou';let field;
- if(col===4){field=document.createElement('select');field.id='tableEnd'+i;for(const [value,label] of [['','Selecione'],['sim','Sim'],['nao','Não']]){let option=document.createElement('option');option.value=value;option.textContent=label;field.append(option);}field.disabled=readonly;}
+ const head=document.createElement('thead'),hr=document.createElement('tr');for(const label of ['Chamada','tempoDecorrido (antes)','intervaloSimulado','tempoDecorrido (depois)','esperaTerminou (após comparar)']){const th=document.createElement('th');th.scope='col';th.textContent=label;hr.append(th);}head.append(hr);table.append(head);const body=document.createElement('tbody');
+ for(let row=0;row<4;row++){const tr=document.createElement('tr');for(let col=0;col<5;col++){const td=document.createElement(col===0?'th':'td');if(col===0){td.scope='row';td.textContent=row===0?'1 — exemplo':String(row+1);}else if(row===0){td.textContent=['0','0,5','0,5','false (Não)'][col-1];}else if(col===2){td.textContent='0,5';}else if(col===1&&row===1){td.textContent='0,5';}else{const i=row-1,key=col===1?'antes':col===3?'depois':'terminou';let field;
+ if(col===4){field=document.createElement('select');field.id='tableEnd'+i;for(const [value,label] of [['','Selecione'],['sim','true (Sim)'],['nao','false (Não)']]){let option=document.createElement('option');option.value=value;option.textContent=label;field.append(option);}field.disabled=readonly;}
  else{field=document.createElement('input');field.type='text';field.inputMode='decimal';field.pattern='-?[0-9]+([.,][0-9]+)?';field.maxLength=20;field.id=(col===1?'tableBefore':'tableAfter')+i;field.readOnly=readonly;}
- field.required=true;field.setAttribute('aria-label','Atualização '+(row+1)+' — '+['','tempo antes','','tempo depois','espera terminou'][col]);field.value=parsed?.linhas[i]?.[key]||'';field.oninput=persistDraft;field.onchange=persistDraft;td.append(field);}tr.append(td);}body.append(tr);}table.append(body);wrapper.append(table);return wrapper;
+ field.required=true;field.setAttribute('aria-label','Atualização '+(row+1)+' — '+['','tempoDecorrido antes','','tempoDecorrido depois','esperaTerminou'][col]);field.value=parsed?.linhas[i]?.[key]||'';field.oninput=persistDraft;field.onchange=persistDraft;td.append(field);}tr.append(td);}body.append(tr);}table.append(body);wrapper.append(table);return wrapper;
 }
 let renderedLocked=null,exitPolicyAccepted=false,researchDeparture=null,departureNotice='';
 function stageViewLocked(){return !demo&&!isTeacher&&(!progressLoaded||!controlReady||!responsesOpen||(index<6&&!stageReleased(index)));}
@@ -119,7 +135,17 @@ function supplement(i){
   for(const [label,url] of links){let p=document.createElement('p'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';p.append(a);box.append(p)}
   const note=document.createElement('p');note.textContent='Roteiro: localize a definição de deltaTime, identifique sua unidade de medida e examine a multiplicação por uma taxa por segundo. Depois compare = e += nos trechos a seguir. O operador += é uma construção de C#, não um método específico do Unity.';box.append(note);
  }
- if(i===3){const p=document.createElement('p');p.textContent='Digite os números usando vírgula ou ponto. Em cada linha, use o tempo depois da linha anterior como tempo antes. Escolha Sim ou Não para indicar se a contagem já atingiu 2 segundos. O intervalo fictício serve apenas para este exercício.';box.append(p);}
+ if(i===3){
+ const h=document.createElement('h3');h.textContent='Primeiro, um exemplo diferente: somar pontos';box.append(h);
+ const p=document.createElement('p');p.textContent='Imagine um jogador que começa com 1 ponto e ganha 2 pontos por rodada. Anote o valor de pontos antes da soma, execute as instruções na ordem e registre os resultados. As variáveis são iniciadas apenas uma vez; repita somente o bloco da rodada.';box.append(p);
+ const pre=document.createElement('pre');pre.textContent='// Inicialização (uma única vez)\nint pontos = 1;\nint bonus = 2;\nbool atingiuMeta = false;\n\n// Execute este bloco em cada rodada:\npontos += bonus;\natingiuMeta = pontos >= 5;';box.append(pre);
+ const wrap=document.createElement('div');wrap.className='timer-scroll';const table=document.createElement('table');table.className='timer-table';const cap=document.createElement('caption');cap.textContent='Exemplo resolvido — teste de mesa de pontos';table.append(cap);
+ const head=document.createElement('thead'),tr=document.createElement('tr');for(const text of ['Rodada','pontos (antes)','bonus','pontos (depois)','atingiuMeta']){const th=document.createElement('th');th.scope='col';th.textContent=text;tr.append(th);}head.append(tr);table.append(head);
+ const tbody=document.createElement('tbody');for(const row of [['1','1','2','3','false'],['2','3','2','5','true']]){const tr=document.createElement('tr');row.forEach((text,j)=>{const td=document.createElement(j===0?'th':'td');if(j===0)td.scope='row';td.textContent=text;tr.append(td)});tbody.append(tr);}table.append(tbody);wrap.append(table);box.append(wrap);
+ const explanation=document.createElement('p');explanation.textContent='Rodada 1: 1 + 2 = 3; 3 >= 5 é falso. Rodada 2: o valor anterior é 3; 3 + 2 = 5; 5 >= 5 é verdadeiro. O resultado da linha anterior passa a ser o valor inicial da próxima. Não reinicie pontos a cada rodada.';box.append(explanation);
+ const title=document.createElement('h3');title.textContent='Agora, simule o temporizador da atividade';box.append(title);
+ const note=document.createElement('p');note.textContent='O código para simular está logo abaixo. Na tabela da atividade, tempoEspera permanece em 2 e intervaloSimulado permanece em 0,5. Use vírgula ou ponto nos números. Copie tempoDecorrido depois da linha anterior para tempoDecorrido antes da próxima. Depois da soma, calcule esperaTerminou: true significa que o limite foi atingido; false significa que ainda não foi. A primeira chamada já está preenchida como exemplo. Nas perguntas finais, proponha o que acrescentar para retomar a patrulha e preparar a próxima espera.';box.append(note);
+ }
  if(i===5){let title=document.createElement('h3');title.textContent='Sua hipótese inicial — registro enviado';box.append(title);const initial=answers[0];if(initial?.respostas){steps[0].qs.forEach((q,j)=>{let h=document.createElement('h4');h.textContent=(j+1)+'. '+q;let p=document.createElement('p');p.className='original-answer';p.textContent=initial.respostas[j]||'Sem resposta registrada.';box.append(h,p)})}else{let p=document.createElement('p');p.textContent='Não foi possível localizar a hipótese inicial. Volte à primeira etapa e verifique seu envio antes de responder à revisão.';box.append(p)}}
  return box.childNodes.length?box:null;
 }
@@ -313,7 +339,7 @@ $('#closeAnswers').onclick=()=>changeAvailability(false);
 function msg(t){$('#status').textContent=t;if($('#authStatus'))$('#authStatus').textContent=t}function draftKey(i){return `${root}:${demo?'demo':user?.uid}:${i}`+(i===3?':tabela-v1':'')}
 function ref(i){return doc(db,root,user.uid,'etapas',String(i))}
 async function event(type,detail=''){if(demo||!user)return;try{await addDoc(collection(db,root,user.uid,'eventos'),{tipo:type,detalhe:detail,etapa:index,em:serverTimestamp()})}catch{ /* eventos não bloqueiam o envio das respostas */ }}
-function render(){ renderedLocked=stageViewLocked();$('#welcome').hidden=true;$('#activity').hidden=false;$('#identity').textContent=demo?'Visitante · demonstração':user.displayName||user.email;$('#mode').textContent=demo?'SEM ENVIO AO FIREBASE':'CONTA GOOGLE';$('#steps').replaceChildren();steps.forEach((s,i)=>{let b=document.createElement('button');b.className=i===index?'active':'';b.disabled=i>answers.length;b.innerHTML=`<b>${i<answers.length?'✓':i+1}</b><span>${s.title}</span>`;b.onclick=()=>{if(!confirmInternalDeparture())return;index=i;render()};$('#steps').append(b)});
+function render(){ renderedLocked=stageViewLocked();document.body.classList.toggle('activity-locked',renderedLocked);document.body.classList.remove('awaiting-access');$('#welcome').hidden=true;$('#activity').hidden=false;$('#identity').textContent=demo?'Visitante · demonstração':user.displayName||user.email;$('#mode').textContent=demo?'SEM ENVIO AO FIREBASE':'CONTA GOOGLE';$('#steps').replaceChildren();steps.forEach((s,i)=>{let b=document.createElement('button');b.className=i===index?'active':'';b.disabled=i>answers.length;b.innerHTML=`<b>${i<answers.length?'✓':i+1}</b><span>${s.title}</span>`;b.onclick=()=>{if(!confirmInternalDeparture())return;index=i;render()};$('#steps').append(b)});
 $('#form').replaceChildren();$('#form').hidden=renderedLocked;$('#steps').hidden=renderedLocked;$('#saved').hidden=true;$('#back').hidden=renderedLocked||index===0;$('#send').hidden=false;
 if(renderedLocked){$('#content').replaceChildren();const h=document.createElement('h2');h.textContent='Atividade não liberada';const p=document.createElement('p');p.textContent='A atividade não está liberada. Aguarde a liberação da professora para continuar.';$('#content').append(h,p);$('#send').hidden=true;$('#geoNotice').hidden=true;updateAvailability();return;}
 if(index===6){$('#content').innerHTML='<div class="success">✓</div><span class="eyebrow">PERCURSO CONCLUÍDO</span><h2>Uma explicação<br>em movimento.</h2><p>Todas as seis etapas foram enviadas. Você pode consultar seus registros nas etapas anteriores.</p>';$('#send').hidden=true;$('#saved').hidden=false;$('#saved').textContent=demo?'Demonstração concluída. Nenhuma resposta foi enviada.':'Respostas confirmadas no Firebase para '+user.email+'. Atividade: patrulhaTempoV1.';updateAvailability();return}

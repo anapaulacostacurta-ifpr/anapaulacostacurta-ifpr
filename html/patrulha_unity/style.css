@@ -19,3 +19,9 @@
 .timer-scroll{overflow-x:auto;margin:22px 0}.timer-table{border-collapse:collapse;width:100%;min-width:520px;font-size:13px}.timer-table caption{text-align:left;font-weight:600;margin-bottom:12px}.timer-table th,.timer-table td{border:1px solid #b9c6b0;padding:12px;text-align:center}.timer-table th{background:#e8eddf}.timer-table input,.timer-table select{width:100%;min-width:80px;padding:10px;border:1px solid #a2b29a;border-radius:5px;background:white;font:inherit}.timer-table input{max-width:120px}#exitPolicy[hidden]{display:none}@media print{body>*{display:none!important}body::before{content:'A impressão desta atividade está bloqueada.';display:block;font:18px sans-serif}}
 
 .question-guide{margin:0 0 .6rem;color:#42536b;font-size:.95rem;line-height:1.55;padding:.6rem .8rem;border-left:3px solid #5876a3;background:#f3f6fa}
+
+/* Nenhum conteúdo didático na tela de espera do aluno. */
+.awaiting-access aside,.activity-locked aside,.activity-locked main>footer,.activity-locked main>#status,.activity-locked #activity>.topline,.activity-locked #availability{display:none!important}
+.activity-locked .layout,.awaiting-access .layout{display:block}
+.activity-locked main,.awaiting-access main{max-width:900px;margin:auto}
+.timer-table th{overflow-wrap:anywhere;min-width:120px}
