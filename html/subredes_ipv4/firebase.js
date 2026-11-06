@@ -1,4 +1,4 @@
-import {CONFIG} from './config.js';
+import {CONFIG} from './config.js?v=20261106-video6-7';
 let promise;
 export function services(){if(!promise)promise=(async()=>{const base='https://www.gstatic.com/firebasejs/11.10.0/';const [a,authSDK,fs]=await Promise.all([import(base+'firebase-app.js'),import(base+'firebase-auth.js'),import(base+'firebase-firestore.js')]);const app=a.initializeApp(CONFIG.firebase),auth=authSDK.getAuth(app);await authSDK.setPersistence(auth,authSDK.browserSessionPersistence);await auth.authStateReady();return {auth,authSDK,fs,db:fs.getFirestore(app)}})().catch(e=>{promise=null;throw e});return promise}
 export function isGoogle(u){return !!u&&!u.isAnonymous&&u.providerData.some(x=>x.providerId==='google.com')}
