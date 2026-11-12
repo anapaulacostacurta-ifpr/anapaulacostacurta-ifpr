@@ -22,3 +22,12 @@ O site não coleta respostas nem inclui analytics. Links externos abrem serviço
 
 ## Atualizar o plugin
 Substitua o ZIP em downloads pela nova versão exportada e atualize nome do arquivo, links e versão em index.html. O site não altera automaticamente o plugin original nem publica no diretório da OpenAI.
+
+
+## Atualização do guia v1.1.0
+
+Foram incluídas sete capturas originais em `assets/telas/`, com legendas, textos alternativos e links para ampliar. Envie também essa pasta ao repositório. O ZIP do plugin permanece na versão 1.0.0.
+
+Endereço publicado informado pela autora: https://anapaulacostacurta-ifpr.github.io/anapaulacostacurta-ifpr/revisao_escopo
+
+Para atualizar a página existente, substitua os arquivos do site na pasta correspondente a `revisao_escopo`, mantendo `index.html`, `styles.css`, `script.js`, `assets/` e `downloads/` no mesmo nível relativo. Não envie apenas o ZIP ao repositório: extraia e envie seu conteúdo. Esta entrega não altera automaticamente o site publicado.
