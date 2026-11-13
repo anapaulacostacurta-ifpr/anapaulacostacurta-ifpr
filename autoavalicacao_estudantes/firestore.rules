@@ -1,0 +1,158 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function docenteAutoavaliacao() {
+   return request.auth != null
+    && exists(/databases/$(database)/documents/autoavaliacaoDocentes/$(request.auth.uid))
+    && get(/databases/$(database)/documents/autoavaliacaoDocentes/$(request.auth.uid)).data.ativo == true;
+  }
+  match /autoavaliacaoDocentes/{uid} {
+   allow get: if request.auth != null && request.auth.uid == uid;
+   allow list, create, update, delete: if false;
+  }
+  // Registros da versão anterior: somente consulta, sem apagar ou migrar.
+  match /autoavaliacaoGeralV1/{uid} {
+   allow get: if request.auth != null && (request.auth.uid == uid || docenteAutoavaliacao());
+   allow list: if docenteAutoavaliacao();
+   allow create, update, delete: if false;
+  }
+  match /autoavaliacaoAgenda/{dia} {
+   function turmaItemValido(i) {
+    let turmas = request.resource.data.turmas;
+    return turmas.size() <= i || (turmas[i] is string && turmas[i].size() > 0 && turmas[i].size() <= 120);
+   }
+   function agendaValida() {
+    let d = request.resource.data;
+    return d.keys().hasAll(['data','inicio','fim','liberada','alteradoPor','alteradoEm','turmas'])
+     && d.keys().hasOnly(['data','inicio','fim','liberada','alteradoPor','alteradoEm','turmas'])
+     && d.data is string && d.data == dia
+     && d.data.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+     && d.inicio is timestamp && d.fim is timestamp
+     // Dia completo no horário de Brasília (UTC-3).
+     && d.inicio.toMillis() % 86400000 == 10800000
+     && d.fim == d.inicio + duration.value(1, 'd')
+     && d.turmas is list && d.turmas.size() > 0 && d.turmas.size() <= 20
+     && turmaItemValido(0) && turmaItemValido(1) && turmaItemValido(2) && turmaItemValido(3) && turmaItemValido(4) && turmaItemValido(5) && turmaItemValido(6) && turmaItemValido(7) && turmaItemValido(8) && turmaItemValido(9) && turmaItemValido(10) && turmaItemValido(11) && turmaItemValido(12) && turmaItemValido(13) && turmaItemValido(14) && turmaItemValido(15) && turmaItemValido(16) && turmaItemValido(17) && turmaItemValido(18) && turmaItemValido(19)
+     && d.liberada is bool
+     && d.alteradoPor == request.auth.uid
+     && d.alteradoEm == request.time;
+   }
+   allow read: if request.auth != null;
+   allow create: if docenteAutoavaliacao() && agendaValida() && request.time < request.resource.data.fim;
+   allow update: if docenteAutoavaliacao() && agendaValida()
+    && request.resource.data.data == resource.data.data
+    && request.resource.data.inicio == resource.data.inicio
+    && request.resource.data.fim == resource.data.fim;
+   allow delete: if false;
+
+   match /respostas/{uid} {
+    function texto(i) {
+     return request.resource.data.respostas[i] is string
+      && request.resource.data.respostas[i].size() > 0
+      && request.resource.data.respostas[i].size() <= 6000;
+    }
+    function respostaValida() {
+     let d = request.resource.data;
+     return d.keys().hasAll(['nome','email','turma','respostas','enviadoEm','versao','dataAvaliacao'])
+      && d.keys().hasOnly(['nome','email','turma','respostas','enviadoEm','versao','dataAvaliacao'])
+      && d.nome is string && d.nome.size() <= 500
+      && d.email == request.auth.token.email
+      && d.turma is string && d.turma.size() > 0 && d.turma.size() <= 120
+      && d.respostas is list && d.respostas.size() == 6
+      && texto(0) && texto(1) && texto(2) && texto(3) && texto(4) && texto(5)
+      && d.versao is int && d.versao == 2
+      && d.dataAvaliacao == dia
+      && d.enviadoEm == request.time;
+    }
+    function dentroDoPrazo() {
+     let agenda = get(/databases/$(database)/documents/autoavaliacaoAgenda/$(dia)).data;
+     return agenda.turmas is list && request.resource.data.turma in agenda.turmas
+      && agenda.liberada == true
+      && request.time >= agenda.inicio
+      && request.time < agenda.fim;
+    }
+    allow get: if request.auth != null && (request.auth.uid == uid || docenteAutoavaliacao());
+    allow list: if docenteAutoavaliacao();
+    allow create: if request.auth != null && request.auth.uid == uid
+     && respostaValida() && dentroDoPrazo();
+    allow update, delete: if false;
+   }
+  }
+  // Metadados docentes: os documentos originais de resposta são imutáveis.
+  function respostaBase(dia, uid) {
+   return dia == 'legado'
+    ? get(/databases/$(database)/documents/autoavaliacaoGeralV1/$(uid)).data
+    : get(/databases/$(database)/documents/autoavaliacaoAgenda/$(dia)/respostas/$(uid)).data;
+  }
+  match /autoavaliacaoAjustes/{chave} {
+   function ajusteValido() {
+    let d = request.resource.data;
+    return d.keys().hasAll(['uid','dia','turmaOriginal','turmaAnterior','turmaAtual','motivo','versao','historicoId','alteradoPor','alteradoEm'])
+     && d.keys().hasOnly(['uid','dia','turmaOriginal','turmaAnterior','turmaAtual','motivo','versao','historicoId','alteradoPor','alteradoEm'])
+     && d.uid is string && d.dia is string && chave == d.dia + '__' + d.uid
+     && d.turmaOriginal == respostaBase(d.dia, d.uid).turma
+     && d.turmaAnterior is string && d.turmaAnterior.size() <= 120
+     && d.turmaAtual is string && d.turmaAtual.size() > 0 && d.turmaAtual.size() <= 120
+     && d.turmaAtual != d.turmaAnterior
+     && d.motivo is string && d.motivo.size() > 0 && d.motivo.size() <= 1000
+     && d.versao is int && d.versao > 0
+     && d.historicoId is string && d.historicoId.size() > 0 && d.historicoId.size() <= 100
+     && d.alteradoPor == request.auth.uid && d.alteradoEm == request.time;
+   }
+   function temHistoricoAtomico() {
+    let id = request.resource.data.historicoId;
+    return !exists(/databases/$(database)/documents/autoavaliacaoAjustes/$(chave)/historico/$(id))
+     && getAfter(/databases/$(database)/documents/autoavaliacaoAjustes/$(chave)/historico/$(id)).data == request.resource.data;
+   }
+   allow read: if docenteAutoavaliacao();
+   allow create: if docenteAutoavaliacao() && ajusteValido()
+    && request.resource.data.versao == 1
+    && request.resource.data.turmaAnterior == request.resource.data.turmaOriginal
+    && temHistoricoAtomico();
+   allow update: if docenteAutoavaliacao() && ajusteValido()
+    && request.resource.data.versao == resource.data.versao + 1
+    && request.resource.data.uid == resource.data.uid
+    && request.resource.data.dia == resource.data.dia
+    && request.resource.data.turmaOriginal == resource.data.turmaOriginal
+    && request.resource.data.turmaAnterior == resource.data.turmaAtual
+    && temHistoricoAtomico();
+   allow delete: if false;
+   match /historico/{id} {
+    allow read: if docenteAutoavaliacao();
+    allow create: if docenteAutoavaliacao()
+     && getAfter(/databases/$(database)/documents/autoavaliacaoAjustes/$(chave)).data.historicoId == id
+     && getAfter(/databases/$(database)/documents/autoavaliacaoAjustes/$(chave)).data == request.resource.data;
+    allow update, delete: if false;
+   }
+  }
+  match /autoavaliacaoAnalises/{chave} {
+   function temasValidos(q) {
+    let d = request.resource.data;
+    let lista = d.categorias[q];
+    return lista is list && lista.size() <= 15
+     && lista.hasOnly(['Compreensão de conceitos','Leitura e interpretação','Programação e prática','Organização e tempo','Autonomia','Apoio de colegas','Apoio da professora','Documentação e pesquisa','Uso de IA/ferramentas','Mais exemplos','Mais prática','Mais tempo','Recursos e infraestrutura','Sem dificuldade relatada','Outros'])
+     && (lista.size() == 0 || q in d.revisadas);
+   }
+   function analiseValida() {
+    let d = request.resource.data;
+    return d.keys().hasAll(['uid','dia','categorias','revisadas','observacao','versao','alteradoPor','alteradoEm'])
+     && d.keys().hasOnly(['uid','dia','categorias','revisadas','observacao','versao','alteradoPor','alteradoEm'])
+     && d.uid is string && d.dia is string && chave == d.dia + '__' + d.uid
+     && respostaBase(d.dia,d.uid).respostas is list
+     && d.categorias is map && d.categorias.keys().hasAll(['q0','q1','q2','q3','q4','q5']) && d.categorias.keys().hasOnly(['q0','q1','q2','q3','q4','q5'])
+     && d.revisadas is list && d.revisadas.size() <= 6 && d.revisadas.hasOnly(['q0','q1','q2','q3','q4','q5'])
+     && temasValidos('q0') && temasValidos('q1') && temasValidos('q2') && temasValidos('q3') && temasValidos('q4') && temasValidos('q5')
+     && d.observacao is string && d.observacao.size() <= 5000
+     && d.versao is int && d.versao > 0
+     && d.alteradoPor == request.auth.uid && d.alteradoEm == request.time;
+   }
+   allow read: if docenteAutoavaliacao();
+   allow create: if docenteAutoavaliacao() && analiseValida() && request.resource.data.versao == 1;
+   allow update: if docenteAutoavaliacao() && analiseValida()
+    && request.resource.data.uid == resource.data.uid && request.resource.data.dia == resource.data.dia
+    && request.resource.data.versao == resource.data.versao + 1;
+   allow delete: if false;
+  }
+
+ }
+}
