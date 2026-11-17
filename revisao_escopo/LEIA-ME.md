@@ -23,3 +23,6 @@ Esse guia apresenta as instruções de instalação e uso. Ao concluir a etapa i
 
 ## Funcionamento
 Site em HTML e CSS, sem JavaScript, dependências externas ou formulário de upload. Os anexos são enviados na conversa com o plugin. Links relativos garantem o download em subpastas do GitHub Pages. O botão de download não direciona ao plugin privado da autora. O pacote do plugin foi obtido da versão 1.0.7 existente; as instruções metodológicas não foram alteradas.
+
+## Modelo do protocolo
+O guia indica o template JBI para protocolo de revisão de escopo, obtido em https://jbi.global/scoping-review-network/resources. O usuário deve baixar o arquivo e anexá-lo à conversa. O link aponta para a página de recursos, não para um arquivo DOCX específico.
