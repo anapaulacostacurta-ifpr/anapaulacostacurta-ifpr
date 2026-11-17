@@ -1,0 +1,479 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Patrulha com espera • Laboratório Unity</title><style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--ink:#202b29;--green:#254b40;--lime:#d6eb9f;--paper:#f6f6f0;--line:#dce0d5}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:16px 'DM Sans',sans-serif}header{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:0 5%}.brand{font:700 23px 'Space Grotesk',sans-serif;text-decoration:none;color:var(--green);display:flex;gap:13px}.thin{font-weight:400}.tag{margin-left:auto;font-size:11px;letter-spacing:2px}.layout{max-width:1440px;margin:auto;display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 82px)}aside{padding:56px 34px 30px 48px;border-right:1px solid var(--line)}.eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:#5f7466}h1{font:500 30px/1.2 'Space Grotesk',sans-serif;margin:22px 0}aside p,.muted{font-size:13px;line-height:1.7;color:#657269}nav{margin-top:45px}nav button{display:flex;text-align:left;gap:12px;align-items:center;width:100%;border:0;background:none;padding:13px 8px;border-radius:8px;font-size:13px;margin:5px 0}nav button.active{background:var(--green);color:white}nav button:disabled{opacity:.5;cursor:not-allowed}nav b{border:1px solid currentColor;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;font-size:11px;flex-shrink:0}.aside-note{margin-top:45px;font-size:12px;line-height:1.8;color:#6a756c}main{padding:55px 8%;max-width:1000px}h2{font:500 43px/1.13 'Space Grotesk',sans-serif;letter-spacing:-1.5px;margin:18px 0 23px}.lead{color:#58665f;line-height:1.8;max-width:610px}.preview{background:#e8eddf;border:1px solid #dbe3cf;border-radius:15px;padding:32px 30px 23px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:30px 0}.point{background:white;border:1px solid #b6c5ab;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-weight:bold}.track{height:1px;background:#9bab91;flex:1;position:relative}.enemy{position:absolute;left:42%;top:-14px;color:#365b43;font-size:25px}.preview small{width:100%;text-align:center;font-size:9px;letter-spacing:2px;margin-top:20px}.notice{padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px;line-height:1.6;margin:20px 0}.notice p{margin:8px 0}.check{display:flex;gap:10px;font-size:13px;margin:24px 0;align-items:start}button{font:600 14px 'DM Sans',sans-serif;padding:12px 18px;border:1px solid #bdc9bc;border-radius:7px;color:var(--ink);background:white;cursor:pointer}button:disabled{opacity:.5;cursor:wait}.primary{background:var(--green);color:white;border-color:var(--green);padding:15px 22px}.text{border:0;background:none;display:block;padding:17px 0;color:#526d57;font-size:12px}footer{margin-top:45px;padding-top:20px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.5px;color:#738074}#status{font-size:14px;line-height:1.6;color:#925025;white-space:pre-line}.topline{display:flex;justify-content:space-between;gap:15px;font-size:11px;color:#627366;margin-bottom:28px}label.question{display:block;margin:25px 0 9px;font-weight:600;line-height:1.5;font-size:14px}textarea{width:100%;min-height:135px;border:1px solid #bdc9bc;border-radius:8px;padding:14px;font:15px/1.6 'DM Sans',sans-serif;resize:vertical;background:#fff}textarea:focus{outline:2px solid #a0bc7d;outline-offset:2px}.counter{font-size:11px;color:#71816f;text-align:right;margin:5px 0}pre{padding:22px;background:#23352e;color:#e1edca;border-radius:10px;overflow:auto;line-height:1.7;font-size:13px}#content p{line-height:1.8;color:#536259}.actions{margin-top:28px;display:flex;justify-content:space-between;gap:10px}#saved{white-space:pre-wrap}a{color:#315b43}.success{font-size:45px;color:#3b6544}input{accent-color:var(--green)}@media(max-width:800px){header{padding:0 20px;height:65px}.tag{display:none}.layout{display:block}aside{padding:25px;border-right:0;border-bottom:1px solid var(--line)}aside h1,aside>p,.aside-note{display:none}nav{margin:15px 0 0;display:flex;overflow:auto;gap:5px}nav button{min-width:125px;font-size:11px}main{padding:30px 24px}h2{font-size:34px}.actions{flex-wrap:wrap}}
+
+.study-guide{margin:25px 0;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.study-guide h3{font:600 20px 'Space Grotesk',sans-serif}.study-guide li{line-height:1.8;margin:12px 0}.study-guide h4{font-size:14px;margin:24px 0 8px}.original-answer{white-space:pre-wrap;background:#e8eddf;border-radius:8px;padding:16px;overflow-wrap:anywhere}.study-guide a{font-weight:600;text-underline-offset:3px}code{font-family:monospace;overflow-wrap:anywhere}
+
+.availability{padding:15px 0;margin:0 0 22px;font-size:13px;line-height:1.6;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.availability.open{color:#315b43}.availability.closed{color:#8a4f27}#teacherPanel{border:1px solid #bdc9bc;padding:20px;border-radius:8px;margin:0 0 30px;background:#edf1e5}#teacherPanel[hidden]{display:none}#teacherPanel summary{cursor:pointer;font-weight:700}#teacherPanel p{font-size:13px;line-height:1.6}textarea[readonly]{background:#edf0e9;color:#536259}#closeAnswers{border-color:#9a6950;color:#794229}
+
+.geo-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.geo-fields label{font-size:13px;line-height:1.5}.geo-fields input{display:block;width:100%;padding:10px;margin-top:5px;border:1px solid #bdc9bc;border-radius:6px;background:white;font:inherit}#geoNotice[hidden]{display:none}@media(max-width:600px){.geo-fields{grid-template-columns:1fr}}
+
+/* Não interfere na seleção durante a digitação nem nos controles docentes. */
+#content,#saved,#form .question,#welcome .notice{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}#form textarea,.geo-fields input{-webkit-user-select:text;user-select:text}
+
+#teacherReview{border-bottom:1px solid #bdc9bc;padding:20px 0;margin:15px 0 25px}#teacherReview input[type=search],#studentUid{width:100%;padding:12px;border:1px solid #bdc9bc;border-radius:7px;margin:8px 0 15px;background:white;font:inherit}.student-row{display:flex;flex-direction:column;gap:5px;width:100%;text-align:left;margin:10px 0;overflow-wrap:anywhere}.student-row span{font-size:12px;font-weight:400}#studentAnswers details{padding:15px 0;border-bottom:1px solid #bdc9bc}#studentAnswers h4{font-size:13px}.review-answer{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border-radius:6px;padding:12px}#teacherReview textarea{margin:10px 0}#teacherReview hr{border:0;border-top:1px solid #bdc9bc;margin:25px 0}#studentDetail[hidden],#studentListView[hidden]{display:none}
+
+#eventPanel{padding:20px 0;border-bottom:1px solid #bdc9bc;margin:20px 0}#eventPanel select{display:block;max-width:100%;padding:10px;border:1px solid #bdc9bc;border-radius:6px;background:white;margin:8px 0 15px;font:inherit}#eventTimeline{padding-left:22px}#eventTimeline li{padding:12px 0;border-bottom:1px solid #dce0d5;font-size:13px;overflow-wrap:anywhere}.event-meta{display:block;font-size:12px;margin-top:5px;color:#657269}#eventTimeline p{white-space:pre-wrap}#moreEvents[hidden]{display:none}
+
+#authStatus{font-size:13px;line-height:1.6;color:#8a4f27;white-space:pre-wrap}#retryData{margin:10px 0 20px}#retryData[hidden]{display:none}
+
+.timer-scroll{overflow-x:auto;margin:22px 0}.timer-table{border-collapse:collapse;width:100%;min-width:520px;font-size:13px}.timer-table caption{text-align:left;font-weight:600;margin-bottom:12px}.timer-table th,.timer-table td{border:1px solid #b9c6b0;padding:12px;text-align:center}.timer-table th{background:#e8eddf}.timer-table input,.timer-table select{width:100%;min-width:80px;padding:10px;border:1px solid #a2b29a;border-radius:5px;background:white;font:inherit}.timer-table input{max-width:120px}#exitPolicy[hidden]{display:none}@media print{body>*{display:none!important}body::before{content:'A impressão desta atividade está bloqueada.';display:block;font:18px sans-serif}}
+
+.question-guide{margin:0 0 .6rem;color:#42536b;font-size:.95rem;line-height:1.55;padding:.6rem .8rem;border-left:3px solid #5876a3;background:#f3f6fa}
+
+/* Nenhum conteúdo didático na tela de espera do aluno. */
+.awaiting-access aside,.activity-locked aside,.activity-locked main>footer,.activity-locked main>#status,.activity-locked #activity>.topline,.activity-locked #availability{display:none!important}
+.activity-locked .layout,.awaiting-access .layout{display:block}
+.activity-locked main,.awaiting-access main{max-width:900px;margin:auto}
+.timer-table th{overflow-wrap:anywhere;min-width:120px}
+</style></head><body class="awaiting-access"><header><a class="brand" href="./">◈ <span>LAB<span class="thin"> / JOGOS</span></span></a><span class="tag">UNITY · C# · INVESTIGAÇÃO</span><button id="exit" hidden>Sair</button></header><div class="layout"><aside><div class="eyebrow">SEQUÊNCIA 02</div><h1>O tempo também<br>faz parte do jogo.</h1><p>Uma patrulha. Dois destinos.<br>Uma nova decisão: quando continuar?</p><nav id="steps"></nav><div class="aside-note">Pense → registre → teste → revise.<br>Suas primeiras ideias fazem parte do percurso.</div></aside><main><section id="welcome"><span class="eyebrow">LABORATÓRIO DE PATRULHA</span><h2>Acesso à atividade</h2><p class="lead">Entre com sua conta Google. O conteúdo será apresentado somente após a liberação da professora.</p><div class="notice"><strong>Como funciona</strong><p>As etapas são individuais e sequenciais. O avanço depende do envio, não do acerto da hipótese. Respostas enviadas ficam preservadas. Ao sair da aba, as respostas ainda não enviadas são apagadas após o aviso apresentado antes da atividade.</p><p>A seleção e a cópia dos enunciados e códigos estão bloqueadas. Copiar, recortar, colar e arrastar texto nos campos também estão bloqueados. Tentativas e saídas da aba são registradas durante a atividade; esses eventos não comprovam uso de IA.</p></div><label class="check"><input type="checkbox" id="agree"> Li as orientações e o aviso sobre os registros.</label><p id="authStatus" role="status" aria-live="polite"></p><button class="primary" id="login">Entrar com Google →</button><p class="muted">Use a mesma conta para retomar em outro momento.</p></section><section id="activity" hidden><div class="topline"><span id="identity"></span><span id="mode"></span></div><button id="retryData" type="button" hidden>Tentar carregar respostas novamente</button><div id="availability" class="availability" role="status" aria-live="polite"></div><details id="teacherPanel" hidden><summary>Área da professora · controle de respostas</summary><p>Este controle vale para todos os alunos e todas as etapas desta atividade. As respostas enviadas permanecem preservadas.</p><p id="teacherState"></p><div class="actions"><button id="openAnswers" type="button">Liberar respostas</button><button id="closeAnswers" type="button">Bloquear respostas</button></div><details id="teacherReview"><summary>Respostas dos alunos e observações</summary><p>Consulte os envios, abra um aluno e registre suas observações. As anotações são privadas da equipe docente cadastrada.</p><button id="refreshStudents" type="button">Atualizar lista de alunos</button><p id="reviewStatus" role="status" aria-live="polite"></p><div id="studentListView"><label class="question" for="studentSearch">Buscar por nome ou e-mail</label><input id="studentSearch" type="search" placeholder="Nome ou e-mail"><div id="studentList"></div><details><summary>Consultar um aluno pelo UID</summary><p>Use o UID do documento no Firebase se um envio antigo não aparecer na lista.</p><input id="studentUid" placeholder="UID do aluno"><button id="lookupStudent" type="button">Consultar UID</button></details></div><section id="studentDetail" hidden><button id="backStudents" type="button">← Voltar à lista</button><h3 id="studentHeading"></h3><p id="studentMeta"></p><div id="studentAnswers"></div><section id="eventPanel"><h3>Eventos durante a atividade</h3><p>Saídas de aba, perda de foco e tentativas bloqueadas são registros de contexto. Não comprovam uso de IA. A consulta aos links do Unity é permitida na investigação. Uma mesma ação pode gerar perda de foco e saída de aba.</p><div class="actions"><button id="refreshEvents" type="button">Atualizar eventos</button><button id="moreEvents" type="button" hidden>Carregar mais eventos</button></div><label for="eventFilter">Filtrar registros carregados</label><select id="eventFilter"><option value="todos">Todos</option><option value="aba_oculta">Saída da aba</option><option value="retorno_aba">Retorno à aba</option><option value="perda_foco">Perda de foco</option><option value="bloqueios">Tentativas de cópia, recorte, colagem ou arraste</option></select><p id="eventSummary"></p><p id="eventStatus" role="status" aria-live="polite"></p><ol id="eventTimeline"></ol></section><label class="question" for="studentNote">Observações da professora sobre este aluno</label><textarea id="studentNote" maxlength="20000" placeholder="Registre sua análise e os pontos para acompanhamento…"></textarea><button id="saveStudentNote" type="button">Salvar observações do aluno</button><p id="studentNoteStatus" role="status" aria-live="polite"></p></section><hr><label class="question" for="classNote">Observações gerais sobre a atividade</label><textarea id="classNote" maxlength="20000" placeholder="Registre observações sobre a aplicação com a turma…"></textarea><div class="actions"><button id="loadClassNote" type="button">Carregar observações gerais</button><button id="saveClassNote" type="button">Salvar observações gerais</button></div><p id="classNoteStatus" role="status" aria-live="polite"></p></details><h3>Liberação por etapa</h3><p>Marque as etapas que poderão receber respostas. O bloqueio geral e a localização continuam valendo. As etapas anteriores precisam estar concluídas e os envios já feitos não são reabertos.</p><div id="stageOptions"></div><div class="actions"><button id="selectAllStages" type="button">Marcar todas</button><button id="clearStages" type="button">Desmarcar todas</button><button id="saveStages" type="button">Salvar liberação das etapas</button></div><p id="stageFeedback" role="status" aria-live="polite"></p><h3>Local autorizado</h3><label class="check"><input id="requireLocation" type="checkbox" checked>Exigir localização para enviar respostas</label><p>Desmarque e salve para aplicar a atividade em computadores com localização imprecisa. O login e a liberação das etapas continuam obrigatórios. Alterar o raio não melhora a precisão do dispositivo.</p><p>Defina o centro e o raio aceito. A precisão é a margem de erro informada pelo dispositivo. Computadores sem GPS podem ter precisão insuficiente.</p><div class="geo-fields"><label>Latitude<input id="centerLat" type="number" min="-90" max="90" step="any" placeholder="Ex.: -24.000000"></label><label>Longitude<input id="centerLng" type="number" min="-180" max="180" step="any" placeholder="Ex.: -50.000000"></label><label>Raio permitido em metros<input id="geoRadius" type="number" min="10" max="100000" value="150"></label><label>Precisão máxima em metros<input id="geoAccuracy" type="number" min="1" max="100000" value="100"></label></div><div class="actions"><button id="captureCenter" type="button">Usar minha localização como centro</button><button id="saveGeo" type="button">Salvar local no Firebase</button></div><p id="geoTeacherFeedback" role="status" aria-live="polite"></p><p id="teacherFeedback" role="status" aria-live="polite"></p></details><div id="geoNotice" class="notice"><strong>Verificação de localização</strong><p>A cada envio, o site solicita sua posição para verificar a área autorizada. Latitude, longitude, precisão e horário da medição serão gravados junto à etapa. Não há rastreamento contínuo. Em caso de erro ou imprecisão, avise a professora.</p><label class="check"><input id="geoConsent" type="checkbox"> Li o aviso e autorizo solicitar minha localização para os envios.</label><button id="checkGeo" type="button">Verificar minha localização</button><p id="geoFeedback" role="status" aria-live="polite"></p></div><div id="exitPolicy" class="notice" hidden><strong>Antes de responder</strong><p>Ao trocar de aba, minimizar ou sair da atividade, as respostas desta etapa que ainda não foram enviadas serão apagadas. Nas saídas controladas pelo site, você poderá cancelar. Na troca de aba, o navegador não permite confirmar antes. As etapas já enviadas serão preservadas. Abrir os links oficiais do Unity nesta etapa de investigação é permitido e não apaga suas respostas.</p><button id="acceptExitPolicy" type="button">Entendi e quero responder</button></div><div id="content"></div><div id="saved" hidden class="notice"></div><form id="form"></form><div class="actions"><button id="back">← Etapa anterior</button><button id="send" class="primary">Salvar e continuar →</button></div></section><p id="status" role="status" aria-live="polite"></p><footer>Modelos mentais · Hipóteses preservadas · Aprendizagem em processo</footer></main></div><script>
+const bootStatus=document.getElementById('authStatus');
+bootStatus.textContent='Carregando conexão com o Firebase…';
+function showStartupError(detail){
+ const message='Não foi possível iniciar o site: '+detail+'. Recarregue com Ctrl+Shift+R. Se o erro continuar, informe esta mensagem à professora.';
+ document.getElementById('authStatus').textContent=message;
+ document.getElementById('status').textContent=message;
+}
+window.addEventListener('error',e=>showStartupError(e.message||'Falha de carregamento. Verifique se a rede permite www.gstatic.com'));
+window.addEventListener('unhandledrejection',e=>showStartupError(e.reason?.message||'Falha inesperada'));
+</script><script type="module">import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
+import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
+import {getFirestore,doc,getDoc,setDoc,collection,addDoc,serverTimestamp,onSnapshot,GeoPoint,Timestamp,getDocs,writeBatch,runTransaction,query,orderBy,limit,startAfter,getDocsFromServer} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
+const app=initializeApp({apiKey:'AIzaSyAKUEJbtFwDCb6Jv3YU059FpNS-drHlfMw',authDomain:'networking-taks.firebaseapp.com',projectId:'networking-taks',storageBucket:'networking-taks.firebasestorage.app',messagingSenderId:'949681143186',appId:'1:949681143186:web:73ab934af62f9f7e44154b'});
+const auth=getAuth(app),db=getFirestore(app),$=s=>document.querySelector(s),root='patrulhaTempoV1';
+const requiredIds=["acceptExitPolicy", "activity", "agree", "authStatus", "availability", "back", "backStudents", "captureCenter", "centerLat", "centerLng", "checkGeo", "classNote", "classNoteStatus", "clearStages", "closeAnswers", "content", "eventFilter", "eventStatus", "eventSummary", "eventTimeline", "exit", "exitPolicy", "form", "geoAccuracy", "geoConsent", "geoFeedback", "geoNotice", "geoRadius", "geoTeacherFeedback", "identity", "loadClassNote", "login", "lookupStudent", "mode", "moreEvents", "openAnswers", "refreshEvents", "refreshStudents", "requireLocation", "retryData", "reviewStatus", "saveClassNote", "saveGeo", "saveStages", "saveStudentNote", "saved", "selectAllStages", "send", "stageFeedback", "stageOptions", "status", "steps", "studentAnswers", "studentDetail", "studentHeading", "studentList", "studentListView", "studentMeta", "studentNote", "studentNoteStatus", "studentSearch", "studentUid", "teacherFeedback", "teacherPanel", "teacherState", "welcome"];
+const missingIds=requiredIds.filter(id=>!document.getElementById(id));
+if(missingIds.length)throw new Error('Arquivos incompatíveis: faltam elementos no index.html ('+missingIds.join(', ')+'). Publique todos os arquivos do mesmo pacote.');
+const steps=[
+{title:'Hipótese inicial',intro:'O inimigo já patrulha entre A e B. Agora deverá esperar dois segundos em cada ponto, antes de seguir para o outro. O restante do jogo deve continuar funcionando. Responda individualmente, antes de consultar os próximos materiais.',qs:['O que precisa mudar no comportamento atual?','Que informações o programa precisará guardar para controlar a espera?','Como poderá identificar que os dois segundos terminaram?','Represente sua proposta em passos ou descreva um esquema.']},
+{title:'Investigue o tempo',intro:'Analise cada elemento novo. O operador += soma o valor da direita ao valor que já estava armazenado. Em Update(), Time.deltaTime representa o intervalo em segundos entre os quadros. Uma variável bool armazena true ou false.',code:'private float tempoEspera = 2f;\nprivate float tempoDecorrido = 0f;\nprivate bool esperando = false;\n\n// Compare as duas instruções:\ntempoDecorrido = Time.deltaTime;\ntempoDecorrido += Time.deltaTime;\n\n// Equivalência de +=:\ntempoDecorrido = tempoDecorrido + Time.deltaTime;',qs:['Qual função cada uma das três variáveis poderá desempenhar?','Qual a diferença entre atribuir Time.deltaTime e acumulá-lo com +=?','Por que verificar tempoDecorrido >= tempoEspera, em vez de igualdade exata?','Quando a contagem deveria começar e quando deveria voltar a zero?']},
+{title:'Planeje a solução',intro:'Sem executar no Unity, organize a lógica do programa. Considere o que acontece ao movimentar, chegar, esperar e retomar. O objetivo é formular uma solução testável, sem precisar acertar toda a sintaxe.',qs:['Escreva os passos ou pseudocódigo da sua solução.','O que impede o movimento enquanto esperando for true?','O inimigo acabou de chegar a A. Preveja o comportamento imediato, durante a espera e ao final dela.','Proponha um teste: condições iniciais, ação e resultado esperado.']},
+{title:'Simule no papel',intro:'Simulação simplificada: o inimigo chegou a A e a espera começa com tempoDecorrido = 0. Considere um intervalo fictício de 0,5 segundo por atualização, apenas para facilitar as contas. Na execução real, o intervalo pode variar.',qs:['Registre o valor acumulado nas quatro atualizações seguintes.','Em qual atualização a condição tempoDecorrido >= 2 fica verdadeira? Explique.','Se o temporizador voltasse a zero em toda atualização, o que aconteceria?','Que problema pode ocorrer na próxima chegada se a contagem anterior não for reiniciada?']},
+{title:'Implemente e teste',intro:'Etapa de laboratório: use o planejamento já enviado. O inimigo deve começar em direção a A, esperar dois segundos em cada ponto e repetir a patrulha. Preserve a versão original e faça uma alteração por vez. Registre as ajudas recebidas. Digite aqui sua explicação; não é necessário transcrever o código completo.',qs:['Antes do teste: qual alteração fará e qual resultado prevê?','Após o teste: descreva o resultado observado em pelo menos duas idas e voltas.','Qual discrepância encontrou e como revisou a solução? Se não encontrou, explique como verificou.','Explique a função do temporizador e da variável esperando na sua implementação. Registre as ajudas recebidas.']},
+{title:'Revise sua hipótese',intro:'Retome mentalmente a primeira explicação. Não é necessário afirmar que mudou de ideia: justifique tanto o que foi mantido quanto o que foi revisto.',qs:['O que manteve ou modificou em relação à hipótese inicial? Por quê?','Explique como posição, chegada, passagem do tempo e retomada do movimento se relacionam.','Novo desafio, sem testar ainda: como faria para esperar um segundo em A e três em B?','Que dúvida ainda permanece? Se não houver, descreva um cuidado importante para programar essa espera.']}
+];
+steps[0].code = `using UnityEngine;
+
+public class Inimigo : MonoBehaviour
+{
+    private float moveSpeed = 3f;
+    private Vector2 pontoA = new Vector2(-5f, 0f);
+    private Vector2 pontoB = new Vector2(5f, 0f);
+    private Vector2 targetPoint;
+
+    void Start()
+    {
+        targetPoint = pontoA;
+    }
+
+    void Update()
+    {
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            targetPoint,
+            moveSpeed * Time.deltaTime
+        );
+
+        if (transform.position.x == pontoA.x)
+        {
+            targetPoint = pontoB;
+        }
+        else if (transform.position.x == pontoB.x)
+        {
+            targetPoint = pontoA;
+        }
+    }
+}`;
+steps[0].intro += ' O código abaixo realiza a patrulha horizontal anterior, com o inimigo inicialmente em (0, 0, 0). Leia-o e proponha como acrescentar a espera, sem executá-lo ou modificar o registro inicial depois do envio.';
+// Código-base da patrulha, ainda sem tempo de espera.
+steps[2].code = steps[0].code;
+steps[4].code = steps[0].code;
+steps[2].intro += ' Consulte o código inicial abaixo para planejar suas alterações. Ele ainda não implementa a espera.';
+steps[4].intro += ' O código inicial abaixo é a base para a implementação; acrescente o controle de espera conforme seu planejamento.';
+steps[1].intro = 'Investigue na documentação oficial do Unity indicada abaixo. Leia a definição de Time.deltaTime e observe como o tempo é usado nos exemplos. Relacione a pesquisa às variáveis e instruções apresentadas; escreva com suas palavras e indique a fonte consultada nas respostas. Abrir os links em outra aba é permitido nesta etapa. Essas saídas podem aparecer no registro e não representam infração.';
+steps[3].intro = 'Faça um teste de mesa: acompanhe no caderno as mudanças das variáveis, sem abrir o Unity. Não é necessário fotografar o caderno: registre os resultados e as explicações nos campos ao final. O intervalo de 0,5 segundo é fictício e serve apenas para facilitar as contas; na execução real, o intervalo entre quadros pode variar.';
+steps[5].intro = 'Consulte abaixo suas respostas originais da primeira etapa. Compare-as com a compreensão construída ao longo da atividade. Elas estão preservadas e não podem ser editadas aqui. Não é necessário afirmar que mudou de ideia: justifique o que foi mantido ou revisto.';
+const oldSimulationQuestions=steps[3].qs.slice();
+steps[3].title='Simule o temporizador';
+steps[3].intro='O inimigo chegou a A e deve esperar 2 segundos. O contador começa em 0. Neste exercício, cada atualização acrescenta 0,5 segundo. Complete a tabela de cima para baixo: some o intervalo ao tempo anterior e indique se já atingiu 2 segundos. A primeira linha é um exemplo. Não execute o Unity ainda.';
+steps[3].qs=['Complete os valores e as escolhas da tabela.','Em qual atualização a espera termina? Explique como descobriu.','Ao terminar a espera, o que o programa deverá fazer para o inimigo seguir até B?','Com qual valor o contador deverá começar quando o inimigo chegar a B? Explique.'];
+// Revisão de clareza de 22/10/2026: perguntas 1 e 2 preservadas literalmente.
+const questionGuides=[
+ ['Compare o movimento do código com o comportamento pedido no enunciado. Descreva a mudança em palavras.', 'Descreva as informações que seria necessário lembrar durante a execução. Não é obrigatório saber os nomes das variáveis.', 'Explique sua ideia para reconhecer o fim da espera. Nesta etapa, registre sua previsão, mesmo que tenha dúvidas.', 'Organize sua ideia em uma sequência numerada. Você pode escrever frases; não precisa escrever código C#.'],
+ ['Para cada variável do trecho, explique separadamente para que ela poderia servir.', 'Compare o efeito das duas instruções sobre o valor guardado, considerando várias chamadas de Update().', 'Compare as duas formas de verificar o tempo e justifique sua escolha com base na pesquisa.', 'Indique os momentos do percurso em que a contagem deve começar e em que deve ser reiniciada.'],
+ [],[],[],[]
+];
+steps[2].intro='Planeje a alteração antes de abrir o Unity. Leia o código inicial abaixo, que faz a patrulha sem espera. Seu objetivo é acrescentar uma parada de 2 segundos em A e em B, mantendo o restante do jogo funcionando. Responda com frases ou passos numerados; não é necessário escrever o código completo.';
+steps[2].qs=[
+ 'Descreva, em ordem, o que o programa deve fazer desde o movimento até A, passando pela espera, até o início do movimento para B.',
+ 'Enquanto o inimigo estiver esperando, como sua solução evitará que a instrução de movimento seja executada?',
+ 'Imagine que o inimigo acabou de chegar a A. Descreva sua posição e seu movimento em três momentos: ao chegar, durante os 2 segundos de espera e depois da espera.',
+ 'Planeje um teste para sua solução: informe a posição inicial, o que você observará e qual resultado indicará que a espera em A e em B funciona.'
+];
+steps[4].intro='Agora implemente no Unity a solução planejada. O código inicial abaixo faz a patrulha sem espera. Salve uma cópia antes de alterá-lo. Acrescente uma mudança por vez e observe pelo menos duas idas e voltas completas. Responda antes e depois dos testes nos campos correspondentes; não é necessário transcrever todo o código.';
+steps[4].qs=[
+ 'Antes de testar: descreva a alteração que pretende fazer e o comportamento que espera observar.',
+ 'Depois de testar: descreva o que realmente aconteceu em A e em B durante pelo menos duas idas e voltas. Informe se houve parada e aproximadamente quanto tempo ela durou em cada ponto.',
+ 'Compare sua previsão com o resultado observado. Se algo saiu diferente, descreva o problema, a alteração feita e o resultado de um novo teste. Se tudo funcionou, explique quais observações sustentam essa conclusão.',
+ 'Explique como sua implementação controla o tempo de espera e permite ou impede o movimento. Se utilizou a variável esperando, explique sua função; se usou outra solução, descreva-a. Informe também as ajudas recebidas (colegas, professora, documentação ou IA) e em que ajudaram.'
+];
+steps[5].qs=[
+ 'Leia suas respostas iniciais apresentadas acima. Identifique uma ideia que manteve e uma que modificou, se houver. Explique o motivo usando o que observou nos testes.',
+ 'Explique a sequência completa: como o programa reconhece a chegada, mantém o inimigo parado, acompanha o tempo e retoma o movimento para o outro ponto?',
+ 'Sem executar um novo teste: o que você mudaria para esperar 1 segundo em A e 3 segundos em B? Explique como o programa escolheria o tempo de cada ponto.',
+ 'Qual dúvida você ainda tem sobre essa solução? Se não tiver dúvidas, descreva um cuidado necessário para que a espera funcione em todas as chegadas.'
+];
+steps[3].intro='Faça um teste de mesa: leia o trecho abaixo sem executá-lo no Unity. O inimigo acabou de chegar a A. tempoDecorrido começa em 0 e tempoEspera vale 2. Para facilitar as contas, intervaloSimulado vale 0,5 segundo em todas as chamadas. A inicialização acontece uma única vez. Cada linha da tabela representa uma chamada de AtualizacaoSimulada(). Acompanhe primeiro a soma e depois a comparação. Este trecho estuda apenas a contagem: não move o inimigo nem reinicia o contador.';
+steps[3].code=`// Estado inicial: definir uma única vez, antes da primeira chamada.
+private float tempoEspera = 2f;
+private float tempoDecorrido = 0f;
+private float intervaloSimulado = 0.5f;
+private bool esperaTerminou = false;
+
+// Simule uma chamada por linha da tabela.
+void AtualizacaoSimulada()
+{
+    tempoDecorrido += intervaloSimulado;
+    esperaTerminou = tempoDecorrido >= tempoEspera;
+}
+
+// Exercício simplificado: intervaloSimulado substitui Time.deltaTime.
+// No jogo real, o intervalo entre quadros pode variar.`;
+function parseTable(value){try{const data=JSON.parse(value);return data.tipo==='temporizador_v1'&&Array.isArray(data.linhas)&&data.linhas.length===3&&data.linhas.every(r=>r&&typeof r.antes==='string'&&typeof r.depois==='string'&&typeof r.terminou==='string')?data:null;}catch{return null;}}
+function recordQuestions(i,record){return i===3&&record&&!parseTable(record.respostas?.[0])?oldSimulationQuestions:steps[i].qs;}
+function readableAnswer(value){const table=parseTable(value);if(!table)return value||'Sem resposta registrada.';return 'Atualização 1 — exemplo: antes 0; intervalo 0,5; depois 0,5; terminou: Não.\n'+table.linhas.map((r,i)=>'Atualização '+(i+2)+': antes '+r.antes+'; intervalo 0,5; depois '+r.depois+'; terminou: '+(r.terminou==='sim'?'Sim':'Não')+'.').join('\n');}
+function tableFormActive(){return index===3&&(!answers[index]||!!parseTable(answers[index].respostas?.[0]));}
+function tableValue(){return JSON.stringify({tipo:'temporizador_v1',linhas:[0,1,2].map(i=>({antes:i===0?'0,5':$('#tableBefore'+i)?.value||'',depois:$('#tableAfter'+i)?.value||'',terminou:$('#tableEnd'+i)?.value||''}))});}
+function collectAnswers(){const values=[...$('#form').querySelectorAll('textarea')].map(x=>x.value.trim());return tableFormActive()?[tableValue(),...values]:values;}
+function persistDraft(){try{localStorage.setItem(draftKey(index),JSON.stringify(collectAnswers()));}catch{}}
+function renderTimerTable(saved,readonly){
+ const parsed=parseTable(saved),wrapper=document.createElement('div');wrapper.className='timer-scroll';const table=document.createElement('table');table.className='timer-table';const caption=document.createElement('caption');caption.textContent='Contagem de tempo — primeira linha preenchida como exemplo';table.append(caption);
+ const head=document.createElement('thead'),hr=document.createElement('tr');for(const label of ['Chamada','tempoDecorrido (antes)','intervaloSimulado','tempoDecorrido (depois)','esperaTerminou (após comparar)']){const th=document.createElement('th');th.scope='col';th.textContent=label;hr.append(th);}head.append(hr);table.append(head);const body=document.createElement('tbody');
+ for(let row=0;row<4;row++){const tr=document.createElement('tr');for(let col=0;col<5;col++){const td=document.createElement(col===0?'th':'td');if(col===0){td.scope='row';td.textContent=row===0?'1 — exemplo':String(row+1);}else if(row===0){td.textContent=['0','0,5','0,5','false (Não)'][col-1];}else if(col===2){td.textContent='0,5';}else if(col===1&&row===1){td.textContent='0,5';}else{const i=row-1,key=col===1?'antes':col===3?'depois':'terminou';let field;
+ if(col===4){field=document.createElement('select');field.id='tableEnd'+i;for(const [value,label] of [['','Selecione'],['sim','true (Sim)'],['nao','false (Não)']]){let option=document.createElement('option');option.value=value;option.textContent=label;field.append(option);}field.disabled=readonly;}
+ else{field=document.createElement('input');field.type='text';field.inputMode='decimal';field.pattern='-?[0-9]+([.,][0-9]+)?';field.maxLength=20;field.id=(col===1?'tableBefore':'tableAfter')+i;field.readOnly=readonly;}
+ field.required=true;field.setAttribute('aria-label','Atualização '+(row+1)+' — '+['','tempoDecorrido antes','','tempoDecorrido depois','esperaTerminou'][col]);field.value=parsed?.linhas[i]?.[key]||'';field.oninput=persistDraft;field.onchange=persistDraft;td.append(field);}tr.append(td);}body.append(tr);}table.append(body);wrapper.append(table);return wrapper;
+}
+let renderedLocked=null,exitPolicyAccepted=false,researchDeparture=null,departureNotice='';
+function stageViewLocked(){return !demo&&!isTeacher&&(!progressLoaded||!controlReady||!responsesOpen||(index<6&&!stageReleased(index)));}
+function learnerDraftActive(){return !!user&&!isTeacher&&progressLoaded&&exitPolicyAccepted&&index<6&&!answers[index];}
+function hasDraft(){if(!learnerDraftActive())return false;return [...$('#form').querySelectorAll('textarea,input,select')].some(x=>!!x.value?.trim());}
+function discardDraft(reason){
+ if(!learnerDraftActive())return;
+ const had=hasDraft();try{localStorage.removeItem(draftKey(index));}catch{}
+ for(const field of $('#form').querySelectorAll('textarea,input,select'))field.value='';
+ if(had){departureNotice='Você saiu da atividade. As respostas ainda não enviadas desta etapa foram apagadas. As etapas já enviadas continuam salvas.';event('rascunho_descartado',reason);}
+}
+$('#acceptExitPolicy').onclick=()=>{exitPolicyAccepted=true;updateAvailability();};
+function supplement(i){
+ const box=document.createElement('section');box.className='study-guide';
+ if(i===1){
+  const title=document.createElement('h3');title.textContent='Fontes para investigação';box.append(title);
+  const links=[['Time.deltaTime — definição e exemplo','https://docs.unity.com/en-us/engine/6000.0/script-reference/unityengine/time/deltatime'],['Introdução à programação em C# no Unity','https://docs.unity.com/en-us/engine/6000.6/manual/scripting/get-started/intro-to']];
+  for(const [label,url] of links){let p=document.createElement('p'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';p.append(a);box.append(p)}
+  const note=document.createElement('p');note.textContent='Roteiro: localize a definição de deltaTime, identifique sua unidade de medida e examine a multiplicação por uma taxa por segundo. Depois compare = e += nos trechos a seguir. O operador += é uma construção de C#, não um método específico do Unity.';box.append(note);
+ }
+ if(i===3){
+ const h=document.createElement('h3');h.textContent='Primeiro, um exemplo diferente: somar pontos';box.append(h);
+ const p=document.createElement('p');p.textContent='Imagine um jogador que começa com 1 ponto e ganha 2 pontos por rodada. Anote o valor de pontos antes da soma, execute as instruções na ordem e registre os resultados. As variáveis são iniciadas apenas uma vez; repita somente o bloco da rodada.';box.append(p);
+ const pre=document.createElement('pre');pre.textContent='// Inicialização (uma única vez)\nint pontos = 1;\nint bonus = 2;\nbool atingiuMeta = false;\n\n// Execute este bloco em cada rodada:\npontos += bonus;\natingiuMeta = pontos >= 5;';box.append(pre);
+ const wrap=document.createElement('div');wrap.className='timer-scroll';const table=document.createElement('table');table.className='timer-table';const cap=document.createElement('caption');cap.textContent='Exemplo resolvido — teste de mesa de pontos';table.append(cap);
+ const head=document.createElement('thead'),tr=document.createElement('tr');for(const text of ['Rodada','pontos (antes)','bonus','pontos (depois)','atingiuMeta']){const th=document.createElement('th');th.scope='col';th.textContent=text;tr.append(th);}head.append(tr);table.append(head);
+ const tbody=document.createElement('tbody');for(const row of [['1','1','2','3','false'],['2','3','2','5','true']]){const tr=document.createElement('tr');row.forEach((text,j)=>{const td=document.createElement(j===0?'th':'td');if(j===0)td.scope='row';td.textContent=text;tr.append(td)});tbody.append(tr);}table.append(tbody);wrap.append(table);box.append(wrap);
+ const explanation=document.createElement('p');explanation.textContent='Rodada 1: 1 + 2 = 3; 3 >= 5 é falso. Rodada 2: o valor anterior é 3; 3 + 2 = 5; 5 >= 5 é verdadeiro. O resultado da linha anterior passa a ser o valor inicial da próxima. Não reinicie pontos a cada rodada.';box.append(explanation);
+ const title=document.createElement('h3');title.textContent='Agora, simule o temporizador da atividade';box.append(title);
+ const note=document.createElement('p');note.textContent='O código para simular está logo abaixo. Na tabela da atividade, tempoEspera permanece em 2 e intervaloSimulado permanece em 0,5. Use vírgula ou ponto nos números. Copie tempoDecorrido depois da linha anterior para tempoDecorrido antes da próxima. Depois da soma, calcule esperaTerminou: true significa que o limite foi atingido; false significa que ainda não foi. A primeira chamada já está preenchida como exemplo. Nas perguntas finais, proponha o que acrescentar para retomar a patrulha e preparar a próxima espera.';box.append(note);
+ }
+ if(i===5){let title=document.createElement('h3');title.textContent='Sua hipótese inicial — registro enviado';box.append(title);const initial=answers[0];if(initial?.respostas){steps[0].qs.forEach((q,j)=>{let h=document.createElement('h4');h.textContent=(j+1)+'. '+q;let p=document.createElement('p');p.className='original-answer';p.textContent=initial.respostas[j]||'Sem resposta registrada.';box.append(h,p)})}else{let p=document.createElement('p');p.textContent='Não foi possível localizar a hipótese inicial. Volte à primeira etapa e verifique seu envio antes de responder à revisão.';box.append(p)}}
+ return box.childNodes.length?box:null;
+}
+let user=null,demo=false,index=0,answers=[],busy=false,hiddenAt=null,progressLoaded=false,loadingAccount=null;
+let responsesOpen=false,controlReady=false,isTeacher=false,controlBusy=false,stopControl=null;
+let geoConfig=null,geoReady=false,stopGeo=null,lastGeoLabel='',geoSaving=false,geoVersion=0;
+const geoRef=doc(db,'patrulhaTempoControle','local');
+let stageFlags=[false,false,false,false,false,false],stagesReady=false,stopStages=null,stagesSaving=false;
+const stageRef=doc(db,'patrulhaTempoControle','etapas');
+let students=[],selectedStudent=null,studentNoteVersion=null,classNoteVersion=null,studentNoteOriginal='',classNoteOriginal='',listLoading=false;
+const eventNames={aba_oculta:'Página ficou oculta',retorno_aba:'Retorno à página',perda_foco:'Janela perdeu o foco',rascunho_descartado:'Respostas não enviadas descartadas',impressao_bloqueada:'Impressão da atividade bloqueada',bloqueio_copy:'Tentativa de cópia bloqueada',bloqueio_cut:'Tentativa de recorte bloqueada',bloqueio_paste:'Tentativa de colagem bloqueada',bloqueio_drop:'Tentativa de soltar texto bloqueada'};
+let timeline=[],eventCursor=null,eventHasMore=false,eventBusy=false,eventGeneration=0;
+function resetEvents(){eventGeneration++;timeline=[];eventCursor=null;eventHasMore=false;eventBusy=false;$('#eventFilter').value='todos';$('#eventStatus').textContent='';renderEvents();}
+function renderEvents(){
+ const filter=$('#eventFilter').value;const visible=timeline.filter(e=>filter==='todos'||(filter==='bloqueios'?e.tipo?.startsWith('bloqueio_'):e.tipo===filter));
+ $('#eventTimeline').replaceChildren();
+ for(const record of visible){const item=document.createElement('li');const heading=document.createElement('strong');heading.textContent=eventNames[record.tipo]||record.tipo||'Evento sem tipo';const time=document.createElement('span');time.className='event-meta';const stage=Number.isInteger(record.etapa)&&record.etapa>=0&&record.etapa<6?(record.etapa+1)+'. '+steps[record.etapa].title:record.etapa===6?'Após a conclusão':'Etapa não identificada';time.textContent=dateLabel(record.em)+' · '+stage;
+ item.append(heading,time);if(record.detalhe){let detail=document.createElement('p');detail.textContent=record.tipo==='retorno_aba'?'Tempo fora informado pelo navegador: '+record.detalhe:record.detalhe==='texto_atividade'?'Origem: texto da atividade.':record.detalhe;item.append(detail);}$('#eventTimeline').append(item);}
+ const exits=timeline.filter(e=>e.tipo==='aba_oculta').length;const blocked=timeline.filter(e=>e.tipo?.startsWith('bloqueio_')).length;
+ $('#eventSummary').textContent=timeline.length+' registro(s) carregado(s); '+exits+' saída(s) de aba e '+blocked+' tentativa(s) bloqueada(s). Exibindo '+visible.length+'. Mais recentes primeiro.';
+ $('#moreEvents').hidden=!eventHasMore;$('#moreEvents').disabled=eventBusy;$('#refreshEvents').disabled=eventBusy;
+ if(!visible.length&&!eventBusy){const li=document.createElement('li');li.textContent=timeline.length?'Nenhum evento corresponde ao filtro.':'Nenhum evento carregado. Ausência de registros não comprova ausência de ocorrências.';$('#eventTimeline').append(li);}
+}
+async function loadStudentEvents(reset=false){
+ if(!isTeacher||!user||!selectedStudent||eventBusy)return;
+ if(reset)resetEvents();
+ const uid=selectedStudent.uid,viewer=user.uid,generation=eventGeneration;eventBusy=true;renderEvents();$('#eventStatus').textContent='Consultando eventos no Firebase…';
+ try{const clauses=[orderBy('em','desc'),limit(100)];if(!reset&&eventCursor)clauses.push(startAfter(eventCursor));const result=await getDocsFromServer(query(collection(db,root,uid,'eventos'),...clauses));
+ if(generation!==eventGeneration||selectedStudent?.uid!==uid||user?.uid!==viewer||!isTeacher)return;
+ const seen=new Set(timeline.map(e=>e.id));for(const d of result.docs)if(!seen.has(d.id))timeline.push({id:d.id,...d.data()});eventCursor=result.docs.at(-1)||eventCursor;eventHasMore=result.docs.length===100;
+ $('#eventStatus').textContent='Consulta concluída.'+(eventHasMore?' Há mais registros disponíveis.':' Todos os registros disponíveis foram carregados.');}
+ catch(e){if(generation===eventGeneration&&selectedStudent?.uid===uid)$('#eventStatus').textContent='Não foi possível consultar os eventos: '+(e.code||e.message)+'. Atualize as regras do Firebase e verifique a conexão.';}
+ finally{if(generation===eventGeneration&&selectedStudent?.uid===uid){eventBusy=false;renderEvents();}}
+}
+$('#refreshEvents').onclick=()=>loadStudentEvents(true);$('#moreEvents').onclick=()=>loadStudentEvents(false);$('#eventFilter').onchange=renderEvents;
+function noteRef(uid){return doc(db,'patrulhaTempoObservacoes',uid);}
+function dateLabel(value){return value?.toDate?value.toDate().toLocaleString('pt-BR'):'Horário não disponível';}
+function noteVersion(snap){return snap.exists()?snap.data().alteradoEm?.toMillis?.()??null:null;}
+function renderStudentList(){
+ const term=$('#studentSearch').value.trim().toLocaleLowerCase('pt-BR');$('#studentList').replaceChildren();
+ const found=students.filter(s=>(s.nome+' '+s.email).toLocaleLowerCase('pt-BR').includes(term));
+ if(!found.length){let p=document.createElement('p');p.textContent=students.length?'Nenhum aluno corresponde à busca.':'Nenhum envio encontrado. Clique em Atualizar lista ou consulte um UID.';$('#studentList').append(p);return;}
+ for(const student of found){const button=document.createElement('button');button.type='button';button.className='student-row';const name=document.createElement('strong');name.textContent=student.nome||'Aluno sem nome';const meta=document.createElement('span');meta.textContent=student.email+' · '+student.etapas.length+'/6 etapas enviadas';button.append(name,meta);button.onclick=()=>showStudent(student.uid);$('#studentList').append(button);}
+}
+async function readStudent(uid){
+ const snap=await getDocs(collection(db,root,uid,'etapas'));const etapas=snap.docs.map(d=>({id:d.id,...d.data()})).filter(d=>Number.isInteger(d.etapa)&&d.etapa>=0&&d.etapa<6).sort((a,b)=>a.etapa-b.etapa);
+ const first=etapas[0];return {uid,nome:first?.nome||'',email:first?.email||'',etapas};
+}
+async function discoverStudentIds(){
+ // Inclui documentos-pai ausentes de versões antigas, sem alterar as respostas.
+ const token=await user.getIdToken();let next='',ids=[];
+ do{const url=new URL('https://firestore.googleapis.com/v1/projects/networking-taks/databases/(default)/documents/'+root);url.searchParams.set('showMissing','true');url.searchParams.set('pageSize','100');if(next)url.searchParams.set('pageToken',next);const response=await fetch(url,{headers:{Authorization:'Bearer '+token}});if(!response.ok){const e=new Error('Não foi possível listar os registros antigos.');e.code='lista-antiga-indisponivel';throw e;}const data=await response.json();ids.push(...(data.documents||[]).map(d=>d.name.split('/').at(-1)));next=data.nextPageToken||'';}while(next);
+ return [...new Set(ids)];
+}
+async function refreshStudents(){
+ if(!isTeacher||!user||listLoading)return;const uid=user.uid;listLoading=true;$('#refreshStudents').disabled=true;$('#reviewStatus').textContent='Buscando envios no Firebase…';
+ try{let ids,legacyWarning='';try{ids=await discoverStudentIds();}catch{const snap=await getDocs(collection(db,root));ids=snap.docs.map(d=>d.id);legacyWarning=' A listagem de registros antigos não ficou disponível; se algum aluno não aparecer, consulte pelo UID.';}
+ const results=[];let failures=0;for(let i=0;i<ids.length;i+=6){const batch=await Promise.allSettled(ids.slice(i,i+6).map(readStudent));for(const result of batch){if(result.status==='fulfilled'){if(result.value.etapas.length)results.push(result.value);}else failures++;}}
+ if(user?.uid!==uid||!isTeacher)return;students=results.sort((a,b)=>(a.nome||a.email).localeCompare(b.nome||b.email,'pt-BR'));renderStudentList();$('#reviewStatus').textContent=students.length+' aluno(s) com envios.'+legacyWarning+(failures?' Não foi possível ler '+failures+' registro(s); tente atualizar novamente.':'');}
+ catch(e){$('#reviewStatus').textContent='Não foi possível carregar os alunos: '+(e.code||e.message)+'. Confira as regras atualizadas do Firebase.';}
+ finally{listLoading=false;$('#refreshStudents').disabled=false;}
+}
+function noteDirty(){return $('#studentNote').value!==studentNoteOriginal;}
+async function showStudent(uid){
+ if(!isTeacher||!user)return;
+ if(selectedStudent&&noteDirty()&&!window.confirm('Há observações não salvas. Deseja abrir outro aluno sem salvá-las?'))return;
+ const viewer=user.uid;$('#reviewStatus').textContent='Carregando respostas e observações…';
+ try{const [student,note]=await Promise.all([readStudent(uid),getDoc(noteRef(uid))]);if(user?.uid!==viewer||!isTeacher)return;
+ selectedStudent=student;resetEvents();$('#studentListView').hidden=true;$('#studentDetail').hidden=false;$('#studentHeading').textContent=student.nome||student.email||'Aluno';$('#studentMeta').textContent=(student.email||'Sem e-mail registrado')+' · '+student.etapas.length+'/6 etapas · UID: '+uid;
+ $('#studentAnswers').replaceChildren();for(let i=0;i<6;i++){let section=document.createElement('details');let summary=document.createElement('summary');const record=student.etapas.find(s=>s.etapa===i);summary.textContent=(i+1)+'. '+steps[i].title+(record?' — enviada':' — não enviada');section.append(summary);if(record){let time=document.createElement('p');time.textContent='Enviada em '+dateLabel(record.enviadoEm);section.append(time);recordQuestions(i,record).forEach((q,j)=>{let h=document.createElement('h4');h.textContent=(j+1)+'. '+q;let p=document.createElement('p');p.className='review-answer';p.textContent=readableAnswer(record.respostas?.[j]);section.append(h,p)});}else{let p=document.createElement('p');p.textContent='Esta etapa ainda não foi enviada.';section.append(p)}$('#studentAnswers').append(section);}
+ studentNoteOriginal=note.exists()?note.data().texto||'':'';$('#studentNote').value=studentNoteOriginal;studentNoteVersion=noteVersion(note);$('#studentNoteStatus').textContent=note.exists()?'Última atualização: '+dateLabel(note.data().alteradoEm):'Nenhuma observação salva para este aluno.';$('#reviewStatus').textContent='';loadStudentEvents(true);}
+ catch(e){$('#reviewStatus').textContent='Não foi possível consultar o aluno: '+(e.code||e.message);}
+}
+async function saveNote(kind){
+ if(!isTeacher||!user)return;const general=kind==='turma';if(!general&&!selectedStudent)return;const uid=general?'_turma':selectedStudent.uid;const input=general?$('#classNote'):$('#studentNote');const status=general?$('#classNoteStatus'):$('#studentNoteStatus');const button=general?$('#saveClassNote'):$('#saveStudentNote');const expected=general?classNoteVersion:studentNoteVersion;const text=input.value;
+ if(text.length>20000){status.textContent='Use no máximo 20000 caracteres.';return;}
+ button.disabled=true;status.textContent='Salvando observações…';
+ try{const savedTime=await runTransaction(db,async transaction=>{const reference=noteRef(uid);const current=await transaction.get(reference);if(noteVersion(current)!==expected)throw new Error('As observações foram alteradas em outra sessão. Recarregue antes de salvar para não sobrescrever a outra versão.');transaction.set(reference,{texto:text,alteradoPor:user.uid,alteradoEm:serverTimestamp()});});
+ const confirmed=await getDoc(noteRef(uid));if(general){classNoteVersion=noteVersion(confirmed);classNoteOriginal=text;}else if(selectedStudent?.uid===uid){studentNoteVersion=noteVersion(confirmed);studentNoteOriginal=text;}status.textContent='Observações salvas no Firebase.';}
+ catch(e){status.textContent='Não foi possível salvar: '+(e.code||e.message);}
+ finally{button.disabled=false;}
+}
+$('#refreshStudents').onclick=refreshStudents;$('#studentSearch').oninput=renderStudentList;
+$('#lookupStudent').onclick=()=>{const uid=$('#studentUid').value.trim();if(!uid||uid.includes('/')){$('#reviewStatus').textContent='Informe um UID válido.';return;}showStudent(uid);};
+$('#backStudents').onclick=()=>{if(noteDirty()&&!window.confirm('Voltar sem salvar suas observações?'))return;$('#studentDetail').hidden=true;$('#studentListView').hidden=false;selectedStudent=null;resetEvents();};
+$('#saveStudentNote').onclick=()=>saveNote('aluno');$('#saveClassNote').onclick=()=>saveNote('turma');
+$('#loadClassNote').onclick=async()=>{if(!isTeacher||!user)return;if($('#classNote').value!==classNoteOriginal&&!window.confirm('Recarregar e descartar as alterações não salvas?'))return;try{const snap=await getDoc(noteRef('_turma'));classNoteVersion=noteVersion(snap);classNoteOriginal=snap.exists()?snap.data().texto||'':'';$('#classNote').value=classNoteOriginal;$('#classNoteStatus').textContent=snap.exists()?'Última atualização: '+dateLabel(snap.data().alteradoEm):'Nenhuma observação geral salva.';}catch(e){$('#classNoteStatus').textContent='Não foi possível carregar: '+(e.code||e.message);}};
+
+function stageReleased(i){return demo || (stagesReady && stageFlags[i]===true);}
+steps.forEach((step,i)=>{const label=document.createElement('label');label.className='check';const input=document.createElement('input');input.type='checkbox';input.id='releaseStage'+i;const title=document.createElement('span');title.textContent=(i+1)+'. '+step.title;label.append(input,title);$('#stageOptions').append(label);});
+$('#selectAllStages').onclick=()=>{if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=true;};
+$('#clearStages').onclick=()=>{if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=false;};
+$('#saveStages').onclick=async()=>{
+ if(!user||!isTeacher||stagesSaving)return;
+ const flags=steps.map((_,i)=>$('#releaseStage'+i).checked);
+ stagesSaving=true;$('#saveStages').disabled=true;$('#stageFeedback').textContent='Salvando liberação das etapas…';
+ try{await setDoc(stageRef,{liberadas:flags,alteradoPor:user.uid,alteradoEm:serverTimestamp()});$('#stageFeedback').textContent='Liberação das etapas salva no Firebase.';}
+ catch(e){$('#stageFeedback').textContent='Não foi possível salvar: '+(e.code||e.message)+'. Confira as regras atualizadas.';}
+ finally{stagesSaving=false;$('#saveStages').disabled=false;}
+};
+
+function distanceMeters(lat1,lon1,lat2,lon2){const rad=x=>x*Math.PI/180;const a=Math.sin(rad(lat2-lat1)/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(rad(lon2-lon1)/2)**2;return 6371000*2*Math.atan2(Math.sqrt(a),Math.sqrt(Math.max(0,1-a)));}
+function locationRequired(c){return c?.exigirLocalizacao!==false;}
+function validGeoConfig(c){if(!c)return false;if(!locationRequired(c))return true;return !!c.centro&&Number.isFinite(c.centro.latitude)&&Number.isFinite(c.centro.longitude)&&Number.isFinite(c.raioMetros)&&c.raioMetros>=10&&c.raioMetros<=100000&&Number.isFinite(c.maxPrecisaoMetros)&&c.maxPrecisaoMetros>=1&&c.maxPrecisaoMetros<=100000;}
+function currentPosition(){return new Promise((resolve,reject)=>{if(!navigator.geolocation)return reject(new Error('Este navegador não oferece geolocalização.'));navigator.geolocation.getCurrentPosition(resolve,e=>reject(new Error(e.code===1?'Permissão de localização negada. Autorize nas configurações do navegador e tente novamente.':e.code===2?'Não foi possível obter a posição. Verifique o serviço de localização do dispositivo.':'Tempo esgotado ao localizar. Tente novamente.')),{enableHighAccuracy:true,maximumAge:0,timeout:25000});});}
+async function locationForSubmission(){
+ if(demo)return null;
+ if(geoReady&&geoConfig&&!locationRequired(geoConfig))return null;
+ if(!$('#geoConsent').checked)throw new Error('Leia e marque a autorização de localização antes de enviar.');
+ if(!geoReady||!validGeoConfig(geoConfig))throw new Error('A professora precisa configurar o local autorizado ou a conexão precisa ser restabelecida.');
+ const version=geoVersion;const p=await currentPosition();
+ if(version!==geoVersion||!geoReady||!validGeoConfig(geoConfig))throw new Error('O local autorizado mudou. Verifique novamente antes do envio.');
+ const {latitude,longitude,accuracy}=p.coords;
+ if(!Number.isFinite(latitude)||!Number.isFinite(longitude)||!Number.isFinite(accuracy)||accuracy<=0)throw new Error('O dispositivo retornou uma medição inválida.');
+ if(Date.now()-p.timestamp>120000||p.timestamp>Date.now()+10000)throw new Error('A medição de localização está desatualizada. Tente novamente.');
+ const distance=distanceMeters(latitude,longitude,geoConfig.centro.latitude,geoConfig.centro.longitude);
+ if(accuracy>geoConfig.maxPrecisaoMetros)throw new Error('Precisão insuficiente: margem de '+Math.ceil(accuracy)+' m; o máximo aceito é '+geoConfig.maxPrecisaoMetros+' m. Avise a professora.');
+ if(distance>geoConfig.raioMetros)throw new Error('Você está a aproximadamente '+Math.round(distance)+' m do centro; o raio permitido é '+geoConfig.raioMetros+' m. Envio bloqueado.');
+ lastGeoLabel='Dentro da área: distância aproximada '+Math.round(distance)+' m; precisão informada ±'+Math.ceil(accuracy)+' m. A localização será verificada novamente em cada envio.';
+ $('#geoFeedback').textContent=lastGeoLabel;
+ return {ponto:new GeoPoint(latitude,longitude),precisaoMetros:accuracy,coletadoEm:Timestamp.fromMillis(p.timestamp)};
+}
+$('#checkGeo').onclick=async()=>{if(demo)return;$('#checkGeo').disabled=true;$('#geoFeedback').textContent='Verificando localização…';try{await locationForSubmission()}catch(e){$('#geoFeedback').textContent=e.message}finally{$('#checkGeo').disabled=false}};
+$('#captureCenter').onclick=async()=>{if(!isTeacher)return;$('#captureCenter').disabled=true;$('#geoTeacherFeedback').textContent='Solicitando sua localização…';try{const p=await currentPosition();$('#centerLat').value=p.coords.latitude.toFixed(7);$('#centerLng').value=p.coords.longitude.toFixed(7);$('#geoTeacherFeedback').textContent='Centro preenchido. Precisão informada: ±'+Math.ceil(p.coords.accuracy)+' m. Confira os valores e clique em Salvar local no Firebase.';}catch(e){$('#geoTeacherFeedback').textContent=e.message}finally{$('#captureCenter').disabled=false}};
+$('#saveGeo').onclick=async()=>{
+ if(!isTeacher||!user||geoSaving)return;
+ const required=$('#requireLocation').checked;
+ const latText=$('#centerLat').value.trim(),lngText=$('#centerLng').value.trim();const lat=Number(latText),lng=Number(lngText),radius=Number($('#geoRadius').value),accuracy=Number($('#geoAccuracy').value);
+ const hasCenter=!!latText&&!!lngText&&Number.isFinite(lat)&&Number.isFinite(lng)&&lat>= -90&&lat<=90&&lng>= -180&&lng<=180;
+ if(required&&(!hasCenter||!Number.isFinite(radius)||radius<10||radius>100000||!Number.isFinite(accuracy)||accuracy<1||accuracy>100000)){$('#geoTeacherFeedback').textContent='Informe latitude de −90 a 90, longitude de −180 a 180, raio de 10 a 100000 m e precisão máxima de 1 a 100000 m. Raio e precisão são limites diferentes.';return;}
+ geoSaving=true;$('#saveGeo').disabled=true;$('#geoTeacherFeedback').textContent='Salvando configuração…';
+ try{await setDoc(geoRef,{exigirLocalizacao:required,centro:hasCenter?new GeoPoint(lat,lng):null,raioMetros:Number.isFinite(radius)&&radius>=10&&radius<=100000?radius:150,maxPrecisaoMetros:Number.isFinite(accuracy)&&accuracy>=1&&accuracy<=100000?accuracy:100,alteradoPor:user.uid,alteradoEm:serverTimestamp()});$('#geoTeacherFeedback').textContent=required?'Local autorizado salvo no Firebase.':'Exigência de localização desativada no Firebase. Login e liberação das etapas continuam valendo.';}
+ catch(e){$('#geoTeacherFeedback').textContent='Não foi possível salvar: '+(e.code||e.message)+'. Instale as regras atualizadas do Firebase. Alterar apenas o HTML não muda as permissões do banco.';}
+ finally{geoSaving=false;$('#saveGeo').disabled=false;}
+};
+const controlRef=doc(db,'patrulhaTempoControle','atividade');
+function mayAnswer(){return demo || ((isTeacher||exitPolicyAccepted) && progressLoaded && controlReady && responsesOpen && stageReleased(index) && geoReady && validGeoConfig(geoConfig))}
+function updateAvailability(){
+ if(!$('#activity').hidden&&renderedLocked!==stageViewLocked()){if(!renderedLocked&&stageViewLocked()&&index<6&&!answers[index]&&$('#form').childElementCount)persistDraft();render();return;}
+ const box=$('#availability');
+ if(demo){box.textContent='Demonstração: os controles da turma não se aplicam e nenhuma resposta será enviada.';box.className='availability';}
+ else{box.textContent=!controlReady?'Aguardando confirmação da liberação pela professora…':responsesOpen?'Respostas liberadas pela professora.':'A atividade não está liberada. Aguarde a liberação da professora.';box.className='availability '+(controlReady&&responsesOpen?'open':'closed');}
+ $('#geoNotice').hidden=stageViewLocked()||demo||(geoReady&&geoConfig&&!locationRequired(geoConfig));
+ if(!demo){if(!geoReady)$('#geoFeedback').textContent='Aguardando confirmação do local autorizado no Firebase…';else if(!validGeoConfig(geoConfig))$('#geoFeedback').textContent='Local autorizado ainda não configurado pela professora. O envio permanece bloqueado.';else if(!locationRequired(geoConfig))$('#geoFeedback').textContent='Localização dispensada pela professora.';else $('#geoFeedback').textContent=lastGeoLabel||'Local configurado. Raio permitido: '+geoConfig.raioMetros+' m. Autorize e verifique sua posição antes de enviar.';}
+ if(!demo&&controlReady&&responsesOpen&&index<6&&!answers[index]&&!stageReleased(index)){
+ box.textContent=stagesReady?'Etapa '+(index+1)+' bloqueada pela professora. Aguarde a liberação da professora.':'Aguardando confirmação da liberação desta etapa no Firebase…';box.className='availability closed';}
+ $('#exitPolicy').hidden=demo||isTeacher||exitPolicyAccepted||stageViewLocked()||index===6;
+ $('#teacherPanel').hidden=demo||!isTeacher;
+ $('#teacherState').textContent=!controlReady?'Sem confirmação do servidor.':responsesOpen?'Situação atual: respostas liberadas.':'Situação atual: respostas bloqueadas.';
+ $('#openAnswers').disabled=controlBusy;
+ $('#closeAnswers').disabled=controlBusy;
+ for(const field of $('#form').querySelectorAll('textarea,input,select')){if(field.tagName==='SELECT')field.disabled=!!answers[index]||!mayAnswer();else field.readOnly=!!answers[index]||!mayAnswer();}
+ $('#send').disabled=busy||(!answers[index]&&!mayAnswer());
+}
+async function setupControl(){
+ if(stopControl)stopControl();if(stopGeo)stopGeo();if(stopStages)stopStages();stageFlags=steps.map(()=>false);stagesReady=false;responsesOpen=false;controlReady=false;isTeacher=false;geoConfig=null;geoReady=false;lastGeoLabel='';geoVersion++;
+ const currentUid=user.uid;
+ try{const role=await getDoc(doc(db,'patrulhaTempoDocentes',currentUid));if(user?.uid!==currentUid)return;isTeacher=role.exists()&&role.data().ativo===true;}catch{isTeacher=false;}
+ if(user?.uid!==currentUid)return;
+ stopControl=onSnapshot(controlRef,{includeMetadataChanges:true},snapshot=>{
+  if(user?.uid!==currentUid)return;
+  controlReady=!snapshot.metadata.fromCache&&!snapshot.metadata.hasPendingWrites;
+  responsesOpen=controlReady&&snapshot.exists()&&snapshot.data().aberto===true;
+  updateAvailability();
+ },()=>{responsesOpen=false;controlReady=false;updateAvailability();msg('Não foi possível confirmar a liberação. Verifique a conexão e as regras do Firebase; o envio está suspenso.');});
+ stopStages=onSnapshot(stageRef,{includeMetadataChanges:true},snapshot=>{
+  if(user?.uid!==currentUid)return;
+  stagesReady=!snapshot.metadata.fromCache&&!snapshot.metadata.hasPendingWrites;
+  const flags=stagesReady&&snapshot.exists()?snapshot.data().liberadas:null;
+  stageFlags=Array.isArray(flags)&&flags.length===6&&flags.every(x=>typeof x==='boolean')?flags:steps.map(()=>false);
+  if(isTeacher)for(let i=0;i<6;i++)$('#releaseStage'+i).checked=stageFlags[i];
+  updateAvailability();
+ },()=>{stagesReady=false;stageFlags=steps.map(()=>false);updateAvailability();});
+ stopGeo=onSnapshot(geoRef,{includeMetadataChanges:true},snapshot=>{
+  if(user?.uid!==currentUid)return;
+  geoReady=!snapshot.metadata.fromCache&&!snapshot.metadata.hasPendingWrites;geoConfig=geoReady&&snapshot.exists()?snapshot.data():null;geoVersion++;lastGeoLabel='';
+  if(isTeacher&&geoConfig){$('#requireLocation').checked=locationRequired(geoConfig);$('#centerLat').value=geoConfig.centro?.latitude??'';$('#centerLng').value=geoConfig.centro?.longitude??'';$('#geoRadius').value=geoConfig.raioMetros??150;$('#geoAccuracy').value=geoConfig.maxPrecisaoMetros??100;}
+  updateAvailability();
+ },()=>{geoReady=false;geoConfig=null;geoVersion++;updateAvailability();});
+ updateAvailability();
+}
+async function changeAvailability(open){
+ if(!user||!isTeacher||controlBusy)return;
+ controlBusy=true;updateAvailability();$('#teacherFeedback').textContent='Salvando controle no Firebase…';
+ try{await setDoc(controlRef,{aberto:open,alteradoEm:serverTimestamp(),alteradoPor:user.uid});$('#teacherFeedback').textContent=open?'Respostas liberadas. Os alunos conectados receberão a atualização.':'Respostas bloqueadas. Novos envios não serão aceitos.';}
+ catch(e){$('#teacherFeedback').textContent='Não foi possível alterar o controle: '+(e.code||e.message)+'. Confira as regras e sua autorização docente.';}
+ finally{controlBusy=false;updateAvailability();}
+}
+$('#openAnswers').onclick=()=>changeAvailability(true);
+$('#closeAnswers').onclick=()=>changeAvailability(false);
+function msg(t){$('#status').textContent=t;if($('#authStatus'))$('#authStatus').textContent=t}function draftKey(i){return `${root}:${demo?'demo':user?.uid}:${i}`+(i===3?':tabela-v1':'')}
+function ref(i){return doc(db,root,user.uid,'etapas',String(i))}
+async function event(type,detail=''){if(demo||!user)return;try{await addDoc(collection(db,root,user.uid,'eventos'),{tipo:type,detalhe:detail,etapa:index,em:serverTimestamp()})}catch{ /* eventos não bloqueiam o envio das respostas */ }}
+function render(){ renderedLocked=stageViewLocked();document.body.classList.toggle('activity-locked',renderedLocked);document.body.classList.remove('awaiting-access');$('#welcome').hidden=true;$('#activity').hidden=false;$('#identity').textContent=demo?'Visitante · demonstração':user.displayName||user.email;$('#mode').textContent=demo?'SEM ENVIO AO FIREBASE':'CONTA GOOGLE';$('#steps').replaceChildren();steps.forEach((s,i)=>{let b=document.createElement('button');b.className=i===index?'active':'';b.disabled=i>answers.length;b.innerHTML=`<b>${i<answers.length?'✓':i+1}</b><span>${s.title}</span>`;b.onclick=()=>{if(!confirmInternalDeparture())return;index=i;render()};$('#steps').append(b)});
+$('#form').replaceChildren();$('#form').hidden=renderedLocked;$('#steps').hidden=renderedLocked;$('#saved').hidden=true;$('#back').hidden=renderedLocked||index===0;$('#send').hidden=false;
+if(renderedLocked){$('#content').replaceChildren();const h=document.createElement('h2');h.textContent='Atividade não liberada';const p=document.createElement('p');p.textContent='A atividade não está liberada. Aguarde a liberação da professora para continuar.';$('#content').append(h,p);$('#send').hidden=true;$('#geoNotice').hidden=true;updateAvailability();return;}
+if(index===6){$('#content').innerHTML='<div class="success">✓</div><span class="eyebrow">PERCURSO CONCLUÍDO</span><h2>Uma explicação<br>em movimento.</h2><p>Todas as seis etapas foram enviadas. Você pode consultar seus registros nas etapas anteriores.</p>';$('#send').hidden=true;$('#saved').hidden=false;$('#saved').textContent=demo?'Demonstração concluída. Nenhuma resposta foi enviada.':'Respostas confirmadas no Firebase para '+user.email+'. Atividade: patrulhaTempoV1.';updateAvailability();return}
+const s=steps[index];$('#content').replaceChildren();let e=document.createElement('div');e.className='eyebrow';e.textContent=`ETAPA ${index+1} DE 6`;$('#content').append(e);let h=document.createElement('h2');h.textContent=s.title;$('#content').append(h);let p=document.createElement('p');p.textContent=s.intro;$('#content').append(p);const extra=supplement(index);if(extra)$('#content').append(extra);if(s.code){let pre=document.createElement('pre');pre.textContent=s.code;$('#content').append(pre)}
+let draft=[];try{draft=JSON.parse(localStorage.getItem(draftKey(index))||'[]')}catch{}
+const sent=answers[index];const questions=recordQuestions(index,sent);const useTable=tableFormActive();if(useTable)$('#form').append(renderTimerTable(sent?.respostas[0]??draft[0],!!sent||!mayAnswer()));
+questions.forEach((q,j)=>{if(useTable&&j===0)return;let label=document.createElement('label');label.className='question';label.htmlFor='q'+j;label.textContent=`${j+1}. ${q}`;let ta=document.createElement('textarea');ta.id='q'+j;ta.required=true;ta.maxLength=12000;ta.value=sent?.respostas[j]??draft[j]??'';ta.readOnly=!!sent;ta.placeholder='Explique com suas palavras…';let counter=document.createElement('div');counter.className='counter';counter.textContent='Resposta individual · ainda não enviada';ta.oninput=persistDraft;$('#form').append(label);if(!sent&&questionGuides[index]?.[j]){const guide=document.createElement('p');guide.className='question-guide';guide.id='guide'+j;guide.textContent='Para organizar sua resposta: '+questionGuides[index][j];ta.setAttribute('aria-describedby',guide.id);$('#form').append(guide);}$('#form').append(ta,counter)});$('#send').textContent=sent?'Próxima etapa →':'Salvar e continuar →';if(sent){$('#saved').hidden=false;$('#saved').textContent='Etapa enviada. Sua resposta original foi preservada.'} updateAvailability();}
+async function load(){progressLoaded=false;msg('Google conectado. Recuperando seu progresso no Firebase…');answers=[];for(let i=0;i<6;i++){let snap=await getDoc(ref(i));if(!snap.exists())break;answers.push(snap.data())}index=answers.length;progressLoaded=true;$('#retryData').hidden=true;render();msg('')}
+async function openAccount(u){
+ if(loadingAccount===u.uid)return;
+ loadingAccount=u.uid;progressLoaded=false;user=u;demo=false;answers=[];index=0;
+ $('#login').disabled=true;$('#login').textContent='Conectado com Google';$('#exit').hidden=false;
+ try{render();msg('Google conectado como '+(u.email||u.displayName)+'. Carregando atividade…');await setupControl();await load();}
+ catch(e){if(user?.uid===u.uid){progressLoaded=false;render();$('#retryData').hidden=false;msg('O login Google foi concluído como '+(u.email||u.displayName)+', mas não foi possível carregar os dados da atividade. '+friendly(e));}}
+ finally{loadingAccount=null;$('#login').disabled=false;$('#login').textContent='Entrar com Google →';}
+}
+$('#login').onclick=async()=>{
+ if(!$('#agree').checked)return msg('Leia e marque as orientações antes de entrar.');
+ if(auth.currentUser){await openAccount(auth.currentUser);return;}
+ $('#login').disabled=true;
+ try{msg('Abrindo a janela de login Google…');const provider=new GoogleAuthProvider();provider.setCustomParameters({prompt:'select_account'});await signInWithPopup(auth,provider);}
+ catch(e){msg(friendly(e));}
+ finally{$('#login').disabled=false;}
+};
+$('#retryData').onclick=()=>{if(user)openAccount(user)};
+function friendly(e){
+ const code=e.code||'';
+ if(code==='auth/unauthorized-domain')return 'Domínio não autorizado. No projeto networking-taks, abra Authentication → Settings → Authorized domains e adicione exatamente '+location.hostname+' (sem https e sem caminho).';
+ if(code==='auth/popup-blocked')return 'O navegador bloqueou a janela do Google. Permita pop-ups para este site e clique novamente em Entrar com Google. Se estiver dentro de uma prévia, abra a URL em uma aba normal.';
+ if(code==='auth/operation-not-allowed')return 'O login Google precisa ser habilitado no Firebase: Authentication → Sign-in method → Google.';
+ if(code==='auth/popup-closed-by-user')return 'A janela de login foi fechada antes da conclusão. Tente novamente.';
+ if(code==='auth/cancelled-popup-request')return 'Já existe uma tentativa de login. Feche a janela anterior e tente novamente.';
+ if(code==='auth/network-request-failed')return 'Falha de rede ao acessar o Google/Firebase. Verifique a conexão e bloqueios da rede escolar.';
+ if(code==='permission-denied')return 'O Firestore negou acesso. Confira as regras atualizadas e o cadastro docente; para envios, confira também a liberação das etapas e o local autorizado. Seu rascunho permanece neste navegador.';
+ return 'Não foi possível concluir: '+(code||e.message||'erro desconhecido')+'.';
+}
+
+onAuthStateChanged(auth,async u=>{
+ user=u;$('#exit').hidden=!u;
+ if(u){await openAccount(u);}
+ else{progressLoaded=false;$('#activity').hidden=true;$('#welcome').hidden=false;msg('Conexão pronta. Marque as orientações e entre com sua conta Google.');}
+},e=>msg('Não foi possível verificar sua sessão. '+friendly(e)));
+$('#exit').onclick=async()=>{if(!confirmInternalDeparture())return;try{await signOut(auth);location.reload()}catch(e){msg(friendly(e))}};
+$('#back').onclick=()=>{if(!confirmInternalDeparture())return;index--;render()};
+$('#send').onclick=async()=>{if(busy)return;if(answers[index]){index++;render();return}if(!mayAnswer()){updateAvailability();return msg('O envio está bloqueado, a etapa não foi liberada ou falta confirmar a configuração no Firebase.')}if(!$('#form').reportValidity())return;const values=collectAnswers();if(values.some(v=>!v))return msg('Preencha todas as respostas com suas palavras.');busy=true;$('#send').disabled=true;try{msg(demo?'Avançando na demonstração…':'Verificando localização antes de enviar…');const location=await locationForSubmission();if(!demo&&!mayAnswer())throw new Error('O envio foi bloqueado durante a verificação. Seu rascunho foi preservado.');let data={respostas:values,etapa:index,email:demo?'demo':user.email,nome:demo?'Visitante':user.displayName||'',enviadoEm:demo?new Date().toISOString():serverTimestamp()};if(!demo){data.localizacao=location;msg(location?'Localização aprovada. Salvando no Firebase…':'Localização dispensada. Salvando no Firebase…');const batch=writeBatch(db);batch.set(ref(index),data);batch.set(doc(db,root,user.uid),{nome:user.displayName||'',email:user.email,atualizadoEm:serverTimestamp()});await batch.commit();}answers.push(data);localStorage.removeItem(draftKey(index));index++;render();msg(demo?'Demonstração: nenhum envio realizado.':'Etapa salva no Firebase.')}catch(e){msg(friendly(e))}finally{busy=false;updateAvailability()}};
+// Proteção dos enunciados por comandos usuais do navegador.
+function protectedActivityText(target){
+ const el=target?.nodeType===3?target.parentElement:target;
+ return !!el?.closest?.('#content, #saved, #form .question, #welcome .notice');
+}
+function editableTarget(target){return !!target?.closest?.('input, textarea, [contenteditable="true"]');}
+function selectedProtectedText(){
+ const selection=window.getSelection?.();
+ return !!selection&&[selection.anchorNode,selection.focusNode].some(protectedActivityText);
+}
+function blockActivityCopy(e,kind='copy'){
+ e.preventDefault();
+ if(e.clipboardData)e.clipboardData.setData('text/plain','');
+ event(kind==='cut'?'bloqueio_cut':'bloqueio_copy','texto_atividade');
+ msg('A cópia do texto da atividade está bloqueada. Leia o enunciado no site e escreva sua própria resposta.');
+}
+for(const type of ['copy','cut','paste','drop'])document.addEventListener(type,e=>{
+ if((type==='copy'||type==='cut')&&(protectedActivityText(e.target)||selectedProtectedText())){blockActivityCopy(e,type);return;}
+ if(e.target.closest?.('#form')&&e.target.matches?.('textarea,input,select')){e.preventDefault();event('bloqueio_'+type);msg('Copiar, recortar, colar e arrastar texto estão bloqueados nos campos. Digite sua própria resposta.');}
+});
+for(const type of ['selectstart','dragstart'])document.addEventListener(type,e=>{
+ if(!editableTarget(e.target)&&protectedActivityText(e.target)){e.preventDefault();}
+});
+document.addEventListener('contextmenu',e=>{
+ if(!editableTarget(e.target)&&protectedActivityText(e.target)){e.preventDefault();}
+});
+document.addEventListener('keydown',e=>{
+ if(!(e.ctrlKey||e.metaKey)||editableTarget(e.target)||e.target.closest?.('#teacherPanel'))return;
+ const key=e.key.toLowerCase();
+ if((key==='c'||key==='x')&&(protectedActivityText(e.target)||selectedProtectedText()||!$('#activity').hidden)){blockActivityCopy(e,key==='x'?'cut':'copy');}
+ else if(key==='a'&&!$('#activity').hidden){e.preventDefault();msg('A seleção do texto da atividade está bloqueada.');}
+});
+function confirmInternalDeparture(){
+ if(!hasDraft())return true;
+ if(!window.confirm('Deseja sair desta etapa? Todo o conteúdo digitado e ainda não enviado nesta etapa será apagado.'))return false;
+ discardDraft('saida_confirmada');return true;
+}
+document.addEventListener('click',e=>{
+ const link=e.target.closest?.('a');if(!link||isTeacher||$('#activity').hidden)return;
+ if(index===1&&link.closest('#content')&&link.href.startsWith('https://docs.unity.com/')){researchDeparture={armedAt:Date.now(),away:false};return;}
+ if(!confirmInternalDeparture()){e.preventDefault();e.stopPropagation();}
+},true);
+window.addEventListener('beforeunload',e=>{if(hasDraft()){e.preventDefault();e.returnValue='';}});
+window.addEventListener('pagehide',()=>{if(!researchDeparture?.away)discardDraft('pagina_encerrada');});
+document.addEventListener('visibilitychange',()=>{
+ if($('#activity').hidden)return;
+ if(document.hidden){hiddenAt=Date.now();const approved=researchDeparture&&Date.now()-researchDeparture.armedAt<10000;
+  if(approved){researchDeparture.away=true;event('aba_oculta','consulta_unity_autorizada');}
+  else{researchDeparture=null;event('aba_oculta');discardDraft('aba_oculta');}
+ }else{event('retorno_aba',hiddenAt?String(Math.round((Date.now()-hiddenAt)/1000))+' segundos':'');hiddenAt=null;researchDeparture=null;if(departureNotice){msg(departureNotice);departureNotice='';}}
+});
+window.addEventListener('blur',()=>{if(!$('#activity').hidden)event('perda_foco')});
+document.addEventListener('keydown',e=>{if(!isTeacher&&!$('#activity').hidden&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='p'){e.preventDefault();event('impressao_bloqueada');msg('A impressão da atividade está bloqueada. Capturas de tela do sistema não podem ser impedidas por este site.');}});
+window.addEventListener('beforeprint',()=>{if(!isTeacher&&!$('#activity').hidden)event('impressao_bloqueada');});
+</script></body></html>

@@ -168,8 +168,18 @@ function supplement(i){
  const box=document.createElement('section');box.className='study-guide';
  if(i===1){
   const title=document.createElement('h3');title.textContent='Fontes para investigação';box.append(title);
-  const links=[['Time.deltaTime — definição e exemplo','https://docs.unity.com/en-us/engine/6000.0/script-reference/unityengine/time/deltatime'],['Introdução à programação em C# no Unity','https://docs.unity.com/en-us/engine/6000.6/manual/scripting/get-started/intro-to']];
-  for(const [label,url] of links){let p=document.createElement('p'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';p.append(a);box.append(p)}
+  const frame=document.createElement('iframe');
+  frame.src='https://docs.unity.com/en-us/engine/6000.0/script-reference/unityengine/time/deltatime';
+  frame.title='Documentação oficial do Unity — Time.deltaTime';
+  frame.loading='lazy';
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.style.cssText='display:block;width:100%;height:70vh;min-height:420px;border:1px solid var(--line);border-radius:12px;background:white;margin:20px 0';
+  box.append(frame);
+  const fallback=document.createElement('p');
+  fallback.textContent='Se a documentação não aparecer no quadro, a Unity pode ter restringido a incorporação. ';
+  const original=document.createElement('a');original.href=frame.src;original.target='_blank';original.rel='noopener noreferrer';original.textContent='Abrir documentação do Time.deltaTime ↗';fallback.append(original);box.append(fallback);
+  const extra=document.createElement('p'),extraLink=document.createElement('a');
+  extraLink.href='https://docs.unity.com/en-us/engine/6000.6/manual/scripting/get-started/intro-to';extraLink.target='_blank';extraLink.rel='noopener noreferrer';extraLink.textContent='Introdução à programação em C# no Unity ↗';extra.append(extraLink);box.append(extra);
   const note=document.createElement('p');note.textContent='Roteiro: localize a definição de deltaTime, identifique sua unidade de medida e examine a multiplicação por uma taxa por segundo. Depois compare = e += nos trechos a seguir. O operador += é uma construção de C#, não um método específico do Unity.';box.append(note);
  }
  if(i===3){
